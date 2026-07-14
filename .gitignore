@@ -1,0 +1,23 @@
+# CMake build output
+build/
+vcpkg_installed/
+out/
+cmake-build-*/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Compiled files, in case any appear outside build/
+*.exe
+*.dll
+*.lib
+*.obj
+*.pdb
+*.ilk
+*.exp
+
+# OS/editor noise
+.DS_Store
+Thunbs.db
