@@ -1,9 +1,9 @@
 #pragma once
 
-#include "vector2.h"
+#include <glm/glm.hpp>
 
 struct Transform2 {
-    Vector2 position;
+    glm::vec2 position;
     float rotation = 0;
-    Vector2 scale;
+    glm::vec2 scale;
 };

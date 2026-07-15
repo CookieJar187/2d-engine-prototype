@@ -3,8 +3,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "input.h"
 #include "scene.h"
 #include "camera2.h"
+
+#include "player.h"
 
 int main() {
 
@@ -38,8 +41,10 @@ int main() {
     }
 
     // Main items
-    Camera2 camera;
+    Input input(window);
     Scene scene;
+    Player player;
+    player.init(scene, input);
 
     // Process
     float deltaTime = 0.0f;
@@ -53,7 +58,9 @@ int main() {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        scene.draw(camera.projection);
+        player.update(deltaTime);
+
+        scene.drawObjects();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -7,12 +7,10 @@
 #include "mesh_factory.h"
 #include "shader.h"
 #include "material.h"
+#include "camera2.h"
 
 class Scene {
-
 public:
-    std::vector<Object2> objects;
-
     Shader shader;
     Material material;
 
@@ -23,6 +21,14 @@ public:
 
     Scene();
 
-    void draw(const glm::mat4& projection) const;
+    void drawObjects() const;
+
+    std::vector<Object2> getObjects();
+    std::vector<Object2> getObjectsByName(const std::string& targetName);
+    Object2* getObjectByName(const std::string& targetName);
+
+private:
+    std::vector<Object2> objects;
+    Camera2 camera;
 
 };

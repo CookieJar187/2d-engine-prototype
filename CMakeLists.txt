@@ -11,12 +11,14 @@ find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 add_executable(ArmyDefense
-    
+    src/main.cpp
     src/core/scene/scene.cpp
     src/core/mesh_factory/mesh_factory.cpp
     src/core/object2/object2.cpp
     src/core/shader_loader/shader_loader.cpp
-    src/main.cpp
+    src/core/input/input.cpp
+
+    src/features/player.cpp
 )
 
 target_include_directories(ArmyDefense PRIVATE
@@ -31,6 +33,9 @@ target_include_directories(ArmyDefense PRIVATE
     src/core/shader_loader
     src/core/math/transform2
     src/core/math/vector2
+    src/core/input
+
+    src/features
 )
 
 target_link_libraries(ArmyDefense PRIVATE

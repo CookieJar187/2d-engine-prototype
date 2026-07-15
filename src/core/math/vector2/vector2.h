@@ -26,4 +26,7 @@ struct Vector2 {
     Vector2 operator/(const Vector2& other) const {
         return Vector2(x / other.x, y / other.y);
     }
+
+    float length() const;
+    Vector2 normalize() const;
 };
