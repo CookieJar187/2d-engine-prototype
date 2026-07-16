@@ -6,9 +6,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
 
 add_executable(ArmyDefense
     src/main.cpp
@@ -17,6 +19,8 @@ add_executable(ArmyDefense
     src/core/object2/object2.cpp
     src/core/shader_loader/shader_loader.cpp
     src/core/input/input.cpp
+
+    src/ui/ui_manager.cpp
 
     src/features/player.cpp
 )
@@ -35,6 +39,8 @@ target_include_directories(ArmyDefense PRIVATE
     src/core/math/vector2
     src/core/input
 
+    src/ui
+
     src/features
 )
 
@@ -42,4 +48,6 @@ target_link_libraries(ArmyDefense PRIVATE
     glfw
     glad::glad
     glm::glm
+    imgui::imgui
+    OpenGL::GL
 )

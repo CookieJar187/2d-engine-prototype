@@ -3,9 +3,14 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
+
 #include "input.h"
 #include "scene.h"
 #include "camera2.h"
+#include "ui_manager.h"
 
 #include "player.h"
 
@@ -40,6 +45,10 @@ int main() {
         return 1;
     }
 
+    // Ui
+    UiManager uiManager;
+    uiManager.init(window);
+
     // Main items
     Input input(window);
     Scene scene;
@@ -56,15 +65,19 @@ int main() {
         deltaTime = currFrame - lastFrame;
         lastFrame = currFrame;
 
+        glfwPollEvents();
+        uiManager.buildUi();
+
+        // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
-
         player.update(deltaTime);
-
         scene.drawObjects();
 
+        // Draw ui
+        uiManager.drawUi();
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
+    uiManager.destroyUi();
 
     glfwDestroyWindow(window);
     glfwTerminate();

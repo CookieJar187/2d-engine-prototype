@@ -21,3 +21,6 @@ cmake-build-*/
 # OS/editor noise
 .DS_Store
 Thunbs.db
+
+# Dependency data
+imgui.ini
