@@ -8,6 +8,7 @@
 #include "shader.h"
 #include "material.h"
 #include "camera2.h"
+#include "collision_manager.h"
 
 class Scene {
 public:
@@ -16,19 +17,19 @@ public:
 
     Mesh objMesh = MeshFactory::createSquare();
 
-    Object2 obj1;
-    Object2 ground;
-
-    Scene();
+    Scene(CollisionManager& collisionManager);
 
     void drawObjects() const;
 
-    std::vector<Object2> getObjects();
-    std::vector<Object2> getObjectsByName(const std::string& targetName);
+    std::vector<Object2*> getObjects();
+    std::vector<Object2*> getObjectsByName(const std::string& targetName);
     Object2* getObjectByName(const std::string& targetName);
 
+    Object2* createObject(const std::string& name, const AabbCollider& collider);
+
 private:
-    std::vector<Object2> objects;
+    CollisionManager* collisionManager;
+    std::vector<Object2*> objects;
     Camera2 camera;
 
 };

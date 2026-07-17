@@ -3,14 +3,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-
 #include "input.h"
 #include "scene.h"
 #include "camera2.h"
 #include "ui_manager.h"
+#include "collision_manager.h"
 
 #include "player.h"
 
@@ -36,6 +33,7 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
 
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
     {
@@ -45,13 +43,14 @@ int main() {
         return 1;
     }
 
-    // Ui
+    // Managers
     UiManager uiManager;
+    CollisionManager collisionManager;
     uiManager.init(window);
 
     // Main items
+    Scene scene(collisionManager);
     Input input(window);
-    Scene scene;
     Player player;
     player.init(scene, input);
 
@@ -68,9 +67,14 @@ int main() {
         glfwPollEvents();
         uiManager.buildUi();
 
+        // Features
+        player.update(deltaTime);
+
+        // Collisions
+        collisionManager.update();
+
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
-        player.update(deltaTime);
         scene.drawObjects();
 
         // Draw ui

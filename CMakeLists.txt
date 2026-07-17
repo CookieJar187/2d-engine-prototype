@@ -19,6 +19,7 @@ add_executable(ArmyDefense
     src/core/object2/object2.cpp
     src/core/shader_loader/shader_loader.cpp
     src/core/input/input.cpp
+    src/core/collision_manager/collision_manager.cpp
 
     src/ui/ui_manager.cpp
 
@@ -38,6 +39,9 @@ target_include_directories(ArmyDefense PRIVATE
     src/core/math/transform2
     src/core/math/vector2
     src/core/input
+    src/core/collider
+    src/core/collision_manager
+    src/core/collision_entry
 
     src/ui
 

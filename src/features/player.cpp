@@ -2,11 +2,14 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
+#include "collider.h"
+
 void Player::init(Scene& scene, Input& input)
 {
     Player::scene = &scene;
     Player::input = &input;
-    Player::body = scene.getObjectByName("player");
+
+    Player::body = scene.createObject("player", AabbCollider{glm::vec2(50, 50)});
 }
 
 void Player::update(float deltaTime)
