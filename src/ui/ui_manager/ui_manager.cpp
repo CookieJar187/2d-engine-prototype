@@ -6,7 +6,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-int UiManager::init(GLFWwindow* window)
+int UiManager::init(GLFWwindow* window, GameFsm* gameFsm)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -24,6 +24,11 @@ int UiManager::init(GLFWwindow* window)
         std::cerr << "Failed to initialize ImgGui OpenGL backend" << std::endl;
         return 1;
     }
+
+    UiManager::gameFsm = gameFsm;
+    UiManager::mainMenu = new MainMenu(gameFsm);
+    UiManager::settings = new Settings(gameFsm);
+    UiManager::levelSelection = new LevelSelection(gameFsm);
     
     return 0;
 }
@@ -36,13 +41,16 @@ void UiManager::buildUi()
     ImGui::NewFrame();
 
     // Build ui
-    ImGui::Begin("Window");
-    ImGui::Text("Hello World");
-    if (ImGui::Button("Click me")) {
-        std::cout << "Button clicked!" << std::endl;
-    }
-
-    ImGui::End();
+    if (gameFsm->isState(GameState::Playing))
+        return;
+    if (gameFsm->isState(GameState::MainMenu))
+        UiManager::mainMenu->buildUi();
+    else if (gameFsm->isState(GameState::LevelSelection))
+        UiManager::levelSelection->buildUi();
+    else if (gameFsm->isState(GameState::Settings))
+        UiManager::settings->buildUi();
+    else
+        std::cerr << "UiManager: unsuported state" << std::endl;
 }
 
 void UiManager::drawUi()

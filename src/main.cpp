@@ -8,6 +8,7 @@
 #include "camera2.h"
 #include "ui_manager.h"
 #include "collision_manager.h"
+#include "game_fsm.h"
 
 #include "player.h"
 
@@ -43,10 +44,14 @@ int main() {
         return 1;
     }
 
+    // Game state
+    GameFsm gameFsm;
+
     // Managers
     UiManager uiManager;
+    uiManager.init(window, &gameFsm);
+
     CollisionManager collisionManager;
-    uiManager.init(window);
 
     // Main items
     Scene scene(collisionManager);
@@ -80,6 +85,10 @@ int main() {
         // Draw ui
         uiManager.drawUi();
         glfwSwapBuffers(window);
+
+        // Check if user wants to quit
+        if (gameFsm.isState(GameState::Quit))
+            break;
     }
     uiManager.destroyUi();
 

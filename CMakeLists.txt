@@ -21,7 +21,12 @@ add_executable(ArmyDefense
     src/core/input/input.cpp
     src/core/collision_manager/collision_manager.cpp
 
-    src/ui/ui_manager.cpp
+    src/game_fsm/game_fsm.cpp
+
+    src/ui/ui_manager/ui_manager.cpp
+    src/ui/screens/main_menu/main_menu.cpp
+    src/ui/screens/settings/settings.cpp
+    src/ui/screens/level_selection/level_selection.cpp
 
     src/features/player.cpp
 )
@@ -43,7 +48,12 @@ target_include_directories(ArmyDefense PRIVATE
     src/core/collision_manager
     src/core/collision_entry
 
-    src/ui
+    src/game_fsm
+
+    src/ui/ui_manager
+    src/ui/screens/main_menu
+    src/ui/screens/settings
+    src/ui/screens/level_selection
 
     src/features
 )
