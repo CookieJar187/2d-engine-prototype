@@ -12,7 +12,8 @@
 
 #include "player.h"
 
-int main() {
+int main()
+{
 
     if (!glfwInit())
     {
@@ -24,7 +25,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800,600,"OpenGL Window",nullptr,nullptr);
+    GLFWwindow *window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
 
     if (!window)
     {
@@ -57,7 +58,7 @@ int main() {
     Scene scene(collisionManager);
     Input input(window);
     Player player;
-    player.init(scene, input);
+    player.init(scene, input, collisionManager);
 
     // Process
     float deltaTime = 0.0f;
@@ -75,9 +76,6 @@ int main() {
         // Features
         player.update(deltaTime);
 
-        // Collisions
-        collisionManager.update();
-
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
         scene.drawObjects();
@@ -94,6 +92,6 @@ int main() {
 
     glfwDestroyWindow(window);
     glfwTerminate();
-    
+
     return 0;
 }

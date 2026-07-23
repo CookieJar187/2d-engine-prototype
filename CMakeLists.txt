@@ -14,12 +14,13 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(ArmyDefense
     src/main.cpp
-    src/core/scene/scene.cpp
-    src/core/mesh_factory/mesh_factory.cpp
-    src/core/object2/object2.cpp
-    src/core/shader_loader/shader_loader.cpp
+    src/core/rendering/mesh_factory/mesh_factory.cpp
+    src/core/rendering/shader_loader/shader_loader.cpp
+    src/core/world/scene/scene.cpp
+    src/core/world/object2/object2.cpp
     src/core/input/input.cpp
-    src/core/collision_manager/collision_manager.cpp
+    src/core/collision/collision_manager/collision_manager.cpp
+    src/core/collision/character_motor2/character_motor2.cpp
 
     src/game_fsm/game_fsm.cpp
 
@@ -33,20 +34,21 @@ add_executable(ArmyDefense
 
 target_include_directories(ArmyDefense PRIVATE
     src
+    src/core/rendering/material
+    src/core/rendering/mesh
+    src/core/rendering/mesh_factory
+    src/core/rendering/shader
+    src/core/rendering/shader_loader
     src/core/camera2
-    src/core/material
-    src/core/mesh
-    src/core/mesh_factory
-    src/core/object2
-    src/core/scene
-    src/core/shader
-    src/core/shader_loader
+    src/core/world/object2
+    src/core/world/scene
+    src/core/world/object_creation_result
     src/core/math/transform2
-    src/core/math/vector2
     src/core/input
-    src/core/collider
-    src/core/collision_manager
-    src/core/collision_entry
+    src/core/collision/aabb_collider
+    src/core/collision/collision_manager
+    src/core/collision/collision_entry
+    src/core/collision/character_motor2
 
     src/game_fsm
 

@@ -1,15 +1,20 @@
 #include "player.h"
+
+#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
-#include "collider.h"
+#include "aabb_collider.h"
 
-void Player::init(Scene& scene, Input& input)
+void Player::init(Scene &scene, Input &input, CollisionManager &collisionManager)
 {
     Player::scene = &scene;
     Player::input = &input;
 
-    Player::body = scene.createObject("player", AabbCollider{glm::vec2(50, 50)});
+    ObjectCreationResult result = scene.createObject("player", AabbCollider{glm::vec2(50, 50)});
+
+    body = result.object;
+    characterMotor2.init(*Player::body, collisionManager, *result.collisionEntry);
 }
 
 void Player::update(float deltaTime)
@@ -18,7 +23,7 @@ void Player::update(float deltaTime)
         return;
 
     glm::vec2 inputDirection(0, 0);
-    
+
     if (input->isKeyDown(65))
         inputDirection.x -= 1;
     else if (input->isKeyDown(68))
@@ -34,6 +39,6 @@ void Player::update(float deltaTime)
         glm::vec2 velocity = glm::normalize(inputDirection);
         velocity.x *= maxSpeed * deltaTime;
         velocity.y *= maxSpeed * deltaTime;
-        body->transform.position += velocity;
-    }  
+        characterMotor2.moveAndSlide(velocity);
+    }
 }
