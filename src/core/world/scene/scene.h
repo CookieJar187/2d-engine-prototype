@@ -4,22 +4,27 @@
 #include <glm/glm.hpp>
 
 #include "object2.h"
-#include "mesh_factory.h"
-#include "shader.h"
-#include "material.h"
-#include "camera2.h"
 #include "collision_manager.h"
-#include "object_creation_result.h"
+#include "asset_library.h"
+
+struct ObjectCreationData
+{
+    std::optional<std::string> name;
+    std::optional<std::string> colliderName = "";
+    std::optional<std::string> materialName = "";
+    Transform2 transform;
+};
+
+struct ObjectCreationResult
+{
+    Object2 *object = nullptr;
+    CollisionEntry *collisionEntry = nullptr;
+};
 
 class Scene
 {
 public:
-    Shader shader;
-    Material material;
-
-    Mesh objMesh = MeshFactory::createSquare();
-
-    Scene(CollisionManager &collisionManager);
+    Scene(CollisionManager &collisionManager, AssetLibrary &assetLibrary);
 
     void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
 
@@ -27,10 +32,10 @@ public:
     std::vector<Object2 *> getObjectsByName(const std::string &targetName);
     Object2 *getObjectByName(const std::string &targetName);
 
-    ObjectCreationResult createObject(const std::string &name, const AabbCollider &collider);
+    ObjectCreationResult createObject(const ObjectCreationData &data);
 
 private:
+    AssetLibrary *assetLibrary;
     CollisionManager *collisionManager;
     std::vector<Object2 *> objects;
-    // Camera2 camera;
 };

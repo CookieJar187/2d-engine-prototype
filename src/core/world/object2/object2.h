@@ -14,17 +14,11 @@ struct Object2
 {
 
 public:
-    std::string name;
-    Mesh *mesh;
-    std::optional<AabbCollider> collider;
-    Transform2 transform;
-    Material *material;
-
-    Object2(
-        const std::string &name = "object",
-        Mesh *mesh = nullptr,
-        Material *material = nullptr)
-        : mesh(mesh), material(material) {}
+    std::string name = "object";
+    Mesh *mesh = nullptr;
+    std::optional<AabbCollider *> collider = std::nullopt;
+    Material *material = nullptr;
+    Transform2 transform{};
 
     void draw(const glm::mat4 &view, const glm::mat4 &projection) const;
 

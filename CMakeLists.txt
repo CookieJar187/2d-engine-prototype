@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(OpenGL REQUIRED)
+find_package(Stb REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -14,6 +15,7 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(ArmyDefense
     src/main.cpp
+    src/core/rendering/texture_loader/texture_loader.cpp
     src/core/camera2/camera2.cpp
     src/core/rendering/mesh_factory/mesh_factory.cpp
     src/core/rendering/shader_loader/shader_loader.cpp
@@ -32,11 +34,14 @@ add_executable(ArmyDefense
 
     src/features/player/player.cpp
     src/features/tilemap/tilemap.cpp
+    src/features/asset_library/asset_library.cpp
 )
 
 target_include_directories(ArmyDefense PRIVATE
     src
     src/core/camera2
+    src/core/rendering/texture
+    src/core/rendering/texture_loader
     src/core/rendering/material
     src/core/rendering/mesh
     src/core/rendering/mesh_factory
@@ -61,6 +66,9 @@ target_include_directories(ArmyDefense PRIVATE
 
     src/features/player
     src/features/tilemap
+    src/features/asset_library
+
+    ${Stb_INCLUDE_DIR}
 )
 
 target_link_libraries(ArmyDefense PRIVATE

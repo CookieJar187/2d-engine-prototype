@@ -39,27 +39,36 @@ void Object2::draw(const glm::mat4 &view, const glm::mat4 &projection) const
     if (!mesh || !material)
         return;
 
-    glUseProgram(material->shader.id);
+    glUseProgram(material->shader->id);
 
     glm::mat4 model = getModelMatrix();
 
     glUniformMatrix4fv(
-        material->shader.modelLoc,
+        material->shader->modelLoc,
         1,
         GL_FALSE,
         &model[0][0]);
 
     glUniformMatrix4fv(
-        material->shader.viewLoc,
+        material->shader->viewLoc,
         1,
         GL_FALSE,
         &view[0][0]);
 
     glUniformMatrix4fv(
-        material->shader.projectionLoc,
+        material->shader->projectionLoc,
         1,
         GL_FALSE,
         &projection[0][0]);
+
+    // Select texture unit 0.
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(
+        GL_TEXTURE_2D,
+        material->texture->id);
+    glUniform1i(
+        material->shader->textureLoc,
+        0);
 
     glBindVertexArray(mesh->VAO);
 

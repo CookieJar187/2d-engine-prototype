@@ -1,7 +1,11 @@
 #version 330 core
 
-out vec4 screenColor;
+in vec2 texCoord;
+
+uniform sampler2D spriteTexture;
+
+out vec4 fragmentColor;
 
 void main() {
-    screenColor = vec4(1.0, 0.0, 1.0, 1.0);
+    fragmentColor = texture(spriteTexture, texCoord);
 }

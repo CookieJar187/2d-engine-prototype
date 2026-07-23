@@ -1,7 +1,6 @@
 #pragma once
 
 #include "scene.h"
-#include "aabb_collider.h"
 
 #define TILE_SIZE 100
 
@@ -13,7 +12,9 @@ public:
 
 private:
     Scene *scene;
-    AabbCollider wallCollider{glm::vec2(50, 50)};
+
+    Texture wallTexture;
+    Material wallMaterial;
 
     int matrix[10][10] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},

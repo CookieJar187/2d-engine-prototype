@@ -106,7 +106,7 @@ CollisionEntry *CollisionManager::registerObject(Object2 &obj)
 
     CollisionEntry *newEntry = new CollisionEntry();
     newEntry->object = &obj;
-    newEntry->collider = &obj.collider.value();
+    newEntry->collider = obj.collider.value();
     newEntry->tansform = &obj.transform;
 
     try

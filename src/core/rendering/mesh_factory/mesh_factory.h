@@ -3,8 +3,8 @@
 
 #include "mesh.h"
 
-namespace MeshFactory {
+namespace MeshFactory
+{
 
-    Mesh createTriangle();
     Mesh createSquare();
 }

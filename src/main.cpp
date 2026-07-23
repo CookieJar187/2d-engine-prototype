@@ -9,6 +9,7 @@
 #include "ui_manager.h"
 #include "collision_manager.h"
 #include "game_fsm.h"
+#include "asset_library.h"
 
 #include "player.h"
 #include "tilemap.h"
@@ -50,6 +51,7 @@ int main()
     GameFsm gameFsm;
 
     // Managers
+    AssetLibrary assetLibrary;
     UiManager uiManager;
     uiManager.init(window, &gameFsm);
 
@@ -57,7 +59,7 @@ int main()
 
     // Main items
     Camera2 camera;
-    Scene scene(collisionManager);
+    Scene scene{collisionManager, assetLibrary};
     Input input(window);
     Tilemap tilemap{scene};
     tilemap.load();

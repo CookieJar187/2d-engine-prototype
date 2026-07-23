@@ -3,20 +3,10 @@
 
 #include "scene.h"
 
-#include "shader_loader.h"
-
-Scene::Scene(CollisionManager &collisionManager)
+Scene::Scene(CollisionManager &collisionManager, AssetLibrary &assetLibrary)
 {
     Scene::collisionManager = &collisionManager;
-
-    shader.id = make_shader(
-        "src/shaders/vertex2.txt",
-        "src/shaders/fragment2.txt");
-    shader.modelLoc = glGetUniformLocation(shader.id, "model");
-    shader.viewLoc = glGetUniformLocation(shader.id, "view");
-    shader.projectionLoc = glGetUniformLocation(shader.id, "projection");
-
-    material.shader = shader;
+    Scene::assetLibrary = &assetLibrary;
 }
 
 void Scene::drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const
@@ -56,15 +46,20 @@ Object2 *Scene::getObjectByName(const std::string &targetName)
     return nullptr;
 }
 
-ObjectCreationResult Scene::createObject(const std::string &name, const AabbCollider &collider)
+ObjectCreationResult Scene::createObject(const ObjectCreationData &data)
 {
     Object2 *newObj = new Object2();
-    newObj->name = name;
-    newObj->collider = collider;
-    newObj->mesh = &objMesh;
-    newObj->material = &material;
-    newObj->transform.position = glm::vec2(0, 0);
-    newObj->transform.scale = glm::vec2(100, 100);
+
+    if (data.name.has_value())
+        newObj->name = data.name.value();
+
+    if (data.colliderName.has_value())
+        newObj->collider = assetLibrary->getCollider(data.colliderName.value());
+    if (data.materialName.has_value())
+        newObj->material = assetLibrary->getMaterial(data.materialName.value());
+
+    newObj->mesh = assetLibrary->getMesh();
+    newObj->transform = data.transform;
 
     CollisionEntry *entry = collisionManager->registerObject(*newObj);
     objects.push_back(newObj);
