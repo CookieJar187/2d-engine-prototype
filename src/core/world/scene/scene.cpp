@@ -7,28 +7,23 @@
 
 Scene::Scene(CollisionManager &collisionManager)
 {
-
     Scene::collisionManager = &collisionManager;
 
     shader.id = make_shader(
         "src/shaders/vertex2.txt",
         "src/shaders/fragment2.txt");
     shader.modelLoc = glGetUniformLocation(shader.id, "model");
+    shader.viewLoc = glGetUniformLocation(shader.id, "view");
     shader.projectionLoc = glGetUniformLocation(shader.id, "projection");
 
     material.shader = shader;
-
-    ObjectCreationResult ground = createObject("ground", AabbCollider{glm::vec2(50, 50)});
-    ground.object->transform.position = glm::vec2(0, -150);
 }
 
-void Scene::drawObjects() const
+void Scene::drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const
 {
-    const glm::mat4 &projection = Scene::camera.projection;
-
     for (const auto &obj : objects)
     {
-        obj->draw(projection);
+        obj->draw(view, projection);
     }
 }
 

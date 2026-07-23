@@ -6,14 +6,15 @@
 
 #include "aabb_collider.h"
 
-void Player::init(Scene &scene, Input &input, CollisionManager &collisionManager)
+Player::Player(Scene &scene, Input &input, CollisionManager &collisionManager, Camera2 &camera)
 {
     Player::scene = &scene;
     Player::input = &input;
+    Player::camera = &camera;
 
-    ObjectCreationResult result = scene.createObject("player", AabbCollider{glm::vec2(50, 50)});
+    ObjectCreationResult result = scene.createObject("player", AabbCollider{glm::vec2(40, 40)});
 
-    body = result.object;
+    Player::body = result.object;
     characterMotor2.init(*Player::body, collisionManager, *result.collisionEntry);
 }
 
@@ -41,4 +42,10 @@ void Player::update(float deltaTime)
         velocity.y *= maxSpeed * deltaTime;
         characterMotor2.moveAndSlide(velocity);
     }
+
+    // Camera
+    camera->transform.position = glm::mix(
+        camera->transform.position,
+        Player::body->transform.position,
+        0.05f);
 }

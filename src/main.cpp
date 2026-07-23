@@ -11,6 +11,7 @@
 #include "game_fsm.h"
 
 #include "player.h"
+#include "tilemap.h"
 
 int main()
 {
@@ -55,10 +56,12 @@ int main()
     CollisionManager collisionManager;
 
     // Main items
+    Camera2 camera;
     Scene scene(collisionManager);
     Input input(window);
-    Player player;
-    player.init(scene, input, collisionManager);
+    Tilemap tilemap{scene};
+    tilemap.load();
+    Player player{scene, input, collisionManager, camera};
 
     // Process
     float deltaTime = 0.0f;
@@ -78,7 +81,7 @@ int main()
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
-        scene.drawObjects();
+        scene.drawObjects(camera.getViewMatrix(), camera.projection);
 
         // Draw ui
         uiManager.drawUi();

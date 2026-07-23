@@ -21,7 +21,7 @@ public:
 
     Scene(CollisionManager &collisionManager);
 
-    void drawObjects() const;
+    void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
 
     std::vector<Object2 *> getObjects();
     std::vector<Object2 *> getObjectsByName(const std::string &targetName);
@@ -32,5 +32,5 @@ public:
 private:
     CollisionManager *collisionManager;
     std::vector<Object2 *> objects;
-    Camera2 camera;
+    // Camera2 camera;
 };

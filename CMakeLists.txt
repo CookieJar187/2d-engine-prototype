@@ -14,6 +14,7 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(ArmyDefense
     src/main.cpp
+    src/core/camera2/camera2.cpp
     src/core/rendering/mesh_factory/mesh_factory.cpp
     src/core/rendering/shader_loader/shader_loader.cpp
     src/core/world/scene/scene.cpp
@@ -29,17 +30,18 @@ add_executable(ArmyDefense
     src/ui/screens/settings/settings.cpp
     src/ui/screens/level_selection/level_selection.cpp
 
-    src/features/player.cpp
+    src/features/player/player.cpp
+    src/features/tilemap/tilemap.cpp
 )
 
 target_include_directories(ArmyDefense PRIVATE
     src
+    src/core/camera2
     src/core/rendering/material
     src/core/rendering/mesh
     src/core/rendering/mesh_factory
     src/core/rendering/shader
     src/core/rendering/shader_loader
-    src/core/camera2
     src/core/world/object2
     src/core/world/scene
     src/core/world/object_creation_result
@@ -57,7 +59,8 @@ target_include_directories(ArmyDefense PRIVATE
     src/ui/screens/settings
     src/ui/screens/level_selection
 
-    src/features
+    src/features/player
+    src/features/tilemap
 )
 
 target_link_libraries(ArmyDefense PRIVATE

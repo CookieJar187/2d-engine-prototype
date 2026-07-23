@@ -1,8 +1,10 @@
 #pragma once
 
-struct Shader {
+struct Shader
+{
     unsigned int id;
 
     int modelLoc;
+    int viewLoc;
     int projectionLoc;
 };

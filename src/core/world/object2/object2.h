@@ -26,7 +26,7 @@ public:
         Material *material = nullptr)
         : mesh(mesh), material(material) {}
 
-    void draw(const glm::mat4 &projection) const;
+    void draw(const glm::mat4 &view, const glm::mat4 &projection) const;
 
 private:
     glm::mat4 getModelMatrix() const;
