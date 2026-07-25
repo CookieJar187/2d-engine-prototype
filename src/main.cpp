@@ -12,11 +12,15 @@
 #include "asset_library.h"
 
 #include "player.h"
+#include "enemy.h"
 #include "tilemap.h"
+#include "damage_registry.h"
+#include "bullet_system.h"
+
+#include "context.h"
 
 int main()
 {
-
     if (!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW\n";
@@ -47,23 +51,45 @@ int main()
         return 1;
     }
 
+    // Context
+    Context ctx;
+
     // Game state
     GameFsm gameFsm;
+    ctx.gameFsm = &gameFsm;
 
-    // Managers
-    AssetLibrary assetLibrary;
+    // Ui
     UiManager uiManager;
     uiManager.init(window, &gameFsm);
+    ctx.uiManager = &uiManager;
+
+    // Core
+    AssetLibrary assetLibrary;
+    ctx.assetLibrary = &assetLibrary;
 
     CollisionManager collisionManager;
+    ctx.collisionManager = &collisionManager;
 
-    // Main items
     Camera2 camera;
+    ctx.camera2 = &camera;
+
     Scene scene{collisionManager, assetLibrary};
+    ctx.scene = &scene;
+
     Input input(window);
-    Tilemap tilemap{scene};
+    ctx.input = &input;
+
+    // Features
+    DamageRegistry damageRegistry;
+    ctx.damageRegistry = &damageRegistry;
+
+    BulletSystem bulletSystem{collisionManager};
+    ctx.bulletSystem = &bulletSystem;
+
+    Tilemap tilemap{ctx};
     tilemap.load();
-    Player player{scene, input, collisionManager, camera};
+    Player player{ctx};
+    Enemy enemy{ctx};
 
     // Process
     float deltaTime = 0.0f;
@@ -80,6 +106,7 @@ int main()
 
         // Features
         player.update(deltaTime);
+        enemy.update(deltaTime);
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);

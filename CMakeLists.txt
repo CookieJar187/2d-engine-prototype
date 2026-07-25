@@ -23,6 +23,8 @@ add_executable(ArmyDefense
     src/core/world/object2/object2.cpp
     src/core/input/input.cpp
     src/core/collision/collision_manager/collision_manager.cpp
+    src/core/collision/collision_manager/collision_raycast.cpp
+    src/core/collision/collision_manager/collision_registry.cpp
     src/core/collision/character_motor2/character_motor2.cpp
 
     src/game_fsm/game_fsm.cpp
@@ -33,8 +35,12 @@ add_executable(ArmyDefense
     src/ui/screens/level_selection/level_selection.cpp
 
     src/features/player/player.cpp
+    src/features/enemy/enemy.cpp
     src/features/tilemap/tilemap.cpp
-    src/features/asset_library/asset_library.cpp
+    src/features/damage/damage_registry.cpp
+    src/features/bullet_system/bullet_system.cpp
+
+    src/asset_library/asset_library.cpp
 )
 
 target_include_directories(ArmyDefense PRIVATE
@@ -65,8 +71,14 @@ target_include_directories(ArmyDefense PRIVATE
     src/ui/screens/level_selection
 
     src/features/player
+    src/features/enemy
     src/features/tilemap
-    src/features/asset_library
+    src/features/damage
+    src/features/bullet_system
+
+    src/asset_library
+
+    src/context
 
     ${Stb_INCLUDE_DIR}
 )

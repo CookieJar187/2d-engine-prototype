@@ -2,14 +2,18 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
-class Input {
+class Input
+{
 private:
-    GLFWwindow* window;
+    GLFWwindow *window;
 
 public:
-    Input(GLFWwindow* window);
+    Input(GLFWwindow *window);
 
     bool isKeyDown(int key) const;
-    //bool isKeyPressed(int key) const;
+    bool isMouseButtonDown() const;
+
+    glm::dvec2 getMousePosition() const;
 };

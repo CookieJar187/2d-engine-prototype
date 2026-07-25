@@ -4,11 +4,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
-Player::Player(Scene &scene, Input &input, CollisionManager &collisionManager, Camera2 &camera)
+Player::Player(Context &ctx)
 {
-    Player::scene = &scene;
-    Player::input = &input;
-    Player::camera = &camera;
+    Player::scene = ctx.scene;
+    Player::input = ctx.input;
+    Player::camera = ctx.camera2;
+    Player::bulletSystem = ctx.bulletSystem;
 
     ObjectCreationResult result = Player::scene->createObject(
         {.name = "player",
@@ -16,7 +17,7 @@ Player::Player(Scene &scene, Input &input, CollisionManager &collisionManager, C
          .materialName = "player"});
 
     Player::body = result.object;
-    characterMotor2.init(*Player::body, collisionManager, *result.collisionEntry);
+    characterMotor2.init(*Player::body, *ctx.collisionManager, *result.collisionEntry);
 }
 
 void Player::update(float deltaTime)
@@ -42,6 +43,13 @@ void Player::update(float deltaTime)
         velocity.x *= MAX_SPEED * deltaTime;
         velocity.y *= MAX_SPEED * deltaTime;
         characterMotor2.moveAndSlide(velocity);
+    }
+
+    if (input->isMouseButtonDown() && fired == false)
+    {
+        glm::vec2 thing = input->getMousePosition();
+        bulletSystem->fire(glm::vec2{0, 0}, thing);
+        fired = true;
     }
 
     // Camera

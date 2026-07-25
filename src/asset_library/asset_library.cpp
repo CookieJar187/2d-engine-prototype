@@ -23,6 +23,7 @@ AssetLibrary::AssetLibrary()
     placeholderTexture = TextureLoader::load("src/assets/textures/placeholder.png");
     wallTexture = TextureLoader::load("src/assets/textures/bricks.png");
     playerTexture = TextureLoader::load("src/assets/textures/player.png");
+    enemyTexture = TextureLoader::load("src/assets/textures/enemy.png");
 
     // Material
     placeholderMaterial.shader = &shader;
@@ -34,16 +35,27 @@ AssetLibrary::AssetLibrary()
     playerMaterial.shader = &shader;
     playerMaterial.texture = &playerTexture;
 
+    enemyMaterial.shader = &shader;
+    enemyMaterial.texture = &enemyTexture;
+
     // Aabb colliders
     playerCollider.halfSize = glm::vec2(40, 40);
+    playerCollider.name = "player";
+
+    enemyCollider.halfSize = glm::vec2(40, 40);
+    playerCollider.name = "enemy";
+
     wallCollider.halfSize = glm::vec2(50, 50);
+    playerCollider.name = "wall";
 
     // Making assets accessible
     materials["placeholder"] = &placeholderMaterial;
     materials["wall"] = &wallMaterial;
     materials["player"] = &playerMaterial;
+    materials["enemy"] = &enemyMaterial;
 
     colliders["player"] = &playerCollider;
+    colliders["enemy"] = &enemyCollider;
     colliders["wall"] = &wallCollider;
 
     // Fallback placeholder (in case of an error)

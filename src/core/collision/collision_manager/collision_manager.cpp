@@ -1,9 +1,7 @@
-#include <iostream>
 #include <vector>
 #include <glm/glm.hpp>
 
 #include "collision_manager.h"
-#include "object2.h"
 
 bool CollisionManager::isOverlapping(const CollisionEntry &entryA, const CollisionEntry &entryB)
 {
@@ -97,30 +95,4 @@ MovementResult CollisionManager::moveAndSlide(CollisionEntry &moving, const glm:
     result.appliedMovement = moving.tansform->position - startingPosition;
 
     return result;
-}
-
-CollisionEntry *CollisionManager::registerObject(Object2 &obj)
-{
-    if (!obj.collider.has_value())
-        return {};
-
-    CollisionEntry *newEntry = new CollisionEntry();
-    newEntry->object = &obj;
-    newEntry->collider = obj.collider.value();
-    newEntry->tansform = &obj.transform;
-
-    try
-    {
-        entries.push_back(newEntry);
-    }
-    catch (const std::runtime_error &e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-
-    return newEntry;
-}
-
-void CollisionManager::unregisterObject(Object2 &obj)
-{
 }

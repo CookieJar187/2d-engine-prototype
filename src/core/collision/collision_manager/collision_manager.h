@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <optional>
 #include <glm/glm.hpp>
 
 #include "transform2.h"
@@ -25,6 +26,18 @@ struct MovementResult
     std::vector<CollisionResult> collisions;
 };
 
+struct RaycastHit
+{
+    Object2 *object = nullptr;
+    AabbCollider *collider = nullptr;
+
+    glm::vec2 point = {0.0f, 0.0f};
+    glm::vec2 normal = {0.0f, 0.0f};
+
+    float distance = 0.0f;
+    float fraction = 0.0f;
+};
+
 class CollisionManager
 {
 private:
@@ -33,10 +46,21 @@ private:
     void resolveHorizontal(CollisionEntry &moving, const CollisionEntry &obstacle, float movementX);
     void resolveVertical(CollisionEntry &moving, const CollisionEntry &obstacle, float movementY);
 
+    std::optional<RaycastHit> raycastAgainstEntry(
+        const glm::vec2 &start,
+        const glm::vec2 &end,
+        const CollisionEntry &entry);
+
     std::vector<CollisionEntry *> entries;
 
 public:
     MovementResult moveAndSlide(CollisionEntry &moving, const glm::vec2 &movement);
+
+    std::optional<RaycastHit> raycast(
+        const glm::vec2 &start,
+        const glm::vec2 &end
+        // std::optional<std::vector<std::string>> ignore = std::nullopt;
+    );
 
     CollisionEntry *registerObject(Object2 &obj);
     void unregisterObject(Object2 &obj);

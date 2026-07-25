@@ -23,13 +23,16 @@ private:
     Texture placeholderTexture;
     Texture wallTexture;
     Texture playerTexture;
+    Texture enemyTexture;
 
     Material placeholderMaterial;
     Material wallMaterial;
     Material playerMaterial;
+    Material enemyMaterial;
 
     AabbCollider playerCollider;
     AabbCollider wallCollider;
+    AabbCollider enemyCollider;
 
 public:
     AssetLibrary();

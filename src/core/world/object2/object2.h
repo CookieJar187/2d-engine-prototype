@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include <optional>
 #include <glm/glm.hpp>
 
 #include "mesh.h"
@@ -16,7 +15,7 @@ struct Object2
 public:
     std::string name = "object";
     Mesh *mesh = nullptr;
-    std::optional<AabbCollider *> collider = std::nullopt;
+    AabbCollider *collider = nullptr;
     Material *material = nullptr;
     Transform2 transform{};
 

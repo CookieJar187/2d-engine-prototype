@@ -1,11 +1,13 @@
 #pragma once
 #include <glm/glm.hpp>
 
-struct AabbCollider {
+struct AabbCollider
+{
+    std::string name = "collider";
+
     glm::vec2 halfSize;
 
     AabbCollider(
-        glm::vec2 halfSize = glm::vec2(1, 1)
-    )
-    : halfSize(halfSize) {};
+        glm::vec2 halfSize = glm::vec2(1, 1))
+        : halfSize(halfSize) {};
 };

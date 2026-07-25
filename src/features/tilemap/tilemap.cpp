@@ -1,8 +1,8 @@
 #include "tilemap.h"
 
-Tilemap::Tilemap(Scene &scene)
+Tilemap::Tilemap(Context &ctx)
 {
-    Tilemap::scene = &scene;
+    Tilemap::scene = ctx.scene;
 }
 
 void Tilemap::load()
