@@ -83,7 +83,7 @@ int main()
     DamageRegistry damageRegistry;
     ctx.damageRegistry = &damageRegistry;
 
-    BulletSystem bulletSystem{collisionManager};
+    BulletSystem bulletSystem{collisionManager, damageRegistry};
     ctx.bulletSystem = &bulletSystem;
 
     Tilemap tilemap{ctx};
@@ -103,6 +103,9 @@ int main()
 
         glfwPollEvents();
         uiManager.buildUi();
+
+        // Input
+        input.update();
 
         // Features
         player.update(deltaTime);

@@ -58,8 +58,8 @@ public:
 
     std::optional<RaycastHit> raycast(
         const glm::vec2 &start,
-        const glm::vec2 &end
-        // std::optional<std::vector<std::string>> ignore = std::nullopt;
+        const glm::vec2 &end,
+        const Object2 *ignore = nullptr
     );
 
     CollisionEntry *registerObject(Object2 &obj);

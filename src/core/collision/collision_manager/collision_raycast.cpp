@@ -1,5 +1,3 @@
-#include <iostream>
-#include <algorithm>
 #include "collision_manager.h"
 
 std::optional<RaycastHit> CollisionManager::raycastAgainstEntry(const glm::vec2 &start, const glm::vec2 &end, const CollisionEntry &entry)
@@ -97,8 +95,8 @@ std::optional<RaycastHit> CollisionManager::raycastAgainstEntry(const glm::vec2 
 
 std::optional<RaycastHit> CollisionManager::raycast(
     const glm::vec2 &start,
-    const glm::vec2 &end
-    // std::optional<std::vector<std::string>> ignore = std::nullopt;
+    const glm::vec2 &end,
+    const Object2 *ignore
 )
 {
     std::optional<RaycastHit> closestHit;
@@ -109,14 +107,8 @@ std::optional<RaycastHit> CollisionManager::raycast(
         if (entry == nullptr || entry->object == nullptr || entry->collider == nullptr || entry->tansform == nullptr)
             continue;
 
-        /*
-        if (ignore.has_value())
-        {
-            std::vector<std::string> &temp = ignore.value();
-            if (std::find(temp.begin(), temp.end(), entry->collider->name) != temp.end())
-                continue;
-        }
-        */
+        if (entry->object == ignore)
+            continue;
 
         std::optional<RaycastHit> hit = raycastAgainstEntry(start, end, *entry);
 
@@ -126,15 +118,6 @@ std::optional<RaycastHit> CollisionManager::raycast(
             closestHit = hit;
         }
     }
-
-    if (closestHit.has_value())
-    {
-        std::cout << "hit detected!" << std::endl;
-        std::cout << closestHit->object->name << std::endl;
-        std::cout << closestHit->point.x << ", " << closestHit->point.y << std::endl;
-    }
-    else
-        std::cout << "nothing hit" << std::endl;
 
     return closestHit;
 }

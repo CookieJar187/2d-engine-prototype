@@ -15,4 +15,8 @@ struct Camera2
         -1.0f, 1.0f);
 
     glm::mat4 getViewMatrix() const;
+    glm::vec2 screenToWorld(
+        const glm::vec2 &screenPosition,
+        const glm::ivec2 &viewportSize
+    ) const;
 };

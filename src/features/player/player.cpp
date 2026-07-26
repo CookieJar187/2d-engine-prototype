@@ -6,18 +6,18 @@
 
 Player::Player(Context &ctx)
 {
-    Player::scene = ctx.scene;
-    Player::input = ctx.input;
-    Player::camera = ctx.camera2;
-    Player::bulletSystem = ctx.bulletSystem;
+    this->scene = ctx.scene;
+    this->input = ctx.input;
+    this->camera = ctx.camera2;
+    this->bulletSystem = ctx.bulletSystem;
 
-    ObjectCreationResult result = Player::scene->createObject(
+    ObjectCreationResult result = this->scene->createObject(
         {.name = "player",
          .colliderName = "player",
          .materialName = "player"});
 
-    Player::body = result.object;
-    characterMotor2.init(*Player::body, *ctx.collisionManager, *result.collisionEntry);
+    this->body = result.object;
+    characterMotor2.init(*this->body, *ctx.collisionManager, *result.collisionEntry);
 }
 
 void Player::update(float deltaTime)
@@ -45,11 +45,17 @@ void Player::update(float deltaTime)
         characterMotor2.moveAndSlide(velocity);
     }
 
-    if (input->isMouseButtonDown() && fired == false)
+    if (input->isMouseButtonJustPressed(0))
     {
-        glm::vec2 thing = input->getMousePosition();
-        bulletSystem->fire(glm::vec2{0, 0}, thing);
-        fired = true;
+        glm::vec2 cursorScreen = input->getMousePosition();
+        glm::vec2 screenSize = input->getScreenSize();
+        glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
+
+        glm::vec2 origin = this->body->transform.position;
+        glm::vec2 direction = glm::normalize(mouseWorld - origin);
+        glm::vec2 target = origin + direction * 1000.0f;
+
+        bulletSystem->fire(origin, target, this->body);
     }
 
     // Camera
@@ -57,4 +63,20 @@ void Player::update(float deltaTime)
         camera->transform.position,
         Player::body->transform.position,
         0.05f);
+}
+
+void Player::die()
+{
+    std::cout << "Player died" << std::endl;
+}
+
+void Player::takeDamage(float amount)
+{
+    health -= amount;
+    std::cout << "Player has taken damage" << std::endl;
+
+    if (health <= 0.0f)
+    {
+        die();
+    }
 }
