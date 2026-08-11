@@ -83,7 +83,7 @@ int main()
     DamageRegistry damageRegistry;
     ctx.damageRegistry = &damageRegistry;
 
-    BulletSystem bulletSystem{collisionManager, damageRegistry};
+    BulletSystem bulletSystem{collisionManager, damageRegistry, scene};
     ctx.bulletSystem = &bulletSystem;
 
     Tilemap tilemap{ctx};
@@ -108,6 +108,7 @@ int main()
         input.update();
 
         // Features
+        bulletSystem.update(deltaTime);
         player.update(deltaTime);
         enemy.update(deltaTime);
 

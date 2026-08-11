@@ -24,6 +24,7 @@ AssetLibrary::AssetLibrary()
     wallTexture = TextureLoader::load("src/assets/textures/bricks.png");
     playerTexture = TextureLoader::load("src/assets/textures/player.png");
     enemyTexture = TextureLoader::load("src/assets/textures/enemy.png");
+    bulletTexture = TextureLoader::load("src/assets/textures/bullet.png");
 
     // Material
     placeholderMaterial.shader = &shader;
@@ -37,6 +38,9 @@ AssetLibrary::AssetLibrary()
 
     enemyMaterial.shader = &shader;
     enemyMaterial.texture = &enemyTexture;
+
+    bulletMaterial.shader = &shader;
+    bulletMaterial.texture = &bulletTexture;
 
     // Aabb colliders
     playerCollider.halfSize = glm::vec2(40, 40);
@@ -53,6 +57,7 @@ AssetLibrary::AssetLibrary()
     materials["wall"] = &wallMaterial;
     materials["player"] = &playerMaterial;
     materials["enemy"] = &enemyMaterial;
+    materials["bullet"] = &bulletMaterial;
 
     colliders["player"] = &playerCollider;
     colliders["enemy"] = &enemyCollider;

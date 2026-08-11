@@ -15,7 +15,7 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(ArmyDefense
     src/main.cpp
-    src/core/rendering/texture_loader/texture_loader.cpp
+    src/core/texture/texture_loader/texture_loader.cpp
     src/core/camera2/camera2.cpp
     src/core/rendering/mesh_factory/mesh_factory.cpp
     src/core/rendering/shader_loader/shader_loader.cpp
@@ -46,8 +46,8 @@ add_executable(ArmyDefense
 target_include_directories(ArmyDefense PRIVATE
     src
     src/core/camera2
-    src/core/rendering/texture
-    src/core/rendering/texture_loader
+    src/core/texture/texture
+    src/core/texture/texture_loader
     src/core/rendering/material
     src/core/rendering/mesh
     src/core/rendering/mesh_factory

@@ -55,7 +55,7 @@ void Player::update(float deltaTime)
         glm::vec2 direction = glm::normalize(mouseWorld - origin);
         glm::vec2 target = origin + direction * 1000.0f;
 
-        bulletSystem->fire(origin, target, this->body);
+        bulletSystem->fire(origin, direction, this->body);
     }
 
     // Camera

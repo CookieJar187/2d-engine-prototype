@@ -24,11 +24,13 @@ private:
     Texture wallTexture;
     Texture playerTexture;
     Texture enemyTexture;
+    Texture bulletTexture;
 
     Material placeholderMaterial;
     Material wallMaterial;
     Material playerMaterial;
     Material enemyMaterial;
+    Material bulletMaterial;
 
     AabbCollider playerCollider;
     AabbCollider wallCollider;
