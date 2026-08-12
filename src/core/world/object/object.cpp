@@ -1,18 +1,18 @@
 #include <iostream>
 
-#include "object2.h"
+#include "object.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 
-void Object2::queueFree()
+void Object::queueFree()
 {
     queuedForDeletion = true;
 }
 
-glm::mat4 Object2::getModelMatrix() const
+glm::mat4 Object::getModelMatrix() const
 {
     glm::mat4 model = glm::mat4(1.0f);
 
@@ -38,7 +38,7 @@ glm::mat4 Object2::getModelMatrix() const
     return model;
 }
 
-void Object2::draw(const glm::mat4 &view, const glm::mat4 &projection) const
+void Object::draw(const glm::mat4 &view, const glm::mat4 &projection) const
 {
 
     if (!mesh || !material)

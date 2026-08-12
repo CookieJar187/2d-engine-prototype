@@ -2,9 +2,9 @@
 
 #define MAX_SPEED 200
 
-#include "object2.h"
+#include "object.h"
 #include "scene.h"
-#include "character_motor2.h"
+#include "character_motor.h"
 #include "collision_manager.h"
 
 #include "context.h"
@@ -17,13 +17,13 @@ class Enemy : Damageable
 private:
     int health = 100;
 
-    Object2 *body = nullptr;
+    Object *body = nullptr;
     Scene *scene = nullptr;
 
     CollisionManager *collisionManager = nullptr;
     DamageRegistry *damageRegistry = nullptr;
 
-    CharacterMotor2 characterMotor2;
+    CharacterMotor CharacterMotor;
 
     void die();
 

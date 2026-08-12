@@ -1,46 +1,43 @@
 #include <iostream>
 #include <algorithm>
-#include <glm/glm.hpp>
 
 #include "scene.h"
 
-Scene::Scene(CollisionManager &collisionManager, AssetLibrary &assetLibrary)
+Scene::Scene(World &world, AssetLibrary &assetLibrary)
 {
-    Scene::collisionManager = &collisionManager;
+    Scene::world = &world;
     Scene::assetLibrary = &assetLibrary;
 }
 
 void Scene::cleanupObjects()
 {
-    objects.erase(
+    world->objects.erase(
         std::remove_if(
-            objects.begin(),
-            objects.end(),
-            [this](const std::unique_ptr<Object2> &obj)
+            world->objects.begin(),
+            world->objects.end(),
+            [this](const std::unique_ptr<Object> &obj)
             {
                 if (!obj->queuedForDeletion)
                     return false;
 
-                collisionManager->unregisterObject(*obj);
-
                 return true;
             }),
-        objects.end());
+        world->objects.end());
 }
 
 void Scene::drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const
 {
-    for (const auto &obj : objects)
+    for (const auto &obj : world->objects)
     {
         obj->draw(view, projection);
     }
 }
 
-std::vector<Object2 *> Scene::getObjects()
+std::vector<Object *> Scene::getObjects()
 {
-    std::vector<Object2 *> result;
+    std::vector<Object *> result;
 
-    for (const auto &obj : objects)
+    for (const auto &obj : world->objects)
     {
         result.push_back(obj.get());
     }
@@ -48,9 +45,9 @@ std::vector<Object2 *> Scene::getObjects()
     return result;
 }
 
-Object2 *Scene::getObjectByName(const std::string &targetName)
+Object *Scene::getObjectByName(const std::string &targetName)
 {
-    for (auto &obj : objects)
+    for (auto &obj : world->objects)
     {
         if (obj->name == targetName)
             return obj.get();
@@ -59,9 +56,9 @@ Object2 *Scene::getObjectByName(const std::string &targetName)
     return nullptr;
 }
 
-ObjectCreationResult Scene::createObject(const ObjectCreationData &data)
+Object *Scene::createObject(const ObjectCreationData &data)
 {
-    auto newObj = std::make_unique<Object2>();
+    auto newObj = std::make_unique<Object>();
 
     if (data.name.has_value())
         newObj->name = data.name.value();
@@ -75,11 +72,9 @@ ObjectCreationResult Scene::createObject(const ObjectCreationData &data)
     newObj->mesh = assetLibrary->getMesh();
     newObj->transform = data.transform;
 
-    Object2 *objectPtr = newObj.get();
+    Object *objectPtr = newObj.get();
 
-    CollisionEntry *entry = collisionManager->registerObject(*newObj);
+    world->objects.push_back(std::move(newObj));
 
-    objects.push_back(std::move(newObj));
-
-    return {.object = objectPtr, .collisionEntry = entry};
+    return objectPtr;
 }

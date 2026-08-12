@@ -12,17 +12,17 @@ BulletSystem::BulletSystem(CollisionManager &collisionManager, DamageRegistry &d
 void BulletSystem::fire(
     const glm::vec2 &origin,
     const glm::vec2 &direction,
-    Object2 *ignore)
+    Object *ignore)
 {
     Transform2 trans{
         .position = origin,
         .rotation = std::atan2(direction.y, direction.x)};
 
-    ObjectCreationResult bulletObject = this->scene->createObject(
+    Object *bulletObject = this->scene->createObject(
         {.name = "bullet", .materialName = "bullet", .transform = trans});
 
     Bullet bullet = {
-        .object = bulletObject.object,
+        .object = bulletObject,
         .ignore = ignore,
         .direction = direction,
         .position = origin,

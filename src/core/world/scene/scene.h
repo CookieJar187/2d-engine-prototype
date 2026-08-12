@@ -1,11 +1,9 @@
 #pragma once
 
-#include <vector>
-#include <memory>
+#include <optional>
 #include <glm/glm.hpp>
 
-#include "object2.h"
-#include "collision_manager.h"
+#include "world.h"
 #include "asset_library.h"
 
 struct ObjectCreationData
@@ -16,27 +14,20 @@ struct ObjectCreationData
     Transform2 transform;
 };
 
-struct ObjectCreationResult
-{
-    Object2 *object = nullptr;
-    CollisionEntry *collisionEntry = nullptr;
-};
-
 class Scene
 {
 public:
-    Scene(CollisionManager &collisionManager, AssetLibrary &assetLibrary);
+    Scene(World &world, AssetLibrary &assetLibrary);
 
     void cleanupObjects();
     void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
 
-    std::vector<Object2 *> getObjects();
-    Object2 *getObjectByName(const std::string &targetName);
+    std::vector<Object *> getObjects();
+    Object *getObjectByName(const std::string &targetName);
 
-    ObjectCreationResult createObject(const ObjectCreationData &data);
+    Object *createObject(const ObjectCreationData &data);
 
 private:
+    World *world;
     AssetLibrary *assetLibrary;
-    CollisionManager *collisionManager;
-    std::vector<std::unique_ptr<Object2>> objects;
 };

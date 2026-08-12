@@ -4,7 +4,7 @@
 #include "asset_library.h"
 #include "ui_manager.h"
 #include "collision_manager.h"
-#include "camera2.h"
+#include "camera.h"
 #include "scene.h"
 #include "input.h"
 #include "damage_registry.h"

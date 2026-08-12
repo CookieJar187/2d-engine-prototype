@@ -9,7 +9,7 @@
 #include "transform2.h"
 #include "material.h"
 
-struct Object2
+struct Object
 {
 public:
     std::string name = "object";

@@ -3,9 +3,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "world.h"
 #include "input.h"
 #include "scene.h"
-#include "camera2.h"
+#include "camera.h"
 #include "ui_manager.h"
 #include "collision_manager.h"
 #include "game_fsm.h"
@@ -67,13 +68,15 @@ int main()
     AssetLibrary assetLibrary;
     ctx.assetLibrary = &assetLibrary;
 
-    CollisionManager collisionManager;
+    World world;
+
+    CollisionManager collisionManager{world};
     ctx.collisionManager = &collisionManager;
 
     Camera2 camera;
     ctx.camera2 = &camera;
 
-    Scene scene{collisionManager, assetLibrary};
+    Scene scene{world, assetLibrary};
     ctx.scene = &scene;
 
     Input input(window);

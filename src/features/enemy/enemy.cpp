@@ -9,13 +9,12 @@ Enemy::Enemy(Context &ctx)
     Enemy::scene = ctx.scene;
     Enemy::damageRegistry = ctx.damageRegistry;
 
-    ObjectCreationResult result = Enemy::scene->createObject(
+    Enemy::body = Enemy::scene->createObject(
         {.name = "enemy",
          .colliderName = "enemy",
          .materialName = "enemy"});
 
-    Enemy::body = result.object;
-    characterMotor2.init(*Enemy::body, *ctx.collisionManager, *result.collisionEntry);
+    CharacterMotor.init(*Enemy::body, *ctx.collisionManager);
 
     Enemy::damageRegistry->registerDamageable(Enemy::body, this);
 }

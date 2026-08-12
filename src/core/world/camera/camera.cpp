@@ -1,4 +1,4 @@
-#include "camera2.h"
+#include "camera.h"
 
 glm::mat4 Camera2::getViewMatrix() const
 {
@@ -20,9 +20,8 @@ glm::mat4 Camera2::getViewMatrix() const
 }
 
 glm::vec2 Camera2::screenToWorld(
-    const glm::vec2& screenPosition,
-    const glm::ivec2& viewportSize
-) const
+    const glm::vec2 &screenPosition,
+    const glm::ivec2 &viewportSize) const
 {
     float normalizedX = (2.0f * screenPosition.x) / static_cast<float>(viewportSize.x) - 1.0f;
     float normalizedY = 1.0f - (2.0f * screenPosition.y) / static_cast<float>(viewportSize.y);
@@ -31,8 +30,7 @@ glm::vec2 Camera2::screenToWorld(
         normalizedX,
         normalizedY,
         0.0f,
-        1.0f
-    );
+        1.0f);
 
     glm::mat4 inverseViewProjection = glm::inverse(this->projection * this->getViewMatrix());
     glm::vec4 worldPosition = inverseViewProjection * clipPosition;
@@ -42,6 +40,5 @@ glm::vec2 Camera2::screenToWorld(
 
     return glm::vec2(
         worldPosition.x,
-        worldPosition.y
-    );
+        worldPosition.y);
 }

@@ -1,14 +1,14 @@
 #include "collision_manager.h"
 
-std::optional<RaycastHit> CollisionManager::raycastAgainstEntry(const glm::vec2 &start, const glm::vec2 &end, const CollisionEntry &entry)
+std::optional<RaycastHit> CollisionManager::raycastAgainstObject(const glm::vec2 &start, const glm::vec2 &end, Object &object)
 {
     constexpr float epsilon = 0.000001f;
 
-    if (entry.object == nullptr || entry.collider == nullptr || entry.tansform == nullptr)
+    if (object.collider == nullptr)
         return std::nullopt;
 
-    const AabbCollider *box = entry.collider;
-    const glm::vec2 boxCenter = entry.tansform->position;
+    const AabbCollider *box = object.collider;
+    const glm::vec2 boxCenter = object.transform.position;
 
     const glm::vec2 localStart = start - boxCenter;
     const glm::vec2 localEnd = end - boxCenter;
@@ -83,8 +83,8 @@ std::optional<RaycastHit> CollisionManager::raycastAgainstEntry(const glm::vec2 
 
     RaycastHit hit{};
 
-    hit.object = entry.object;
-    hit.collider = entry.collider;
+    hit.object = &object;
+    hit.collider = object.collider;
     hit.point = start + (end - start) * tMin;
     hit.normal = hitNormal;
     hit.fraction = tMin;
@@ -96,21 +96,20 @@ std::optional<RaycastHit> CollisionManager::raycastAgainstEntry(const glm::vec2 
 std::optional<RaycastHit> CollisionManager::raycast(
     const glm::vec2 &start,
     const glm::vec2 &end,
-    const Object2 *ignore
-)
+    const Object *ignore)
 {
     std::optional<RaycastHit> closestHit;
     float closestFraction = 1.0f;
 
-    for (CollisionEntry *entry : entries)
+    for (auto &object : world->objects)
     {
-        if (entry == nullptr || entry->object == nullptr || entry->collider == nullptr || entry->tansform == nullptr)
+        if (object->collider == nullptr)
             continue;
 
-        if (entry->object == ignore)
+        if (object.get() == ignore)
             continue;
 
-        std::optional<RaycastHit> hit = raycastAgainstEntry(start, end, *entry);
+        std::optional<RaycastHit> hit = raycastAgainstObject(start, end, *object.get());
 
         if (hit.has_value() && hit->fraction < closestFraction)
         {

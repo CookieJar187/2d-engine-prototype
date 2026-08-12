@@ -15,17 +15,16 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(2DEnginePrototype
     src/main.cpp
-    src/core/texture/texture_loader/texture_loader.cpp
-    src/core/camera2/camera2.cpp
-    src/core/rendering/mesh_factory/mesh_factory.cpp
-    src/core/rendering/shader_loader/shader_loader.cpp
+    src/core/mesh_factory/mesh_factory.cpp
+    src/core/loaders/texture_loader/texture_loader.cpp
+    src/core/loaders/shader_loader/shader_loader.cpp
+    src/core/world/camera/camera.cpp
     src/core/world/scene/scene.cpp
-    src/core/world/object2/object2.cpp
+    src/core/world/object/object.cpp
+    src/core/world/collision/collision_manager/collision_manager.cpp
+    src/core/world/collision/collision_manager/collision_raycast.cpp
+    src/core/world/collision/character_motor/character_motor.cpp
     src/core/input/input.cpp
-    src/core/collision/collision_manager/collision_manager.cpp
-    src/core/collision/collision_manager/collision_raycast.cpp
-    src/core/collision/collision_manager/collision_registry.cpp
-    src/core/collision/character_motor2/character_motor2.cpp
 
     src/game_fsm/game_fsm.cpp
 
@@ -45,23 +44,23 @@ add_executable(2DEnginePrototype
 
 target_include_directories(2DEnginePrototype PRIVATE
     src
-    src/core/camera2
-    src/core/texture/texture
-    src/core/texture/texture_loader
-    src/core/rendering/material
-    src/core/rendering/mesh
-    src/core/rendering/mesh_factory
-    src/core/rendering/shader
-    src/core/rendering/shader_loader
-    src/core/world/object2
+    src/core/mesh_factory
+    src/core/loaders/texture_loader
+    src/core/loaders/shader_loader
+    src/core/world/camera
+    src/core/world
+    src/core/world/object
+    src/core/world/object/rendering/material
+    src/core/world/object/rendering/mesh
+    src/core/world/object/rendering/shader
+    src/core/world/object/rendering/texture
     src/core/world/scene
     src/core/world/object_creation_result
     src/core/math/transform2
+    src/core/world/collision/collision_manager
+    src/core/world/collision/aabb_collider
+    src/core/world/collision/character_motor
     src/core/input
-    src/core/collision/aabb_collider
-    src/core/collision/collision_manager
-    src/core/collision/collision_entry
-    src/core/collision/character_motor2
 
     src/game_fsm
 

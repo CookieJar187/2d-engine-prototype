@@ -11,13 +11,12 @@ Player::Player(Context &ctx)
     this->camera = ctx.camera2;
     this->bulletSystem = ctx.bulletSystem;
 
-    ObjectCreationResult result = this->scene->createObject(
+    this->body = this->scene->createObject(
         {.name = "player",
          .colliderName = "player",
          .materialName = "player"});
 
-    this->body = result.object;
-    characterMotor2.init(*this->body, *ctx.collisionManager, *result.collisionEntry);
+    CharacterMotor.init(*this->body, *ctx.collisionManager);
 }
 
 void Player::update(float deltaTime)
@@ -42,7 +41,7 @@ void Player::update(float deltaTime)
         glm::vec2 velocity = glm::normalize(inputDirection);
         velocity.x *= MAX_SPEED * deltaTime;
         velocity.y *= MAX_SPEED * deltaTime;
-        characterMotor2.moveAndSlide(velocity);
+        CharacterMotor.moveAndSlide(velocity);
     }
 
     if (input->isMouseButtonJustPressed(0))

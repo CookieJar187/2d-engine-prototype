@@ -2,7 +2,7 @@
 
 #include "damage_registry.h"
 
-void DamageRegistry::registerDamageable(Object2 *object, Damageable *damageable)
+void DamageRegistry::registerDamageable(Object *object, Damageable *damageable)
 {
     if (object == nullptr || damageable == nullptr)
         return;
@@ -10,12 +10,12 @@ void DamageRegistry::registerDamageable(Object2 *object, Damageable *damageable)
     entries[object] = damageable;
 }
 
-void DamageRegistry::unregisterDamageable(Object2 *object)
+void DamageRegistry::unregisterDamageable(Object *object)
 {
     entries.erase(object);
 }
 
-Damageable *DamageRegistry::getDamageable(Object2 *object) const
+Damageable *DamageRegistry::getDamageable(Object *object) const
 {
     auto it = entries.find(object);
 

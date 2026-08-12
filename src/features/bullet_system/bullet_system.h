@@ -8,12 +8,12 @@
 #include "scene.h"
 #include "collision_manager.h"
 #include "damage_registry.h"
-#include "object2.h"
+#include "object.h"
 
 struct Bullet
 {
-    Object2 *object = nullptr;
-    Object2 *ignore = nullptr;
+    Object *object = nullptr;
+    Object *ignore = nullptr;
     glm::vec2 direction;
     glm::vec2 position;
     float lifespan = 0.5f;
@@ -28,8 +28,7 @@ public:
     void fire(
         const glm::vec2 &origin,
         const glm::vec2 &direction,
-        Object2 *ignore = nullptr
-    );
+        Object *ignore = nullptr);
 
     void update(float deltaTime);
 
