@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(ArmyDefense LANGUAGES CXX)
+project(2DEnginePrototype LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,7 +13,7 @@ find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
-add_executable(ArmyDefense
+add_executable(2DEnginePrototype
     src/main.cpp
     src/core/texture/texture_loader/texture_loader.cpp
     src/core/camera2/camera2.cpp
@@ -43,7 +43,7 @@ add_executable(ArmyDefense
     src/asset_library/asset_library.cpp
 )
 
-target_include_directories(ArmyDefense PRIVATE
+target_include_directories(2DEnginePrototype PRIVATE
     src
     src/core/camera2
     src/core/texture/texture
@@ -83,7 +83,7 @@ target_include_directories(ArmyDefense PRIVATE
     ${Stb_INCLUDE_DIR}
 )
 
-target_link_libraries(ArmyDefense PRIVATE
+target_link_libraries(2DEnginePrototype PRIVATE
     glfw
     glad::glad
     glm::glm

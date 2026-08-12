@@ -7,6 +7,11 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+void Object2::queueFree()
+{
+    queuedForDeletion = true;
+}
+
 glm::mat4 Object2::getModelMatrix() const
 {
     glm::mat4 model = glm::mat4(1.0f);

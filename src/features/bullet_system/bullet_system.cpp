@@ -12,13 +12,11 @@ BulletSystem::BulletSystem(CollisionManager &collisionManager, DamageRegistry &d
 void BulletSystem::fire(
     const glm::vec2 &origin,
     const glm::vec2 &direction,
-    Object2 *ignore
-)
+    Object2 *ignore)
 {
     Transform2 trans{
         .position = origin,
-        .rotation = std::atan2(direction.y, direction.x)
-    };
+        .rotation = std::atan2(direction.y, direction.x)};
 
     ObjectCreationResult bulletObject = this->scene->createObject(
         {.name = "bullet", .materialName = "bullet", .transform = trans});
@@ -28,8 +26,7 @@ void BulletSystem::fire(
         .ignore = ignore,
         .direction = direction,
         .position = origin,
-        .index = bullets.size()
-    };
+        .index = bullets.size()};
 
     bullets.push_back(bullet);
 }
@@ -39,7 +36,7 @@ void BulletSystem::update(float deltaTime)
     for (auto &bullet : bullets)
     {
         glm::vec2 targetPos = bullet.position + (bullet.direction * BULLET_SPEED * deltaTime);
-        
+
         std::optional<RaycastHit> hit = BulletSystem::collisionManager->raycast(
             bullet.position,
             targetPos,
@@ -75,5 +72,6 @@ void BulletSystem::deleteBullet(Bullet &bullet)
 {
     int index = bullet.index;
 
+    bullet.object->queueFree();
     bullets.erase(bullets.begin() + index);
 }

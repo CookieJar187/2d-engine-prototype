@@ -11,7 +11,6 @@
 
 struct Object2
 {
-
 public:
     std::string name = "object";
     Mesh *mesh = nullptr;
@@ -19,6 +18,9 @@ public:
     Material *material = nullptr;
     Transform2 transform{};
 
+    bool queuedForDeletion = false;
+
+    void queueFree();
     void draw(const glm::mat4 &view, const glm::mat4 &projection) const;
 
 private:

@@ -1,6 +1,5 @@
 {
-  "name": "army-defense",
-  "version-string": "0.1.0",
+  "name": "2d-engine-prototype",
   "dependencies": [
     "stb",
     "glad",

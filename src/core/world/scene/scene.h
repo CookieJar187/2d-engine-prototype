@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include <glm/glm.hpp>
 
 #include "object2.h"
@@ -26,10 +27,10 @@ class Scene
 public:
     Scene(CollisionManager &collisionManager, AssetLibrary &assetLibrary);
 
+    void cleanupObjects();
     void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
 
     std::vector<Object2 *> getObjects();
-    std::vector<Object2 *> getObjectsByName(const std::string &targetName);
     Object2 *getObjectByName(const std::string &targetName);
 
     ObjectCreationResult createObject(const ObjectCreationData &data);
@@ -37,5 +38,5 @@ public:
 private:
     AssetLibrary *assetLibrary;
     CollisionManager *collisionManager;
-    std::vector<Object2 *> objects;
+    std::vector<std::unique_ptr<Object2>> objects;
 };
