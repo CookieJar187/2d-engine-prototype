@@ -10,15 +10,14 @@
 #include "ui_manager.h"
 #include "collision_manager.h"
 #include "game_fsm.h"
-#include "asset_library.h"
+#include "resource_manager.hpp"
 
+#include "game_assets.hpp"
 #include "player.h"
 #include "enemy.h"
 #include "tilemap.h"
 #include "damage_registry.h"
 #include "bullet_system.h"
-
-#include "context.h"
 
 int main()
 {
@@ -52,47 +51,30 @@ int main()
         return 1;
     }
 
-    // Context
-    Context ctx;
-
     // Game state
     GameFsm gameFsm;
-    ctx.gameFsm = &gameFsm;
 
     // Ui
     UiManager uiManager;
     uiManager.init(window, &gameFsm);
-    ctx.uiManager = &uiManager;
 
     // Core
-    AssetLibrary assetLibrary;
-    ctx.assetLibrary = &assetLibrary;
-
+    ResourceManager resourceManager;
     World world;
-
     CollisionManager collisionManager{world};
-    ctx.collisionManager = &collisionManager;
-
     Camera2 camera;
-    ctx.camera2 = &camera;
-
-    Scene scene{world, assetLibrary};
-    ctx.scene = &scene;
-
+    Scene scene{world, resourceManager};
     Input input(window);
-    ctx.input = &input;
 
     // Features
+    GameAssets gameAssets{resourceManager};
     DamageRegistry damageRegistry;
-    ctx.damageRegistry = &damageRegistry;
-
     BulletSystem bulletSystem{collisionManager, damageRegistry, scene};
-    ctx.bulletSystem = &bulletSystem;
 
-    Tilemap tilemap{ctx};
+    Tilemap tilemap{scene};
     tilemap.load();
-    Player player{ctx};
-    Enemy enemy{ctx};
+    Player player{scene, input, camera, collisionManager, bulletSystem};
+    Enemy enemy{scene, damageRegistry, collisionManager};
 
     // Process
     float deltaTime = 0.0f;

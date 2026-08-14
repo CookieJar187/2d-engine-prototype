@@ -4,17 +4,21 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
-Enemy::Enemy(Context &ctx)
+Enemy::Enemy(
+    Scene &scene,
+    DamageRegistry &damageRegistry,
+    CollisionManager &collisionManager
+)
 {
-    Enemy::scene = ctx.scene;
-    Enemy::damageRegistry = ctx.damageRegistry;
+    Enemy::scene = &scene;
+    Enemy::damageRegistry = &damageRegistry;
 
     Enemy::body = Enemy::scene->createObject(
         {.name = "enemy",
          .colliderName = "enemy",
          .materialName = "enemy"});
 
-    CharacterMotor.init(*Enemy::body, *ctx.collisionManager);
+    CharacterMotor.init(*Enemy::body, collisionManager);
 
     Enemy::damageRegistry->registerDamageable(Enemy::body, this);
 }

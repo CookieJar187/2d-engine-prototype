@@ -15,6 +15,7 @@ find_package(imgui CONFIG REQUIRED)
 
 add_executable(2DEnginePrototype
     src/main.cpp
+    src/core/resource_manager/resource_manager.cpp
     src/core/mesh_factory/mesh_factory.cpp
     src/core/loaders/texture_loader/texture_loader.cpp
     src/core/loaders/shader_loader/shader_loader.cpp
@@ -33,17 +34,17 @@ add_executable(2DEnginePrototype
     src/ui/screens/settings/settings.cpp
     src/ui/screens/level_selection/level_selection.cpp
 
+    src/features/game_assets/game_assets.cpp
     src/features/player/player.cpp
     src/features/enemy/enemy.cpp
     src/features/tilemap/tilemap.cpp
     src/features/damage/damage_registry.cpp
     src/features/bullet_system/bullet_system.cpp
-
-    src/asset_library/asset_library.cpp
 )
 
 target_include_directories(2DEnginePrototype PRIVATE
     src
+    src/core/resource_manager
     src/core/mesh_factory
     src/core/loaders/texture_loader
     src/core/loaders/shader_loader
@@ -69,15 +70,12 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/ui/screens/settings
     src/ui/screens/level_selection
 
+    src/features/game_assets
     src/features/player
     src/features/enemy
     src/features/tilemap
     src/features/damage
     src/features/bullet_system
-
-    src/asset_library
-
-    src/context
 
     ${Stb_INCLUDE_DIR}
 )

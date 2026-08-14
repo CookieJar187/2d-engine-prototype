@@ -1,13 +1,13 @@
 #pragma once
 
-#include "context.h"
-
 #define TILE_SIZE 100
+
+#include "scene.h"
 
 class Tilemap
 {
 public:
-    Tilemap(Context &ctx);
+    Tilemap(Scene &scene);
     void load();
 
 private:

@@ -7,8 +7,6 @@
 #include "character_motor.h"
 #include "collision_manager.h"
 
-#include "context.h"
-
 #include "damageable.h"
 #include "damage_registry.h"
 
@@ -28,7 +26,12 @@ private:
     void die();
 
 public:
-    Enemy(Context &ctx);
+    Enemy(   
+        Scene &scene,
+        DamageRegistry &damageRegistry,
+        CollisionManager &collisionManager
+    );
+    
     void update(float deltaTime);
     void takeDamage(float amount) override;
 };

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "world.h"
-#include "asset_library.h"
+#include "resource_manager.hpp"
 
 struct ObjectCreationData
 {
@@ -17,7 +17,7 @@ struct ObjectCreationData
 class Scene
 {
 public:
-    Scene(World &world, AssetLibrary &assetLibrary);
+    Scene(World &world, ResourceManager &resourceManager);
 
     void cleanupObjects();
     void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
@@ -29,5 +29,5 @@ public:
 
 private:
     World *world;
-    AssetLibrary *assetLibrary;
+    ResourceManager *resourceManager;
 };

@@ -4,19 +4,25 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
-Player::Player(Context &ctx)
+Player::Player(
+    Scene &scene,
+    Input &input,
+    Camera2 &camera,
+    CollisionManager &collisionManager,
+    BulletSystem &bulletSystem
+)
 {
-    this->scene = ctx.scene;
-    this->input = ctx.input;
-    this->camera = ctx.camera2;
-    this->bulletSystem = ctx.bulletSystem;
+    this->scene = &scene;
+    this->input = &input;
+    this->camera = &camera;
+    this->bulletSystem = &bulletSystem;
 
     this->body = this->scene->createObject(
         {.name = "player",
          .colliderName = "player",
          .materialName = "player"});
 
-    CharacterMotor.init(*this->body, *ctx.collisionManager);
+    CharacterMotor.init(*this->body, collisionManager);
 }
 
 void Player::update(float deltaTime)

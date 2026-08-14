@@ -3,10 +3,10 @@
 
 #include "scene.h"
 
-Scene::Scene(World &world, AssetLibrary &assetLibrary)
+Scene::Scene(World &world, ResourceManager &resourceManager)
 {
-    Scene::world = &world;
-    Scene::assetLibrary = &assetLibrary;
+    this->world = &world;
+    this->resourceManager = &resourceManager;
 }
 
 void Scene::cleanupObjects()
@@ -64,12 +64,12 @@ Object *Scene::createObject(const ObjectCreationData &data)
         newObj->name = data.name.value();
 
     if (data.colliderName.has_value())
-        newObj->collider = assetLibrary->getCollider(data.colliderName.value());
+        newObj->collider = resourceManager->getCollider(data.colliderName.value());
 
     if (data.materialName.has_value())
-        newObj->material = assetLibrary->getMaterial(data.materialName.value());
+        newObj->material = resourceManager->getMaterial(data.materialName.value());
 
-    newObj->mesh = assetLibrary->getMesh();
+    newObj->mesh = resourceManager->getMesh("sprite");
     newObj->transform = data.transform;
 
     Object *objectPtr = newObj.get();

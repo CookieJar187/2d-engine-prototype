@@ -9,8 +9,7 @@
 #include "character_motor.h"
 #include "collision_manager.h"
 
-#include "context.h"
-
+#include "bullet_system.h"
 #include "damageable.h"
 #include "damage_registry.h"
 
@@ -33,7 +32,14 @@ private:
     void die();
 
 public:
-    Player(Context &ctx);
+    Player(
+        Scene &scene,
+        Input &input,
+        Camera2 &camera,
+        CollisionManager &collisionManager,
+        BulletSystem &bulletSystem
+    );
+
     void update(float deltaTime);
     void takeDamage(float amount) override;
 };

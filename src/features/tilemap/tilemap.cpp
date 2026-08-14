@@ -1,8 +1,8 @@
 #include "tilemap.h"
 
-Tilemap::Tilemap(Context &ctx)
+Tilemap::Tilemap(Scene &scene)
 {
-    Tilemap::scene = ctx.scene;
+    Tilemap::scene = &scene;
 }
 
 void Tilemap::load()
@@ -13,7 +13,7 @@ void Tilemap::load()
         {
             if (matrix[i][j] == 1)
             {
-                Object *wallObj = scene->createObject({.name = "wall", .colliderName = "wall", .materialName = "wall"});
+                Object *wallObj = scene->createObject({.name = "wall", .colliderName = "wall", .materialName = "bricks"});
                 wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
             }
         }
