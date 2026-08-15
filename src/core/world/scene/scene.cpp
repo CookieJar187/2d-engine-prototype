@@ -63,13 +63,15 @@ Object *Scene::createObject(const ObjectCreationData &data)
     if (data.name.has_value())
         newObj->name = data.name.value();
 
-    if (data.colliderName.has_value())
-        newObj->collider = resourceManager->getCollider(data.colliderName.value());
+    if (data.meshId.has_value())
+        newObj->mesh = resourceManager->getMesh(data.meshId.value());
 
-    if (data.materialName.has_value())
-        newObj->material = resourceManager->getMaterial(data.materialName.value());
+    if (data.colliderId.has_value())
+        newObj->collider = resourceManager->getCollider(data.colliderId.value());
 
-    newObj->mesh = resourceManager->getMesh("sprite");
+    if (data.materialId.has_value())
+        newObj->material = resourceManager->getMaterial(data.materialId.value());
+
     newObj->transform = data.transform;
 
     Object *objectPtr = newObj.get();

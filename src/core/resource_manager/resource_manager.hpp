@@ -25,8 +25,11 @@ public:
     Material* getMaterial(const std::string& id);
     AabbCollider* getCollider(const std::string& id);
 
-    void addMesh(
+    void addQuadMesh(
         const std::string& id);
+    void addMeshFromFile(
+        const std::string& id,
+        const std::string& path);
     void addShader(
         const std::string& id,
         const std::string& vertexShaderPath,

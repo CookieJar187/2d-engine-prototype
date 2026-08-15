@@ -19,8 +19,9 @@ Player::Player(
 
     this->body = this->scene->createObject(
         {.name = "player",
-         .colliderName = "player",
-         .materialName = "player"});
+         .meshId = "sprite_mesh",
+         .colliderId = "character_collider",
+         .materialId = "player_material"});
 
     CharacterMotor.init(*this->body, collisionManager);
 }

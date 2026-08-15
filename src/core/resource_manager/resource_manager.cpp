@@ -1,6 +1,6 @@
 #include "resource_manager.hpp"
 
-#include "mesh_factory.h"
+#include "mesh_loader.h"
 #include "shader_loader.h"
 #include "texture_loader.h"
 
@@ -41,9 +41,17 @@ AabbCollider *ResourceManager::getCollider(const std::string& id)
 }
 
 // SET
-void ResourceManager::addMesh(const std::string& id)
+void ResourceManager::addQuadMesh(const std::string& id)
 {
-    Mesh mesh = MeshFactory::createSquare();
+    Mesh mesh = MeshLoader::loadQuad();
+    this->meshes[id] = std::make_unique<Mesh>(std::move(mesh));
+}
+void ResourceManager::addMeshFromFile(
+    const std::string& id,
+    const std::string& path
+)
+{
+    Mesh mesh = MeshLoader::load(path);
     this->meshes[id] = std::make_unique<Mesh>(std::move(mesh));
 }
 void ResourceManager::addShader(

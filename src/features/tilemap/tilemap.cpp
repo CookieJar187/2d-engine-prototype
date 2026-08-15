@@ -13,7 +13,11 @@ void Tilemap::load()
         {
             if (matrix[i][j] == 1)
             {
-                Object *wallObj = scene->createObject({.name = "wall", .colliderName = "wall", .materialName = "bricks"});
+                Object *wallObj = scene->createObject({
+                    .name = "wall",
+                    .meshId = "sprite_mesh",
+                    .colliderId = "wall",
+                    .materialId = "bricks_material"});
                 wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
             }
         }

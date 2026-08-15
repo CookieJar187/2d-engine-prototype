@@ -16,10 +16,14 @@ void BulletSystem::fire(
 {
     Transform2 trans{
         .position = origin,
-        .rotation = std::atan2(direction.y, direction.x)};
+        .rotation = std::atan2(direction.y, direction.x),
+        .scale = glm::vec2(50, 50)};
 
-    Object *bulletObject = this->scene->createObject(
-        {.name = "bullet", .materialName = "bullet", .transform = trans});
+    Object *bulletObject = this->scene->createObject({
+        .name = "bullet",
+        .meshId = "sprite_mesh",
+        .materialId = "bullet_material",
+        .transform = trans});
 
     Bullet bullet = {
         .object = bulletObject,

@@ -16,7 +16,7 @@ find_package(imgui CONFIG REQUIRED)
 add_executable(2DEnginePrototype
     src/main.cpp
     src/core/resource_manager/resource_manager.cpp
-    src/core/mesh_factory/mesh_factory.cpp
+    src/core/loaders/mesh_loader/mesh_loader.cpp
     src/core/loaders/texture_loader/texture_loader.cpp
     src/core/loaders/shader_loader/shader_loader.cpp
     src/core/world/camera/camera.cpp
@@ -45,7 +45,7 @@ add_executable(2DEnginePrototype
 target_include_directories(2DEnginePrototype PRIVATE
     src
     src/core/resource_manager
-    src/core/mesh_factory
+    src/core/loaders/mesh_loader
     src/core/loaders/texture_loader
     src/core/loaders/shader_loader
     src/core/world/camera

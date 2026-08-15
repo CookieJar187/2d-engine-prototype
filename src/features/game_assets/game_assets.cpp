@@ -6,71 +6,67 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
 
     // Shaders
     this->resourceManager->addShader(
-        "sprite",
+        "sprite_shader",
         "src/shaders/vertex2.txt",
         "src/shaders/fragment2.txt");
         
     // Meshes
-    this->resourceManager->addMesh(
-        "sprite"
+    this->resourceManager->addQuadMesh(
+        "sprite_mesh"
     );
 
     // Textures
     this->resourceManager->addTexture(
-        "placeholder",
+        "placeholder_texture",
         "src/assets/textures/placeholder.png"
     );
     this->resourceManager->addTexture(
-        "bricks",
+        "bricks_texture",
         "src/assets/textures/bricks.png"
     );
     this->resourceManager->addTexture(
-        "player",
+        "player_texture",
         "src/assets/textures/player.png"
     );
     this->resourceManager->addTexture(
-        "enemy",
+        "enemy_texture",
         "src/assets/textures/enemy.png"
     );
     this->resourceManager->addTexture(
-        "bullet",
+        "bullet_texture",
         "src/assets/textures/bullet.png"
     );
 
     // Materials
     this->resourceManager->addMaterial(
-        "placeholder",
-        "sprite",
-        "placeholder"
+        "placeholder_material",
+        "sprite_shader",
+        "placeholder_texture"
     );
     this->resourceManager->addMaterial(
-        "bricks",
-        "sprite",
-        "bricks"
+        "bricks_material",
+        "sprite_shader",
+        "bricks_texture"
     );
     this->resourceManager->addMaterial(
-        "player",
-        "sprite",
-        "player"
+        "player_material",
+        "sprite_shader",
+        "player_texture"
     );
     this->resourceManager->addMaterial(
-        "enemy",
-        "sprite",
-        "enemy"
+        "enemy_material",
+        "sprite_shader",
+        "enemy_texture"
     );
     this->resourceManager->addMaterial(
-        "bullet",
-        "sprite",
-        "bullet"
+        "bullet_material",
+        "sprite_shader",
+        "bullet_texture"
     );
 
     // Colliders
     this->resourceManager->addCollider(
-        "player",
-        glm::vec2(40, 40)
-    );
-    this->resourceManager->addCollider(
-        "enemy",
+        "character_collider",
         glm::vec2(40, 40)
     );
     this->resourceManager->addCollider(

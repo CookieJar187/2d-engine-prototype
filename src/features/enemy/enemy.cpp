@@ -15,8 +15,9 @@ Enemy::Enemy(
 
     Enemy::body = Enemy::scene->createObject(
         {.name = "enemy",
-         .colliderName = "enemy",
-         .materialName = "enemy"});
+         .meshId = "sprite_mesh",
+         .colliderId = "character_collider",
+         .materialId = "enemy_material"});
 
     CharacterMotor.init(*Enemy::body, collisionManager);
 
