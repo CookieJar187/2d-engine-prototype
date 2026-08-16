@@ -18,6 +18,7 @@
 #include "tilemap.h"
 #include "damage_registry.h"
 #include "bullet_system.h"
+#include "character_manager.hpp"
 
 int main()
 {
@@ -73,8 +74,19 @@ int main()
 
     Tilemap tilemap{scene};
     tilemap.load();
-    Player player{scene, input, camera, collisionManager, bulletSystem};
-    Enemy enemy{scene, damageRegistry, collisionManager};
+
+    CharacterManager characterManager{
+        scene,
+        input,
+        camera,
+        collisionManager,
+        bulletSystem,
+        damageRegistry,
+        resourceManager,
+        tilemap
+    };
+    characterManager.spawnPlayer();
+    characterManager.spawnEnemy();
 
     // Process
     float deltaTime = 0.0f;
@@ -94,8 +106,7 @@ int main()
 
         // Features
         bulletSystem.update(deltaTime);
-        player.update(deltaTime);
-        enemy.update(deltaTime);
+        characterManager.update(deltaTime);
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);

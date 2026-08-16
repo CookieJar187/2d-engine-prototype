@@ -49,7 +49,7 @@ void BulletSystem::update(float deltaTime)
         if (hit.has_value())
         {
             Damageable *damageable = damageRegistry->getDamageable(hit->object);
-
+            
             if (damageable != nullptr)
             {
                 damageable->takeDamage(25.0f);

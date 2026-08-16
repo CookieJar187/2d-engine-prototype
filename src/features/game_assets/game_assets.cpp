@@ -29,8 +29,16 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "src/assets/textures/player.png"
     );
     this->resourceManager->addTexture(
+        "player_hit_texture",
+        "src/assets/textures/player_hit.png"
+    );
+    this->resourceManager->addTexture(
         "enemy_texture",
         "src/assets/textures/enemy.png"
+    );
+    this->resourceManager->addTexture(
+        "enemy_hit_texture",
+        "src/assets/textures/enemy_hit.png"
     );
     this->resourceManager->addTexture(
         "bullet_texture",

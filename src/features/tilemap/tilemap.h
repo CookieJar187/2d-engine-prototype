@@ -1,6 +1,11 @@
 #pragma once
 
 #define TILE_SIZE 100
+#define MAP_HEIGHT 10
+#define MAP_WIDTH 10
+
+#include <vector>
+#include <glm/common.hpp>
 
 #include "scene.h"
 
@@ -8,7 +13,10 @@ class Tilemap
 {
 public:
     Tilemap(Scene &scene);
+
     void load();
+
+    std::vector<glm::ivec2> pathfind(const glm::vec2 startPos, const glm::vec2 endPos);
 
 private:
     Scene *scene;
@@ -16,7 +24,7 @@ private:
     Texture wallTexture;
     Material wallMaterial;
 
-    int matrix[10][10] = {
+    int map[MAP_HEIGHT][MAP_WIDTH] = {
         {0, 0, 0, 0, 1, 1, 0, 0, 1, 1},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 0, 1, 1, 0, 0, 1},
@@ -28,4 +36,7 @@ private:
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     };
+
+    glm::ivec2 getTileFromPosition(const glm::vec2 pos);
+    glm::vec2 getPositionFromTile(const glm::ivec2 tile);
 };

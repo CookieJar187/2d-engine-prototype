@@ -34,10 +34,13 @@ add_executable(2DEnginePrototype
     src/ui/screens/settings/settings.cpp
     src/ui/screens/level_selection/level_selection.cpp
 
+    src/features/character_manager/character_manager.cpp
+    src/features/character_manager/player/player.cpp
+    src/features/character_manager/enemy/enemy.cpp
+    src/features/character_manager/enemy/enemy_damage.cpp
     src/features/game_assets/game_assets.cpp
-    src/features/player/player.cpp
-    src/features/enemy/enemy.cpp
     src/features/tilemap/tilemap.cpp
+    src/features/tilemap/tilemap_pathfinding.cpp
     src/features/damage/damage_registry.cpp
     src/features/bullet_system/bullet_system.cpp
 )
@@ -71,8 +74,9 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/ui/screens/level_selection
 
     src/features/game_assets
-    src/features/player
-    src/features/enemy
+    src/features/character_manager
+    src/features/character_manager/player
+    src/features/character_manager/enemy
     src/features/tilemap
     src/features/damage
     src/features/bullet_system
