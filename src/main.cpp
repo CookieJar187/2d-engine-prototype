@@ -112,7 +112,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
         scene.cleanupObjects();
         scene.drawObjects(camera.getViewMatrix(), camera.projection);
-
+        
         // Draw ui
         uiManager.drawUi();
         glfwSwapBuffers(window);

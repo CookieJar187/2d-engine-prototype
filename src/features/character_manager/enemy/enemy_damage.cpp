@@ -10,8 +10,7 @@ void Enemy::updateDamage(float deltaTime)
 
         if (this->deathEffectElapsed > DEATH_EFFECT_DURATION)
         {
-            if (this->body != nullptr)
-                this->body->queueFree();
+            queueFree();
         }
     }
     else if (this->damageEffect == true)

@@ -16,8 +16,6 @@ public:
 
     void load();
 
-    std::vector<glm::ivec2> pathfind(const glm::vec2 startPos, const glm::vec2 endPos);
-
 private:
     Scene *scene;
 

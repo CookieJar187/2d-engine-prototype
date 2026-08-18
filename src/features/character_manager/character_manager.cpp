@@ -25,6 +25,14 @@ CharacterManager::CharacterManager(
 
 void CharacterManager::update(float deltaTime)
 {
+    // Delete queued for deletion
+    for (int i = enemies.size() - 1; i >= 0; i--)
+    {
+        if (enemies[i].get()->queuedForDeletion)
+            enemies.erase(enemies.begin() + i);
+    }
+
+    // Update the rest
     if (player != nullptr)
         player.get()->update(deltaTime);
 

@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/epsilon.hpp>
 
+#include "pathfinding.hpp"
+
 Enemy::Enemy(
     Scene &scene,
     DamageRegistry &damageRegistry,
@@ -28,11 +30,22 @@ Enemy::Enemy(
 
     this->damageRegistry->registerDamageable(this->body, this);
 
-    std::vector<glm::ivec2> thing = this->tileset->pathfind(glm::vec2(100, -100), glm::vec2(600, -600));
-    for (auto &v : thing)
+    std::vector<glm::ivec2> ding = pathfinding::getPathTo(glm::ivec2(1, 1), glm::ivec2(6, 6), tileset);
+    for (auto &g : ding)
     {
-        std::cout << v.x << ", " << v.y << std::endl;
+        std::cout << g.x << ", " << g.y << std::endl;
     }
+}
+
+Enemy::~Enemy()
+{
+    if (this->body != nullptr)
+        this->body->queueFree();
+}
+
+void Enemy::queueFree() 
+{
+    queuedForDeletion = true;
 }
 
 void Enemy::update(float deltaTime)

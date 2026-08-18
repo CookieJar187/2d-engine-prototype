@@ -14,7 +14,7 @@
 #include "damageable.h"
 #include "damage_registry.h"
 
-class Enemy : Damageable
+class Enemy : public Damageable
 {
 private:
     Scene *scene = nullptr;
@@ -35,7 +35,7 @@ private:
 
     void death();
     void updateDamage(float deltaTime);
-
+    
 public:
     Enemy(   
         Scene &scene,
@@ -44,6 +44,12 @@ public:
         ResourceManager &resourceManager,
         Tilemap &tileset
     );
+
+    ~Enemy();
+
+    bool queuedForDeletion = false;
+
+    void queueFree();
     
     void update(float deltaTime);
     void takeDamage(float amount) override;

@@ -17,7 +17,6 @@ struct Bullet
     glm::vec2 direction;
     glm::vec2 position;
     float lifespan = 0.5f;
-    unsigned __int64 index;
 };
 
 class BulletSystem
@@ -39,5 +38,5 @@ private:
 
     std::vector<Bullet> bullets;
 
-    void deleteBullet(Bullet &bullet);
+    void deleteBullet(Bullet *bullet, int index);
 };

@@ -29,22 +29,23 @@ void BulletSystem::fire(
         .object = bulletObject,
         .ignore = ignore,
         .direction = direction,
-        .position = origin,
-        .index = bullets.size()};
+        .position = origin};
 
     bullets.push_back(bullet);
 }
 
 void BulletSystem::update(float deltaTime)
 {
-    for (auto &bullet : bullets)
+    for (int i = bullets.size() - 1; i >= 0; i--)
     {
-        glm::vec2 targetPos = bullet.position + (bullet.direction * BULLET_SPEED * deltaTime);
+        Bullet *bullet = &bullets[i];
+
+        glm::vec2 targetPos = bullet->position + (bullet->direction * BULLET_SPEED * deltaTime);
 
         std::optional<RaycastHit> hit = BulletSystem::collisionManager->raycast(
-            bullet.position,
+            bullet->position,
             targetPos,
-            bullet.ignore);
+            bullet->ignore);
 
         if (hit.has_value())
         {
@@ -56,26 +57,24 @@ void BulletSystem::update(float deltaTime)
             }
             else
             {
-                std::cout << "Hit a wall!" << std::endl;
+                //std::cout << "Hit a wall!" << std::endl;
             }
-            deleteBullet(bullet);
+            deleteBullet(bullet, i);
         }
         else
         {
-            bullet.object->transform.position = targetPos;
-            bullet.position = targetPos;
-            bullet.lifespan -= deltaTime;
+            bullet->object->transform.position = targetPos;
+            bullet->position = targetPos;
+            bullet->lifespan -= deltaTime;
 
-            if (bullet.lifespan < 0)
-                deleteBullet(bullet);
+            if (bullet->lifespan < 0)
+                deleteBullet(bullet, i);
         }
     }
 }
 
-void BulletSystem::deleteBullet(Bullet &bullet)
+void BulletSystem::deleteBullet(Bullet *bullet, int index)
 {
-    int index = bullet.index;
-
-    bullet.object->queueFree();
+    bullet->object->queueFree();
     bullets.erase(bullets.begin() + index);
 }
