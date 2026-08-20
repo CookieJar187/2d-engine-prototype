@@ -5,6 +5,7 @@
 #define MAP_WIDTH 10
 
 #include <vector>
+#include <optional>
 #include <glm/common.hpp>
 
 #include "scene.h"
@@ -15,6 +16,9 @@ public:
     Tilemap(Scene &scene);
 
     void load();
+
+    bool isWalkable(int x, int y);
+    std::optional<glm::ivec2> getTileFromPosition(glm::vec2 &pos);
 
 private:
     Scene *scene;
@@ -34,7 +38,4 @@ private:
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     };
-
-    glm::ivec2 getTileFromPosition(const glm::vec2 pos);
-    glm::vec2 getPositionFromTile(const glm::ivec2 tile);
 };

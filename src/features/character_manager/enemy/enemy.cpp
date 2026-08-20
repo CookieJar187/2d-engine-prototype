@@ -30,11 +30,11 @@ Enemy::Enemy(
 
     this->damageRegistry->registerDamageable(this->body, this);
 
-    std::vector<glm::ivec2> ding = pathfinding::getPathTo(glm::ivec2(1, 1), glm::ivec2(6, 6), tileset);
-    for (auto &g : ding)
-    {
-        std::cout << g.x << ", " << g.y << std::endl;
-    }
+    //std::vector<glm::ivec2> ding = pathfinding::getPathTo(glm::ivec2(1, 1), glm::ivec2(6, 6), tileset);
+    //for (auto &g : ding)
+    //{
+    //    std::cout << g.x << ", " << g.y << std::endl;
+    //}
 }
 
 Enemy::~Enemy()
@@ -53,5 +53,7 @@ void Enemy::update(float deltaTime)
     if (this->body == nullptr)
         return;
 
-    this->updateDamage(deltaTime);
+    this->updateHealth(deltaTime);
+    this->updateAi(deltaTime);
+    this->updateMove(deltaTime);
 }

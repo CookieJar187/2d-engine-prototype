@@ -1,8 +1,8 @@
-#include "enemy.h"
+#include "character.hpp"
 
 #include <iostream>
 
-void Enemy::updateDamage(float deltaTime)
+void Character::updateHealth(float deltaTime)
 {
     if (this->dead)
     {
@@ -20,26 +20,25 @@ void Enemy::updateDamage(float deltaTime)
         if (this->damageEffectElapsed > DAMAGE_EFFECT_DURATION)
         {
             this->damageEffect = false;
-            this->body->material->texture = this->resourceManager->getTexture("enemy_texture");
+            onDamageStopped();
         }
     }
 }
 
-void Enemy::death()
-{
-    this->dead = true;
-}
-
-void Enemy::takeDamage(float amount)
+void Character::takeDamage(int amount)
 {
     if (this->dead)
         return;
 
-    this->body->material->texture = this->resourceManager->getTexture("enemy_hit_texture");
+    onDamageApplied();
 
-    health -= amount;
-    if (health <= 0.0f)
-        return death();
+    healthPoints -= amount;
+    if (healthPoints <= 0.0f)
+    {
+        this->dead = true;
+        onKilled();
+        return;
+    }
 
     this->damageEffectElapsed = 0.0f;
     this->damageEffect = true;

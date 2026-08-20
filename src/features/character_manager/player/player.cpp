@@ -76,7 +76,7 @@ void Player::die()
     std::cout << "Player died" << std::endl;
 }
 
-void Player::takeDamage(float amount)
+void Player::takeDamage(int amount)
 {
     health -= amount;
     std::cout << "Player has taken damage" << std::endl;

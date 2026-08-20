@@ -4,68 +4,68 @@
 #define DAMAGE_EFFECT_DURATION 0.07f
 #define DEATH_EFFECT_DURATION 5.0f
 
+#include <vector>
+#include <glm/vec2.hpp>
+
 #include "object.h"
 #include "scene.h"
 #include "character_motor.h"
 #include "collision_manager.h"
-#include "resource_manager.hpp"
 
-#include "tilemap.h"
 #include "damageable.h"
 #include "damage_registry.h"
+#include "tilemap.h"
 
-class Enemy : public Damageable
+class Character : public Damageable
 {
 private:
-    Scene *scene = nullptr;
-    DamageRegistry *damageRegistry = nullptr;
-    CollisionManager *collisionManager = nullptr;
-    ResourceManager *resourceManager = nullptr;
-    Tilemap *tileset = nullptr;
-
     Object *body = nullptr;
-    CharacterMotor CharacterMotor;
+    CharacterMotor characterMotor;
 
     // Health
-    int health = 100;
+    int healthPoints = 100;
     bool dead = false;
 
     float damageEffectElapsed = 0.0f;
     float deathEffectElapsed = 0.0f;
     bool damageEffect = false;
 
-    void death();
     void updateHealth(float deltaTime);
 
-    // Ai
-    void updateAi(float deltaTime);
-
-    // Move
+    // Movement
     glm::ivec2 targetPos;
     std::vector<glm::ivec2> pathToTarget;
+
     int pathPointsReached = 0;
-    void updateMove(float deltaTime);
-    
+
+    void updateMovement(float deltaTime);
+
+    // Pointers to services
+    Tilemap *tilemap;
+
 public:
-    Enemy(   
+    Character(   
         Scene &scene,
-        DamageRegistry &damageRegistry,
         CollisionManager &collisionManager,
-        ResourceManager &resourceManager,
-        Tilemap &tileset
+        DamageRegistry &damageRegistry,
+        Tilemap &tilemap,
+        ObjectCreationData objectCreationData
     );
 
-    ~Enemy();
+    ~Character();
 
-    bool queuedForDeletion = false;
-
-    void queueFree();
-    
     void update(float deltaTime);
 
-    // Health
+    // Deletion
+    bool queuedForDeletion = false;
+    void queueFree();
+    
+    // Control
     void takeDamage(int amount) override;
-
-    // Move
     void navigateTo(glm::ivec2 pos);
+
+    // Events
+    void onDamageApplied();
+    void onDamageStopped();
+    void onKilled();
 };

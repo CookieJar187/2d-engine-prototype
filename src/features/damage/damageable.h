@@ -4,5 +4,5 @@ class Damageable
 {
 public:
     virtual ~Damageable() = default;
-    virtual void takeDamage(float amount) = 0;
+    virtual void takeDamage(int amount) = 0;
 };

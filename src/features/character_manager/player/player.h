@@ -41,5 +41,5 @@ public:
     );
 
     void update(float deltaTime);
-    void takeDamage(float amount) override;
+    void takeDamage(int amount) override;
 };

@@ -37,7 +37,13 @@ add_executable(2DEnginePrototype
     src/features/character_manager/character_manager.cpp
     src/features/character_manager/player/player.cpp
     src/features/character_manager/enemy/enemy.cpp
-    src/features/character_manager/enemy/enemy_damage.cpp
+    src/features/character_manager/enemy/enemy_health.cpp
+    src/features/character_manager/enemy/enemy_move.cpp
+    src/features/character_manager/enemy/enemy_ai.cpp
+    src/features/character_manager/character/character.cpp
+    src/features/character_manager/character/character_movement.cpp
+    src/features/character_manager/character/character_health.cpp
+    src/features/character_manager/character/character_events.cpp
     src/features/game_assets/game_assets.cpp
     src/features/tilemap/tilemap.cpp
     src/features/damage/damage_registry.cpp
@@ -77,6 +83,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/features/character_manager
     src/features/character_manager/player
     src/features/character_manager/enemy
+    src/features/character_manager/character
     src/features/tilemap
     src/features/damage
     src/features/bullet_system

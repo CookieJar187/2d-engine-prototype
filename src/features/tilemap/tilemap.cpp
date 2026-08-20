@@ -27,15 +27,8 @@ void Tilemap::load()
     }
 }
 
-glm::ivec2 Tilemap::getTileFromPosition(const glm::vec2 pos)
+bool Tilemap::isWalkable(int x, int y)
 {
-    glm::ivec2 m;
-    m.x = pos.x / TILE_SIZE;
-    m.y = -pos.y / TILE_SIZE;
-    return m;
-}
-
-glm::vec2 Tilemap::getPositionFromTile(const glm::ivec2 pos)
-{
-    return pos;
+    bool value = map[x][y] == 0;
+    return value;
 }
