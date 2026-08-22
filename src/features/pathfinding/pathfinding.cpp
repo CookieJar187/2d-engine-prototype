@@ -1,6 +1,7 @@
 #include "pathfinding.hpp"
 
 #include <iostream>
+#include <algorithm>
 #include <memory>
 #include <queue>
 

@@ -28,6 +28,7 @@ void Character::queueFree()
     queuedForDeletion = true;
 }
 
+/*
 void Character::update(float deltaTime)
 {
     if (this->body == nullptr)
@@ -36,3 +37,4 @@ void Character::update(float deltaTime)
     this->updateHealth(deltaTime);
     this->updateMovement(deltaTime);
 }
+*/

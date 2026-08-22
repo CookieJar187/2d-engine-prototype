@@ -1,4 +1,4 @@
-#include "player.h"
+#include "player.hpp"
 
 #include <iostream>
 #include <glm/glm.hpp>
@@ -9,21 +9,31 @@ Player::Player(
     Input &input,
     Camera2 &camera,
     CollisionManager &collisionManager,
-    BulletSystem &bulletSystem
+    BulletSystem &bulletSystem,
+    DamageRegistry &damageRegistry,
+    Tilemap &tilemap
+)
+: Character(
+    scene,
+    collisionManager,
+    damageRegistry,
+    tilemap,
+    ObjectCreationData{
+        .name = "player",
+        .meshId = "sprite_mesh",
+        .colliderId = "character_collider",
+        .materialId = "player_material"
+    }
 )
 {
-    this->scene = &scene;
     this->input = &input;
     this->camera = &camera;
     this->bulletSystem = &bulletSystem;
+}
 
-    this->body = this->scene->createObject(
-        {.name = "player",
-         .meshId = "sprite_mesh",
-         .colliderId = "character_collider",
-         .materialId = "player_material"});
-
-    CharacterMotor.init(*this->body, collisionManager);
+Player::~Player()
+{
+    
 }
 
 void Player::update(float deltaTime)
@@ -48,7 +58,7 @@ void Player::update(float deltaTime)
         glm::vec2 velocity = glm::normalize(inputDirection);
         velocity.x *= MAX_SPEED * deltaTime;
         velocity.y *= MAX_SPEED * deltaTime;
-        CharacterMotor.moveAndSlide(velocity);
+        characterMotor.moveAndSlide(velocity);
     }
 
     if (input->isMouseButtonJustPressed(0))
@@ -57,32 +67,16 @@ void Player::update(float deltaTime)
         glm::vec2 screenSize = input->getScreenSize();
         glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
 
-        glm::vec2 origin = this->body->transform.position;
+        glm::vec2 origin = body->transform.position;
         glm::vec2 direction = glm::normalize(mouseWorld - origin);
         glm::vec2 target = origin + direction * 1000.0f;
 
-        bulletSystem->fire(origin, direction, this->body);
+        bulletSystem->fire(origin, direction, body);
     }
 
     // Camera
     camera->transform.position = glm::mix(
         camera->transform.position,
-        Player::body->transform.position,
+        body->transform.position,
         0.05f);
-}
-
-void Player::die()
-{
-    std::cout << "Player died" << std::endl;
-}
-
-void Player::takeDamage(int amount)
-{
-    health -= amount;
-    std::cout << "Player has taken damage" << std::endl;
-
-    if (health <= 0.0f)
-    {
-        die();
-    }
 }

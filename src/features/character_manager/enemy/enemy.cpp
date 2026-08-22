@@ -1,4 +1,4 @@
-#include "enemy.h"
+#include "enemy.hpp"
 
 #include <iostream>
 #include <glm/glm.hpp>
@@ -13,28 +13,22 @@ Enemy::Enemy(
     ResourceManager &resourceManager,
     Tilemap &tileset
 )
-{
-    this->scene = &scene;
-    this->damageRegistry = &damageRegistry;
-    this->resourceManager = &resourceManager;
-    this->tileset = &tileset;
-
-    this->body = this->scene->createObject({
+: Character(
+    scene,
+    collisionManager,
+    damageRegistry,
+    tileset,
+    ObjectCreationData{
         .name = "enemy",
         .meshId = "sprite_mesh",
         .colliderId = "character_collider",
         .materialId = "enemy_material",
-        .transform = Transform2{.position = glm::vec2(100, -100)}});
-
-    CharacterMotor.init(*this->body, collisionManager);
-
-    this->damageRegistry->registerDamageable(this->body, this);
-
-    //std::vector<glm::ivec2> ding = pathfinding::getPathTo(glm::ivec2(1, 1), glm::ivec2(6, 6), tileset);
-    //for (auto &g : ding)
-    //{
-    //    std::cout << g.x << ", " << g.y << std::endl;
-    //}
+        .transform = Transform2{.position = glm::vec2(100, -100)}
+    }
+)
+{
+    this->resourceManager = &resourceManager;
+    this->tileset = &tileset;
 }
 
 Enemy::~Enemy()
@@ -43,17 +37,28 @@ Enemy::~Enemy()
         this->body->queueFree();
 }
 
-void Enemy::queueFree() 
-{
-    queuedForDeletion = true;
-}
-
 void Enemy::update(float deltaTime)
 {
     if (this->body == nullptr)
         return;
 
     this->updateHealth(deltaTime);
-    this->updateAi(deltaTime);
-    this->updateMove(deltaTime);
+    this->updateMovement(deltaTime);
+}
+
+void Enemy::onDamageApplied()
+{
+    std::cout << "enemy damaged\n";
+    body->material->texture = this->resourceManager->getTexture("enemy_hit_texture");
+}
+
+void Enemy::onDamageStopped()
+{
+    std::cout << "enemy stopped\n";
+    body->material->texture = this->resourceManager->getTexture("enemy_texture");
+}
+
+void Enemy::onKilled()
+{
+    std::cout << "enemy killed\n";
 }

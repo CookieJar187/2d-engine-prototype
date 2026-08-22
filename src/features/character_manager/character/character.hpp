@@ -19,9 +19,6 @@
 class Character : public Damageable
 {
 private:
-    Object *body = nullptr;
-    CharacterMotor characterMotor;
-
     // Health
     int healthPoints = 100;
     bool dead = false;
@@ -30,20 +27,19 @@ private:
     float deathEffectElapsed = 0.0f;
     bool damageEffect = false;
 
-    void updateHealth(float deltaTime);
-
     // Movement
     glm::ivec2 targetPos;
     std::vector<glm::ivec2> pathToTarget;
 
     int pathPointsReached = 0;
 
-    void updateMovement(float deltaTime);
-
     // Pointers to services
     Tilemap *tilemap;
 
 public:
+    Object *body = nullptr;
+    CharacterMotor characterMotor;
+
     Character(   
         Scene &scene,
         CollisionManager &collisionManager,
@@ -52,9 +48,11 @@ public:
         ObjectCreationData objectCreationData
     );
 
-    ~Character();
+    virtual ~Character();
 
-    void update(float deltaTime);
+    //void update(float deltaTime);
+    void updateHealth(float deltaTime);
+    void updateMovement(float deltaTime);
 
     // Deletion
     bool queuedForDeletion = false;
@@ -65,7 +63,7 @@ public:
     void navigateTo(glm::ivec2 pos);
 
     // Events
-    void onDamageApplied();
-    void onDamageStopped();
-    void onKilled();
+    virtual void onDamageApplied();
+    virtual void onDamageStopped();
+    virtual void onKilled();
 };

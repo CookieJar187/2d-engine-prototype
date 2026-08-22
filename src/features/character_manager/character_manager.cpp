@@ -49,7 +49,9 @@ void CharacterManager::spawnPlayer()
         *input,
         *camera,
         *collisionManager,
-        *bulletSystem
+        *bulletSystem,
+        *damageRegistry,
+        *tilemap
     );
 }
 

@@ -37,8 +37,6 @@ add_executable(2DEnginePrototype
     src/features/character_manager/character_manager.cpp
     src/features/character_manager/player/player.cpp
     src/features/character_manager/enemy/enemy.cpp
-    src/features/character_manager/enemy/enemy_health.cpp
-    src/features/character_manager/enemy/enemy_move.cpp
     src/features/character_manager/enemy/enemy_ai.cpp
     src/features/character_manager/character/character.cpp
     src/features/character_manager/character/character_movement.cpp

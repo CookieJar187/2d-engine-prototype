@@ -3,8 +3,8 @@
 #include <vector>
 #include <memory>
 
-#include "player.h"
-#include "enemy.h"
+#include "player.hpp"
+#include "enemy.hpp"
 
 #include "scene.h"
 #include "input.h"

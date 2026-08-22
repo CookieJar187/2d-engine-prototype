@@ -13,8 +13,8 @@
 #include "resource_manager.hpp"
 
 #include "game_assets.hpp"
-#include "player.h"
-#include "enemy.h"
+#include "player.hpp"
+#include "enemy.hpp"
 #include "tilemap.h"
 #include "damage_registry.h"
 #include "bullet_system.h"
