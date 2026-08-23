@@ -18,7 +18,9 @@ public:
     void load();
 
     bool isWalkable(int x, int y);
-    std::optional<glm::ivec2> getTileFromPosition(glm::vec2 &pos);
+
+    glm::ivec2 worldToTile(const glm::vec2& position);
+    glm::vec2 tileToWorld(const glm::ivec2& tile);
 
 private:
     Scene *scene;

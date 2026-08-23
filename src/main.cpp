@@ -86,17 +86,27 @@ int main()
         tilemap
     };
     characterManager.spawnPlayer();
-    characterManager.spawnEnemy();
 
     // Process
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
+
+    float MAX = 10;
+    float TEM = 10;
 
     while (!glfwWindowShouldClose(window))
     {
         float currFrame = static_cast<float>(glfwGetTime());
         deltaTime = currFrame - lastFrame;
         lastFrame = currFrame;
+
+        if (TEM > MAX)
+        {
+            characterManager.spawnEnemy({600, -600});
+            TEM = 0;
+        }
+        else
+            TEM += deltaTime;
 
         glfwPollEvents();
         uiManager.buildUi();

@@ -62,9 +62,19 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "player_texture"
     );
     this->resourceManager->addMaterial(
+        "player_hit_material",
+        "sprite_shader",
+        "player_hit_texture"
+    );
+    this->resourceManager->addMaterial(
         "enemy_material",
         "sprite_shader",
         "enemy_texture"
+    );
+    this->resourceManager->addMaterial(
+        "enemy_hit_material",
+        "sprite_shader",
+        "enemy_hit_texture"
     );
     this->resourceManager->addMaterial(
         "bullet_material",

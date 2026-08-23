@@ -1,6 +1,5 @@
 #pragma once
 
-#define MAX_SPEED 200
 #define DAMAGE_EFFECT_DURATION 0.07f
 #define DEATH_EFFECT_DURATION 5.0f
 
@@ -27,12 +26,6 @@ private:
     float deathEffectElapsed = 0.0f;
     bool damageEffect = false;
 
-    // Movement
-    glm::ivec2 targetPos;
-    std::vector<glm::ivec2> pathToTarget;
-
-    int pathPointsReached = 0;
-
     // Pointers to services
     Tilemap *tilemap;
 
@@ -50,9 +43,11 @@ public:
 
     virtual ~Character();
 
-    //void update(float deltaTime);
     void updateHealth(float deltaTime);
-    void updateMovement(float deltaTime);
+
+    // Check
+    bool isDead() const;
+    bool isBeingDamaged() const;
 
     // Deletion
     bool queuedForDeletion = false;
@@ -60,7 +55,6 @@ public:
     
     // Control
     void takeDamage(int amount) override;
-    void navigateTo(glm::ivec2 pos);
 
     // Events
     virtual void onDamageApplied();

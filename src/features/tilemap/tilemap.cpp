@@ -29,6 +29,22 @@ void Tilemap::load()
 
 bool Tilemap::isWalkable(int x, int y)
 {
-    bool value = map[x][y] == 0;
+    bool value = map[y][x] == 0;
     return value;
+}
+
+glm::ivec2 Tilemap::worldToTile(const glm::vec2& position)
+{
+    return {
+        static_cast<int>(std::floor(position.x / TILE_SIZE)),
+        static_cast<int>(std::floor(-position.y / TILE_SIZE))
+    };
+}
+
+glm::vec2 Tilemap::tileToWorld(const glm::ivec2& tile)
+{
+    return {
+        tile.x * TILE_SIZE,
+        -tile.y * TILE_SIZE
+    };
 }

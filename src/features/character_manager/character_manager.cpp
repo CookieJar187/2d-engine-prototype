@@ -42,7 +42,7 @@ void CharacterManager::update(float deltaTime)
     }
 }
 
-void CharacterManager::spawnPlayer()
+void CharacterManager::spawnPlayer(glm::vec2 position)
 {
     this->player = std::make_unique<Player>(
         *scene,
@@ -51,17 +51,19 @@ void CharacterManager::spawnPlayer()
         *collisionManager,
         *bulletSystem,
         *damageRegistry,
-        *tilemap
+        *tilemap,
+        position
     );
 }
 
-void CharacterManager::spawnEnemy()
+void CharacterManager::spawnEnemy(glm::vec2 position)
 {
     this->enemies.push_back(std::make_unique<Enemy>(
         *scene,
         *damageRegistry,
         *collisionManager,
         *resourceManager,
-        *tilemap
+        *tilemap,
+        position
     ));
 }

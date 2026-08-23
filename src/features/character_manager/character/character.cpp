@@ -28,6 +28,16 @@ void Character::queueFree()
     queuedForDeletion = true;
 }
 
+bool Character::isDead() const
+{
+    return dead;
+}
+
+bool Character::isBeingDamaged() const
+{
+    return damageEffect;
+}
+
 /*
 void Character::update(float deltaTime)
 {

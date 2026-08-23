@@ -28,7 +28,8 @@ public:
         CollisionManager &collisionManager,
         BulletSystem &bulletSystem,
         DamageRegistry &damageRegistry,
-        Tilemap &tilemap
+        Tilemap &tilemap,
+        glm::vec2 position
     );
 
     ~Player();

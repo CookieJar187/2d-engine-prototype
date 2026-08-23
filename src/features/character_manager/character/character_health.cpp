@@ -36,6 +36,7 @@ void Character::takeDamage(int amount)
     if (healthPoints <= 0.0f)
     {
         this->dead = true;
+        this->body->collider = nullptr;
         onKilled();
         return;
     }

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <optional>
 
 #include "player.hpp"
 #include "enemy.hpp"
@@ -47,9 +48,9 @@ public:
 
     void update(float deltaTime);
 
-    void spawnPlayer();
-    void spawnEnemy();
-    void spawnComrade();
+    void spawnPlayer(glm::vec2 position = {0, 0});
+    void spawnEnemy(glm::vec2 position = {0, 0});
+    void spawnComrade(glm::vec2 position = {0, 0});
 
     void despawnPlayer();
     void despawnEnemies();

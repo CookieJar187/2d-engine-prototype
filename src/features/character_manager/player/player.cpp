@@ -11,7 +11,8 @@ Player::Player(
     CollisionManager &collisionManager,
     BulletSystem &bulletSystem,
     DamageRegistry &damageRegistry,
-    Tilemap &tilemap
+    Tilemap &tilemap,
+    glm::vec2 position
 )
 : Character(
     scene,
@@ -22,7 +23,8 @@ Player::Player(
         .name = "player",
         .meshId = "sprite_mesh",
         .colliderId = "character_collider",
-        .materialId = "player_material"
+        .materialId = "player_material",
+        .transform = { .position = position }
     }
 )
 {

@@ -11,25 +11,19 @@ struct Node
     Node *parent;
 };
 
-std::vector<glm::ivec2> getBackToStart(
-    std::vector<std::unique_ptr<Node>> &nodes
-)
+std::vector<glm::ivec2> getBackToStart(Node *targetNode)
 {
-    std::vector<glm::ivec2> breadcrums;
+    std::vector<glm::ivec2> path;
 
-    Node *child = nodes.back().get();
-    while (true)
+    Node *current = targetNode;
+    while (current->parent != nullptr)
     {
-        child = child->parent;
-        
-        if (child != nullptr)
-            breadcrums.push_back(child->coordinates);
-        else
-            break;
+        path.push_back(current->coordinates);
+        current = current->parent;
     }
 
-    std::reverse(breadcrums.begin(), breadcrums.end());
-    return breadcrums;
+    std::reverse(path.begin(), path.end());
+    return path;
 }
 
 std::vector<glm::ivec2> pathfinding::getPathTo(glm::ivec2 start, glm::ivec2 target, Tilemap &tilemap)
@@ -69,7 +63,7 @@ std::vector<glm::ivec2> pathfinding::getPathTo(glm::ivec2 start, glm::ivec2 targ
                 toSearch.push(nodes.back().get());
 
                 if (north == target)
-                    return getBackToStart(nodes);
+                    return getBackToStart(nodes.back().get());
             }
 
             if (
@@ -83,7 +77,7 @@ std::vector<glm::ivec2> pathfinding::getPathTo(glm::ivec2 start, glm::ivec2 targ
                 toSearch.push(nodes.back().get());
 
                 if (south == target)
-                    return getBackToStart(nodes);
+                    return getBackToStart(nodes.back().get());
             }
 
             if (
@@ -97,7 +91,7 @@ std::vector<glm::ivec2> pathfinding::getPathTo(glm::ivec2 start, glm::ivec2 targ
                 toSearch.push(nodes.back().get());
 
                 if (east == target)
-                    return getBackToStart(nodes);
+                    return getBackToStart(nodes.back().get());
             }
 
             if (
@@ -111,7 +105,7 @@ std::vector<glm::ivec2> pathfinding::getPathTo(glm::ivec2 start, glm::ivec2 targ
                 toSearch.push(nodes.back().get());
 
                 if (west == target)
-                    return getBackToStart(nodes);
+                    return getBackToStart(nodes.back().get());
             }
 
             toSearch.pop();

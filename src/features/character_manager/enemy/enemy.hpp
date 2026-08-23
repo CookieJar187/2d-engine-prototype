@@ -1,8 +1,6 @@
 #pragma once
 
 #define MAX_SPEED 200
-#define DAMAGE_EFFECT_DURATION 0.07f
-#define DEATH_EFFECT_DURATION 5.0f
 
 #include "object.h"
 #include "scene.h"
@@ -18,8 +16,16 @@
 class Enemy : public Character
 {
 private:
+    Scene *scene = nullptr;
     ResourceManager *resourceManager = nullptr;
     Tilemap *tileset = nullptr;
+
+    // Ai components
+    float maximumForLastTimePathfindingWasUpdated = 1.0f;
+    float lastTimePathfindingWasUpdated = 1.0f;
+
+    std::vector<glm::ivec2> pathPoints;
+    int currPathPoint = 0;
     
 public:
     Enemy(   
@@ -27,11 +33,13 @@ public:
         DamageRegistry &damageRegistry,
         CollisionManager &collisionManager,
         ResourceManager &resourceManager,
-        Tilemap &tileset
+        Tilemap &tileset,
+        glm::vec2 position
     );
 
     ~Enemy();
     
+    void updateAi(float deltaTime);
     void update(float deltaTime);
 
     void onDamageApplied() override;

@@ -11,7 +11,8 @@ Enemy::Enemy(
     DamageRegistry &damageRegistry,
     CollisionManager &collisionManager,
     ResourceManager &resourceManager,
-    Tilemap &tileset
+    Tilemap &tileset,
+    glm::vec2 position
 )
 : Character(
     scene,
@@ -23,10 +24,11 @@ Enemy::Enemy(
         .meshId = "sprite_mesh",
         .colliderId = "character_collider",
         .materialId = "enemy_material",
-        .transform = Transform2{.position = glm::vec2(100, -100)}
+        .transform = Transform2{.position = position}
     }
 )
 {
+    this->scene = &scene;
     this->resourceManager = &resourceManager;
     this->tileset = &tileset;
 }
@@ -42,23 +44,20 @@ void Enemy::update(float deltaTime)
     if (this->body == nullptr)
         return;
 
+    this->updateAi(deltaTime);
     this->updateHealth(deltaTime);
-    this->updateMovement(deltaTime);
 }
 
 void Enemy::onDamageApplied()
 {
-    std::cout << "enemy damaged\n";
-    body->material->texture = this->resourceManager->getTexture("enemy_hit_texture");
+    body->material = this->resourceManager->getMaterial("enemy_hit_material");
 }
 
 void Enemy::onDamageStopped()
 {
-    std::cout << "enemy stopped\n";
-    body->material->texture = this->resourceManager->getTexture("enemy_texture");
+    body->material = this->resourceManager->getMaterial("enemy_material");
 }
 
 void Enemy::onKilled()
 {
-    std::cout << "enemy killed\n";
 }
