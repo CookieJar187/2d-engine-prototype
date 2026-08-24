@@ -10,7 +10,8 @@ CharacterManager::CharacterManager(
     BulletSystem &bulletSystem,
     DamageRegistry &damageRegistry,
     ResourceManager &resourceManager,
-    Tilemap &tilemap
+    Tilemap &tilemap,
+    GrenadeSystem &grenadeSystem
 )
 {
     this->scene = &scene;
@@ -21,6 +22,7 @@ CharacterManager::CharacterManager(
     this->damageRegistry = &damageRegistry;
     this->resourceManager = &resourceManager;
     this->tilemap = &tilemap;
+    this->grenadeSystem = &grenadeSystem;
 }
 
 void CharacterManager::update(float deltaTime)
@@ -53,6 +55,7 @@ void CharacterManager::spawnPlayer(glm::vec2 position)
         *bulletSystem,
         *damageRegistry,
         *tilemap,
+        *grenadeSystem,
         position
     );
 }

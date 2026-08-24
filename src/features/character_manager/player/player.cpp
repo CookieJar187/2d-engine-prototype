@@ -13,6 +13,7 @@ Player::Player(
     BulletSystem &bulletSystem,
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
+    GrenadeSystem &grenadeSystem,
     glm::vec2 position
 )
 : Character(
@@ -39,6 +40,7 @@ Player::Player(
     this->input = &input;
     this->camera = &camera;
     this->bulletSystem = &bulletSystem;
+    this->grenadeSystem = &grenadeSystem;
 }
 
 Player::~Player()
@@ -48,6 +50,15 @@ Player::~Player()
 void Player::update(float deltaTime)
 {
     if (body == nullptr)
+        return;
+
+    // Camera
+    camera->transform.position = glm::mix(
+        camera->transform.position,
+        body->transform.position,
+        0.05f);
+
+    if (isDead() || isBeingDamaged())
         return;
 
     glm::vec2 inputDirection(0, 0);
@@ -78,11 +89,17 @@ void Player::update(float deltaTime)
         bulletSystem->fire(origin, direction, body);
     }
 
-    // Camera
-    camera->transform.position = glm::mix(
-        camera->transform.position,
-        body->transform.position,
-        0.05f);
+    if (input->isKeyJustPressed(71))
+    {
+        glm::vec2 cursorScreen = input->getMousePosition();
+        glm::vec2 screenSize = input->getScreenSize();
+        glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
+
+        glm::vec2 origin = body->transform.position;
+        glm::vec2 direction = glm::normalize(mouseWorld - origin);
+
+        grenadeSystem->launch(origin, direction, this->body);
+    }
 
     // Character updates
     this->updateHealth(deltaTime);

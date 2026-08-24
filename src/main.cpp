@@ -18,6 +18,8 @@
 #include "tilemap.h"
 #include "damage_registry.h"
 #include "bullet_system.h"
+#include "explosion_system.hpp"
+#include "grenade_system.hpp"
 #include "character_manager.hpp"
 
 int main()
@@ -71,6 +73,8 @@ int main()
     GameAssets gameAssets{resourceManager};
     DamageRegistry damageRegistry;
     BulletSystem bulletSystem{collisionManager, damageRegistry, scene};
+    ExplosionSystem explosionSystem{scene, damageRegistry};
+    GrenadeSystem grenadeSystem{scene, collisionManager, explosionSystem};
 
     Tilemap tilemap{scene};
     tilemap.load();
@@ -83,7 +87,8 @@ int main()
         bulletSystem,
         damageRegistry,
         resourceManager,
-        tilemap
+        tilemap,
+        grenadeSystem
     };
     characterManager.spawnPlayer();
 
@@ -91,8 +96,8 @@ int main()
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
 
-    float MAX = 10;
-    float TEM = 10;
+    float MAX = 6;
+    float TEM = 6;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -103,6 +108,8 @@ int main()
         if (TEM > MAX)
         {
             characterManager.spawnEnemy({600, -600});
+            //explosionSystem.explode({600, -600});
+            //grenadeSystem.launch({600, -600}, {1, 0});
             TEM = 0;
         }
         else
@@ -116,7 +123,9 @@ int main()
 
         // Features
         bulletSystem.update(deltaTime);
+        explosionSystem.update(deltaTime);
         characterManager.update(deltaTime);
+        grenadeSystem.update(deltaTime);
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);

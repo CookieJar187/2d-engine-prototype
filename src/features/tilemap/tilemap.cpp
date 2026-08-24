@@ -23,6 +23,26 @@ void Tilemap::load()
 
                 wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
             }
+            else if (map[i][j] == 2)
+            {
+                Object *wallObj = scene->createObject({
+                    .name = "boards_horizontal",
+                    .meshId = "sprite_mesh",
+                    .colliderId = "boards_horizontal_collider",
+                    .materialId = "boards_horizontal_material"});
+
+                wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
+            }
+            else if (map[i][j] == 3)
+            {
+                Object *wallObj = scene->createObject({
+                    .name = "boards_vertical",
+                    .meshId = "sprite_mesh",
+                    .colliderId = "boards_vertical_collider",
+                    .materialId = "boards_vertical_material"});
+
+                wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
+            }
         }
     }
 }

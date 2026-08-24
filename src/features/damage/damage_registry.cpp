@@ -24,3 +24,8 @@ Damageable *DamageRegistry::getDamageable(Object *object) const
 
     return it->second;
 }
+
+std::unordered_map<Object *, Damageable *> DamageRegistry::getDamageables() const
+{
+    return entries;
+}

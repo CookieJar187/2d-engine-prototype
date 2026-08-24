@@ -12,6 +12,8 @@ public:
 
     Damageable *getDamageable(Object *object) const;
 
+    std::unordered_map<Object *, Damageable *> getDamageables() const;
+
 private:
     std::unordered_map<Object *, Damageable *> entries;
 };

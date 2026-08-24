@@ -48,6 +48,8 @@ add_executable(2DEnginePrototype
     src/features/damage/damage_registry.cpp
     src/features/bullet_system/bullet_system.cpp
     src/features/pathfinding/pathfinding.cpp
+    src/features/explosion_system/explosion_system.cpp
+    src/features/grenade_system/grenade_system.cpp
 )
 
 target_include_directories(2DEnginePrototype PRIVATE
@@ -87,6 +89,8 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/features/damage
     src/features/bullet_system
     src/features/pathfinding
+    src/features/explosion_system
+    src/features/grenade_system
 
     ${Stb_INCLUDE_DIR}
 )

@@ -1,6 +1,6 @@
 #pragma once
 
-#define BULLET_SPEED 1500.0f
+#define BULLET_SPEED 2500.0f
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -16,7 +16,7 @@ struct Bullet
     Object *ignore = nullptr;
     glm::vec2 direction;
     glm::vec2 position;
-    float lifespan = 0.5f;
+    float lifespan = 0.3f;
 };
 
 class BulletSystem

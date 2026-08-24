@@ -25,28 +25,32 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "src/assets/textures/bricks.png"
     );
     this->resourceManager->addTexture(
-        "player_texture",
-        "src/assets/textures/player.png"
-    );
-    this->resourceManager->addTexture(
-        "player_hit_texture",
-        "src/assets/textures/player_hit.png"
-    );
-    this->resourceManager->addTexture(
-        "enemy_texture",
-        "src/assets/textures/enemy.png"
-    );
-    this->resourceManager->addTexture(
-        "enemy_hit_texture",
-        "src/assets/textures/enemy_hit.png"
-    );
-    this->resourceManager->addTexture(
         "bullet_texture",
         "src/assets/textures/bullet.png"
     );
     this->resourceManager->addTexture(
         "character_hit_texture",
         "src/assets/textures/characters/character_hit.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_horizontal_texture",
+        "src/assets/textures/boards_horizontal.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_vertical_texture",
+        "src/assets/textures/boards_vertical.png"
+    );
+    this->resourceManager->addTexture(
+        "explosion_texture",
+        "src/assets/textures/explosion.png"
+    );
+    this->resourceManager->addTexture(
+        "grenade_on_texture",
+        "src/assets/textures/grenade_on.png"
+    );
+    this->resourceManager->addTexture(
+        "grenade_off_texture",
+        "src/assets/textures/grenade_off.png"
     );
 
     // Player textures
@@ -113,26 +117,6 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "bricks_texture"
     );
     this->resourceManager->addMaterial(
-        "player_material",
-        "sprite_shader",
-        "player_texture"
-    );
-    this->resourceManager->addMaterial(
-        "player_hit_material",
-        "sprite_shader",
-        "player_hit_texture"
-    );
-    this->resourceManager->addMaterial(
-        "enemy_material",
-        "sprite_shader",
-        "enemy_texture"
-    );
-    this->resourceManager->addMaterial(
-        "enemy_hit_material",
-        "sprite_shader",
-        "enemy_hit_texture"
-    );
-    this->resourceManager->addMaterial(
         "bullet_material",
         "sprite_shader",
         "bullet_texture"
@@ -141,6 +125,31 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "character_hit_material",
         "sprite_shader",
         "character_hit_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_horizontal_material",
+        "sprite_shader",
+        "boards_horizontal_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_vertical_material",
+        "sprite_shader",
+        "boards_vertical_texture"
+    );
+    this->resourceManager->addMaterial(
+        "explosion_material",
+        "sprite_shader",
+        "explosion_texture"
+    );
+    this->resourceManager->addMaterial(
+        "grenade_on_material",
+        "sprite_shader",
+        "grenade_on_texture"
+    );
+    this->resourceManager->addMaterial(
+        "grenade_off_material",
+        "sprite_shader",
+        "grenade_off_texture"
     );
 
     // Player material
@@ -215,5 +224,13 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
     this->resourceManager->addCollider(
         "wall",
         glm::vec2(50, 50)
+    );
+    this->resourceManager->addCollider(
+        "boards_horizontal_collider",
+        glm::vec2(50, 10)
+    );
+    this->resourceManager->addCollider(
+        "boards_vertical_collider",
+        glm::vec2(10, 50)
     );
 }

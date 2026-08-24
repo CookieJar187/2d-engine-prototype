@@ -15,6 +15,7 @@
 #include "damage_registry.h"
 #include "resource_manager.hpp"
 #include "tilemap.h"
+#include "grenade_system.hpp"
 
 class CharacterManager
 {
@@ -33,6 +34,7 @@ private:
     DamageRegistry *damageRegistry;
     ResourceManager *resourceManager;
     Tilemap *tilemap;
+    GrenadeSystem *grenadeSystem;
 
 public:
     CharacterManager(
@@ -43,7 +45,8 @@ public:
         BulletSystem &bulletSystem,
         DamageRegistry &damageRegistry,
         ResourceManager &resourceManager,
-        Tilemap &tilemap
+        Tilemap &tilemap,
+        GrenadeSystem &grenadeSystem
     );
 
     void update(float deltaTime);
