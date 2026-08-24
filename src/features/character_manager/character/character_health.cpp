@@ -20,6 +20,7 @@ void Character::updateHealth(float deltaTime)
         if (this->damageEffectElapsed > DAMAGE_EFFECT_DURATION)
         {
             this->damageEffect = false;
+            this->body->material = downMaterial;
             onDamageStopped();
         }
     }
@@ -36,6 +37,7 @@ void Character::takeDamage(int amount)
     if (healthPoints <= 0.0f)
     {
         this->dead = true;
+        this->body->material = dead1Material;
         this->body->collider = nullptr;
         onKilled();
         return;
@@ -43,4 +45,5 @@ void Character::takeDamage(int amount)
 
     this->damageEffectElapsed = 0.0f;
     this->damageEffect = true;
+    this->body->material = hitMaterial;
 }

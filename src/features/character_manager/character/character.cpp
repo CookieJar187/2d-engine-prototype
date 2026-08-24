@@ -5,16 +5,32 @@ Character::Character(
     CollisionManager &collisionManager,
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
-    ObjectCreationData objectCreationData
+    ObjectCreationData objectCreationData,
+    Material &upMaterial,
+    Material &downMaterial,
+    Material &rightMaterial,
+    Material &leftMaterial,
+    Material &hitMaterial,
+    Material &dead1Material,
+    Material &dead2Material
 )
 {
     this->body = scene.createObject(objectCreationData);
+    this->body->material = &downMaterial;
 
     characterMotor.init(*this->body, collisionManager);
 
     damageRegistry.registerDamageable(this->body, this);
 
     this->tilemap = &tilemap;
+
+    this->upMaterial = &upMaterial;
+    this->downMaterial = &downMaterial;
+    this->rightMaterial = &rightMaterial;
+    this->leftMaterial = &leftMaterial;
+    this->hitMaterial = &hitMaterial;
+    this->dead1Material = &dead1Material;
+    this->dead2Material = &dead2Material;
 }
 
 Character::~Character()
@@ -37,14 +53,3 @@ bool Character::isBeingDamaged() const
 {
     return damageEffect;
 }
-
-/*
-void Character::update(float deltaTime)
-{
-    if (this->body == nullptr)
-        return;
-
-    this->updateHealth(deltaTime);
-    this->updateMovement(deltaTime);
-}
-*/

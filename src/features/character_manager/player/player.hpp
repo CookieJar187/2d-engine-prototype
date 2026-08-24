@@ -7,6 +7,7 @@
 #include "input.h"
 #include "camera.h"
 #include "scene.h"
+#include "resource_manager.hpp"
 
 #include "character.hpp"
 #include "bullet_system.h"
@@ -26,6 +27,7 @@ public:
         Input &input,
         Camera2 &camera,
         CollisionManager &collisionManager,
+        ResourceManager &resourceManager,
         BulletSystem &bulletSystem,
         DamageRegistry &damageRegistry,
         Tilemap &tilemap,

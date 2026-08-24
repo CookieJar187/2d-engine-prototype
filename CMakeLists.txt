@@ -41,6 +41,8 @@ add_executable(2DEnginePrototype
     src/features/character_manager/character/character.cpp
     src/features/character_manager/character/character_health.cpp
     src/features/character_manager/character/character_events.cpp
+    src/features/character_manager/character/character_movement.cpp
+    src/features/character_manager/character/character_animation.cpp
     src/features/game_assets/game_assets.cpp
     src/features/tilemap/tilemap.cpp
     src/features/damage/damage_registry.cpp

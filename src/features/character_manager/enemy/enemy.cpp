@@ -25,7 +25,14 @@ Enemy::Enemy(
         .colliderId = "character_collider",
         .materialId = "enemy_material",
         .transform = Transform2{.position = position}
-    }
+    },
+    *resourceManager.getMaterial("enemy_north_material"),
+    *resourceManager.getMaterial("enemy_south_material"),
+    *resourceManager.getMaterial("enemy_east_material"),
+    *resourceManager.getMaterial("enemy_west_material"),
+    *resourceManager.getMaterial("character_hit_material"),
+    *resourceManager.getMaterial("enemy_dead1_material"),
+    *resourceManager.getMaterial("enemy_dead2_material")
 )
 {
     this->scene = &scene;
@@ -46,16 +53,16 @@ void Enemy::update(float deltaTime)
 
     this->updateAi(deltaTime);
     this->updateHealth(deltaTime);
+    this->updateMovement(deltaTime);
+    this->updateAnimation(deltaTime);
 }
 
 void Enemy::onDamageApplied()
 {
-    body->material = this->resourceManager->getMaterial("enemy_hit_material");
 }
 
 void Enemy::onDamageStopped()
 {
-    body->material = this->resourceManager->getMaterial("enemy_material");
 }
 
 void Enemy::onKilled()

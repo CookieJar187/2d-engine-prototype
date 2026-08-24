@@ -9,6 +9,7 @@ Player::Player(
     Input &input,
     Camera2 &camera,
     CollisionManager &collisionManager,
+    ResourceManager &resourceManager,
     BulletSystem &bulletSystem,
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
@@ -23,9 +24,16 @@ Player::Player(
         .name = "player",
         .meshId = "sprite_mesh",
         .colliderId = "character_collider",
-        .materialId = "player_material",
+        //.materialId = "player_material",
         .transform = { .position = position }
-    }
+    },
+    *resourceManager.getMaterial("player_north_material"),
+    *resourceManager.getMaterial("player_south_material"),
+    *resourceManager.getMaterial("player_east_material"),
+    *resourceManager.getMaterial("player_west_material"),
+    *resourceManager.getMaterial("character_hit_material"),
+    *resourceManager.getMaterial("player_dead1_material"),
+    *resourceManager.getMaterial("player_dead2_material")
 )
 {
     this->input = &input;
@@ -35,7 +43,6 @@ Player::Player(
 
 Player::~Player()
 {
-    
 }
 
 void Player::update(float deltaTime)
@@ -56,12 +63,7 @@ void Player::update(float deltaTime)
         inputDirection.y += 1;
 
     if (!glm::all(glm::epsilonEqual(inputDirection, glm::vec2(0.0f), 0.0001f)))
-    {
-        glm::vec2 velocity = glm::normalize(inputDirection);
-        velocity.x *= MAX_SPEED * deltaTime;
-        velocity.y *= MAX_SPEED * deltaTime;
-        characterMotor.moveAndSlide(velocity);
-    }
+        moveTo(inputDirection, deltaTime);
 
     if (input->isMouseButtonJustPressed(0))
     {
@@ -81,4 +83,9 @@ void Player::update(float deltaTime)
         camera->transform.position,
         body->transform.position,
         0.05f);
+
+    // Character updates
+    this->updateHealth(deltaTime);
+    this->updateMovement(deltaTime);
+    this->updateAnimation(deltaTime);
 }

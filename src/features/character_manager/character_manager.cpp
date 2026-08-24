@@ -49,6 +49,7 @@ void CharacterManager::spawnPlayer(glm::vec2 position)
         *input,
         *camera,
         *collisionManager,
+        *resourceManager,
         *bulletSystem,
         *damageRegistry,
         *tilemap,

@@ -1,5 +1,7 @@
 #include "resource_manager.hpp"
 
+#include <iostream>
+
 #include "mesh_loader.h"
 #include "shader_loader.h"
 #include "texture_loader.h"
@@ -75,8 +77,15 @@ void ResourceManager::addTexture(
     const std::string& path
 )
 {
-    Texture texture = TextureLoader::load(path);
-    this->textures[id] = std::make_unique<Texture>(std::move(texture));
+    try
+    {
+        Texture texture = TextureLoader::load(path);
+        this->textures[id] = std::make_unique<Texture>(std::move(texture));
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }
 void ResourceManager::addMaterial(
     const std::string& id,
