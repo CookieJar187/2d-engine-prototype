@@ -14,31 +14,46 @@ ResourceManager::ResourceManager()
 Mesh *ResourceManager::getMesh(const std::string& id)
 {
     if (!this->meshes[id])
+    {
+        std::cerr << "ResourceManager: mesh `" << id << "` not found\n";
         return nullptr;
+    }
     return this->meshes[id].get();
 }
 Shader *ResourceManager::getShader(const std::string& id)
 {
     if (!this->shaders[id])
+    {
+        std::cerr << "ResourceManager: shader `" << id << "` not found\n";
         return nullptr;
+    }
     return this->shaders[id].get();
 }
 Texture *ResourceManager::getTexture(const std::string& id)
 {
     if (!this->textures[id])
+    {
+        std::cerr << "ResourceManager: texture `" << id << "` not found\n";
         return nullptr;
+    }
     return this->textures[id].get();
 }
 Material *ResourceManager::getMaterial(const std::string& id)
 {
     if (!this->materials[id])
+    {
+        std::cerr << "ResourceManager: material `" << id << "` not found\n";
         return nullptr;
+    }
     return this->materials[id].get();
 }
 AabbCollider *ResourceManager::getCollider(const std::string& id)
 {
     if (!this->colliders[id])
+    {
+        std::cerr << "ResourceManager: collider `" << id << "` not found\n";
         return nullptr;
+    }
     return this->colliders[id].get();
 }
 

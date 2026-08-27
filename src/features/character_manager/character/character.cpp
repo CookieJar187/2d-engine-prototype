@@ -23,6 +23,7 @@ Character::Character(
     damageRegistry.registerDamageable(this->body, this);
 
     this->tilemap = &tilemap;
+    this->damageRegistry = &damageRegistry;
 
     this->upMaterial = &upMaterial;
     this->downMaterial = &downMaterial;
@@ -35,6 +36,8 @@ Character::Character(
 
 Character::~Character()
 {
+    this->damageRegistry->unregisterDamageable(this->body);
+
     if (this->body != nullptr)
         this->body->queueFree();
 }

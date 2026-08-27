@@ -35,6 +35,7 @@ private:
 
     // Pointers to services
     Tilemap *tilemap;
+    DamageRegistry *damageRegistry;
 
     // Materials
     Material *upMaterial;

@@ -25,6 +25,18 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "src/assets/textures/bricks.png"
     );
     this->resourceManager->addTexture(
+        "bricks_hit_texture",
+        "src/assets/textures/bricks_hit.png"
+    );
+    this->resourceManager->addTexture(
+        "bricks_damaged_texture",
+        "src/assets/textures/bricks_damaged.png"
+    );
+    this->resourceManager->addTexture(
+        "bricks_destroyed_texture",
+        "src/assets/textures/bricks_destroyed.png"
+    );
+    this->resourceManager->addTexture(
         "bullet_texture",
         "src/assets/textures/bullet.png"
     );
@@ -37,8 +49,32 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "src/assets/textures/boards_horizontal.png"
     );
     this->resourceManager->addTexture(
+        "boards_horizontal_hit_texture",
+        "src/assets/textures/boards_horizontal_hit.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_horizontal_damaged_texture",
+        "src/assets/textures/boards_horizontal_damaged.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_horizontal_destroyed_texture",
+        "src/assets/textures/boards_horizontal_destroyed.png"
+    );
+    this->resourceManager->addTexture(
         "boards_vertical_texture",
         "src/assets/textures/boards_vertical.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_vertical_hit_texture",
+        "src/assets/textures/boards_vertical_hit.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_vertical_damaged_texture",
+        "src/assets/textures/boards_vertical_damaged.png"
+    );
+    this->resourceManager->addTexture(
+        "boards_vertical_destroyed_texture",
+        "src/assets/textures/boards_vertical_destroyed.png"
     );
     this->resourceManager->addTexture(
         "explosion_texture",
@@ -51,6 +87,18 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
     this->resourceManager->addTexture(
         "grenade_off_texture",
         "src/assets/textures/grenade_off.png"
+    );
+    this->resourceManager->addTexture(
+        "tree_texture",
+        "src/assets/textures/tree.png"
+    );
+    this->resourceManager->addTexture(
+        "tree_hit_texture",
+        "src/assets/textures/tree_hit.png"
+    );
+    this->resourceManager->addTexture(
+        "tree_destroyed_texture",
+        "src/assets/textures/tree_destroyed.png"
     );
 
     // Player textures
@@ -117,6 +165,21 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "bricks_texture"
     );
     this->resourceManager->addMaterial(
+        "bricks_hit_material",
+        "sprite_shader",
+        "bricks_hit_texture"
+    );
+    this->resourceManager->addMaterial(
+        "bricks_damaged_material",
+        "sprite_shader",
+        "bricks_damaged_texture"
+    );
+    this->resourceManager->addMaterial(
+        "bricks_destroyed_material",
+        "sprite_shader",
+        "bricks_destroyed_texture"
+    );
+    this->resourceManager->addMaterial(
         "bullet_material",
         "sprite_shader",
         "bullet_texture"
@@ -132,9 +195,39 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "boards_horizontal_texture"
     );
     this->resourceManager->addMaterial(
+        "boards_horizontal_hit_material",
+        "sprite_shader",
+        "boards_horizontal_hit_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_horizontal_damaged_material",
+        "sprite_shader",
+        "boards_horizontal_damaged_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_horizontal_destroyed_material",
+        "sprite_shader",
+        "boards_horizontal_destroyed_texture"
+    );
+    this->resourceManager->addMaterial(
         "boards_vertical_material",
         "sprite_shader",
         "boards_vertical_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_vertical_hit_material",
+        "sprite_shader",
+        "boards_vertical_hit_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_vertical_damaged_material",
+        "sprite_shader",
+        "boards_vertical_damaged_texture"
+    );
+    this->resourceManager->addMaterial(
+        "boards_vertical_destroyed_material",
+        "sprite_shader",
+        "boards_vertical_destroyed_texture"
     );
     this->resourceManager->addMaterial(
         "explosion_material",
@@ -150,6 +243,21 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "grenade_off_material",
         "sprite_shader",
         "grenade_off_texture"
+    );
+    this->resourceManager->addMaterial(
+        "tree_material",
+        "sprite_shader",
+        "tree_texture"
+    );
+    this->resourceManager->addMaterial(
+        "tree_hit_material",
+        "sprite_shader",
+        "tree_hit_texture"
+    );
+    this->resourceManager->addMaterial(
+        "tree_destroyed_material",
+        "sprite_shader",
+        "tree_destroyed_texture"
     );
 
     // Player material
@@ -232,5 +340,9 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
     this->resourceManager->addCollider(
         "boards_vertical_collider",
         glm::vec2(10, 50)
+    );
+    this->resourceManager->addCollider(
+        "tree_collider",
+        glm::vec2(40, 30)
     );
 }

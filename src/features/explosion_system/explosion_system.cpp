@@ -26,12 +26,12 @@ void ExplosionSystem::explode(const glm::vec2 pos)
 
     std::unordered_map<Object *, Damageable *> damageables
         = this->damageRegistry->getDamageables();
-
+    
     for (auto &entry : damageables)
     {
         if (glm::distance(pos, entry.first->transform.position) <= expl.radius)
         {
-            entry.second->takeDamage(100);
+            entry.second->takeDamage(500);
         }
     }
 }

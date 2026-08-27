@@ -45,6 +45,9 @@ add_executable(2DEnginePrototype
     src/features/character_manager/character/character_animation.cpp
     src/features/game_assets/game_assets.cpp
     src/features/tilemap/tilemap.cpp
+    src/features/tilemap/tilemap_walls.cpp
+    src/features/tilemap/wall/wall.cpp
+    src/features/tilemap/destructable_wall/destructable_wall.cpp
     src/features/damage/damage_registry.cpp
     src/features/bullet_system/bullet_system.cpp
     src/features/pathfinding/pathfinding.cpp
@@ -86,6 +89,8 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/features/character_manager/enemy
     src/features/character_manager/character
     src/features/tilemap
+    src/features/tilemap/wall
+    src/features/tilemap/destructable_wall
     src/features/damage
     src/features/bullet_system
     src/features/pathfinding

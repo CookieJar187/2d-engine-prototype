@@ -23,7 +23,7 @@ Enemy::Enemy(
         .name = "enemy",
         .meshId = "sprite_mesh",
         .colliderId = "character_collider",
-        .materialId = "enemy_material",
+        //.materialId = "enemy_material",
         .transform = Transform2{.position = position}
     },
     *resourceManager.getMaterial("enemy_north_material"),

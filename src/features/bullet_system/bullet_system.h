@@ -1,6 +1,6 @@
 #pragma once
 
-#define BULLET_SPEED 2500.0f
+#define BULLET_SPEED 3000.0f
 
 #include <vector>
 #include <glm/glm.hpp>

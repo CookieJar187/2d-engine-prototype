@@ -2,47 +2,53 @@
 
 #include <iostream>
 
-Tilemap::Tilemap(Scene &scene)
+Tilemap::Tilemap(
+    Scene &scene,
+    ResourceManager &resourceManager,
+    DamageRegistry &damageRegistry)
 {
-    Tilemap::scene = &scene;
+    this->scene = &scene;
+    this->damageRegistry = &damageRegistry;
+
+    bricks = resourceManager.getMaterial("bricks_material");
+    bricksHit = resourceManager.getMaterial("bricks_hit_material");
+    bricksDamaged = resourceManager.getMaterial("bricks_damaged_material");
+    bricksDestroyed = resourceManager.getMaterial("bricks_destroyed_material");
+
+    boardsHorizontal = resourceManager.getMaterial("boards_horizontal_material");
+    boardsHorizontalHit = resourceManager.getMaterial("boards_horizontal_hit_material");
+    boardsHorizontalDamaged = resourceManager.getMaterial("boards_horizontal_damaged_material");
+    boardsHorizontalDestroyed = resourceManager.getMaterial("boards_horizontal_destroyed_material");
+
+    boardsVertical = resourceManager.getMaterial("boards_vertical_material");
+    boardsVerticalHit = resourceManager.getMaterial("boards_vertical_hit_material");
+    boardsVerticalDamaged = resourceManager.getMaterial("boards_vertical_damaged_material");
+    boardsVerticalDestroyed = resourceManager.getMaterial("boards_vertical_destroyed_material");
+
+    tree = resourceManager.getMaterial("tree_material");
+    treeHit = resourceManager.getMaterial("tree_hit_material");
+    treeDestroyed = resourceManager.getMaterial("tree_destroyed_material");
+}
+
+void Tilemap::update(float deltaTime)
+{
+    for (auto &v : destructableWalls)
+    {
+        v.get()->update(deltaTime);
+    }
 }
 
 void Tilemap::load()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < MAP_HEIGHT; i++)
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < MAP_WIDTH; j++)
         {
-            if (map[i][j] == 1)
-            {
-                Object *wallObj = scene->createObject({
-                    .name = "wall",
-                    .meshId = "sprite_mesh",
-                    .colliderId = "wall",
-                    .materialId = "bricks_material"});
-
-                wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
-            }
-            else if (map[i][j] == 2)
-            {
-                Object *wallObj = scene->createObject({
-                    .name = "boards_horizontal",
-                    .meshId = "sprite_mesh",
-                    .colliderId = "boards_horizontal_collider",
-                    .materialId = "boards_horizontal_material"});
-
-                wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
-            }
-            else if (map[i][j] == 3)
-            {
-                Object *wallObj = scene->createObject({
-                    .name = "boards_vertical",
-                    .meshId = "sprite_mesh",
-                    .colliderId = "boards_vertical_collider",
-                    .materialId = "boards_vertical_material"});
-
-                wallObj->transform.position = glm::vec2(j * TILE_SIZE, -i * TILE_SIZE);
-            }
+            if (map[i][j] > 0)
+                createWall(
+                    {j * TILE_SIZE, -i * TILE_SIZE},
+                    map[i][j]
+                );
         }
     }
 }

@@ -65,9 +65,10 @@ void GrenadeSystem::update(float deltaTime)
 
                 if (hit.has_value())
                 {
-                    glm::vec2 d = glm::normalize(targetPos - hit.value().point);
-                    glm::vec2 r = d - 2 * glm::dot(glm::normalize(d), hit.value().normal) * hit.value().normal;
-                    grnd->direction = r;
+                    grnd->direction = glm::reflect(
+                        grnd->direction,
+                        hit->normal
+                    );
 
                     grnd->position = hit.value().point + hit.value().normal * 0.1f;
                     grnd->object->transform.position = grnd->position;

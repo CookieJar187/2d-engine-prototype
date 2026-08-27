@@ -76,7 +76,7 @@ int main()
     ExplosionSystem explosionSystem{scene, damageRegistry};
     GrenadeSystem grenadeSystem{scene, collisionManager, explosionSystem};
 
-    Tilemap tilemap{scene};
+    Tilemap tilemap{scene, resourceManager, damageRegistry};
     tilemap.load();
 
     CharacterManager characterManager{
@@ -90,14 +90,15 @@ int main()
         tilemap,
         grenadeSystem
     };
-    characterManager.spawnPlayer();
+    characterManager.spawnPlayer({500, -500});
+    //characterManager.spawnPlayer();
 
     // Process
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
 
-    float MAX = 6;
-    float TEM = 6;
+    float MAX = 4;
+    float TEM = 4;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -107,9 +108,7 @@ int main()
 
         if (TEM > MAX)
         {
-            characterManager.spawnEnemy({600, -600});
-            //explosionSystem.explode({600, -600});
-            //grenadeSystem.launch({600, -600}, {1, 0});
+            //characterManager.spawnEnemy({600, 0});
             TEM = 0;
         }
         else
@@ -123,9 +122,10 @@ int main()
 
         // Features
         bulletSystem.update(deltaTime);
-        explosionSystem.update(deltaTime);
-        characterManager.update(deltaTime);
         grenadeSystem.update(deltaTime);
+        explosionSystem.update(deltaTime);
+        tilemap.update(deltaTime);
+        characterManager.update(deltaTime);
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);

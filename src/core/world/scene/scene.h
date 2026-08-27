@@ -8,10 +8,10 @@
 
 struct ObjectCreationData
 {
-    std::optional<std::string> name;
-    std::optional<std::string> meshId = "";
-    std::optional<std::string> colliderId = "";
-    std::optional<std::string> materialId = "";
+    std::optional<std::string> name = std::nullopt;
+    std::optional<std::string> meshId = std::nullopt;
+    std::optional<std::string> colliderId = std::nullopt;
+    std::optional<std::string> materialId = std::nullopt;
     Transform2 transform;
 };
 
