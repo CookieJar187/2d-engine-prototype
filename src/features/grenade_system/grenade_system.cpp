@@ -1,16 +1,21 @@
 #include "grenade_system.hpp"
 
 #include <iostream>
+#include <algorithm>
 
 GrenadeSystem::GrenadeSystem(
     Scene &scene,
     CollisionManager &collisionManager,
+    ResourceManager &resourceManager,
     ExplosionSystem &explosionSystem
 )
 {
     this->scene = &scene;
     this->collisionManager = &collisionManager;
     this->explosionSystem = &explosionSystem;
+
+    this->grenadeOn = resourceManager.getMaterial("grenade_on_material");
+    this->grenadeOff = resourceManager.getMaterial("grenade_off_material");
 }
 
 void GrenadeSystem::launch(
@@ -48,6 +53,25 @@ void GrenadeSystem::update(float deltaTime)
         else
         {
             grnd->lifespan -= deltaTime;
+            grnd->tickElapsed += deltaTime;
+
+            if (grnd->tickElapsed > grnd->nextTick)
+            {
+                grnd->tickElapsed = 0.0f;
+                grnd->nextTick *= 0.8f;
+                grnd->nextTick = std::clamp(grnd->nextTick, GRENADE_MIN_TICK_FREQ, 1.0f);
+
+                if (grnd->tickState == 1)
+                {
+                    grnd->object->material = this->grenadeOn;
+                    grnd->tickState = 0;
+                }
+                else
+                {
+                    grnd->object->material = this->grenadeOff;
+                    grnd->tickState = 1;
+                }
+            }
             
             float temp = grnd->momentum * 0.9;
             if (temp < 0.01f)

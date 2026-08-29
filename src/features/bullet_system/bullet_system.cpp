@@ -2,11 +2,18 @@
 
 #include "bullet_system.h"
 
-BulletSystem::BulletSystem(CollisionManager &collisionManager, DamageRegistry &damageRegistry, Scene &scene)
+BulletSystem::BulletSystem(
+    CollisionManager &collisionManager,
+    DamageRegistry &damageRegistry,
+    Scene &scene,
+    ResourceManager &resourceManager
+)
 {
     this->collisionManager = &collisionManager;
     this->damageRegistry = &damageRegistry;
     this->scene = &scene;
+
+    this->gunshotSound = resourceManager.getSound("gunshot1_sound");
 }
 
 void BulletSystem::fire(
@@ -32,6 +39,8 @@ void BulletSystem::fire(
         .position = origin};
 
     bullets.push_back(bullet);
+
+    this->gunshotSound->play();
 }
 
 void BulletSystem::update(float deltaTime)
@@ -53,7 +62,7 @@ void BulletSystem::update(float deltaTime)
             
             if (damageable != nullptr)
             {
-                damageable->takeDamage(25.0f);
+                damageable->takeDamage(34);
             }
             else
             {

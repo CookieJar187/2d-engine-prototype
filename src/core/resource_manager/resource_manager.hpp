@@ -13,6 +13,8 @@
 #include "aabb_collider.h"
 #include "mesh.h"
 #include "transform2.h"
+#include "sound_loader.hpp"
+#include "sound.hpp"
 
 class ResourceManager
 {
@@ -24,6 +26,7 @@ public:
     Texture* getTexture(const std::string& id);
     Material* getMaterial(const std::string& id);
     AabbCollider* getCollider(const std::string& id);
+    Sound* getSound(const std::string& id);
 
     void addQuadMesh(
         const std::string& id);
@@ -44,6 +47,9 @@ public:
     void addCollider(
         const std::string& id,
         std::optional<glm::vec2> halfSize = std::nullopt);
+    void addSound(
+        const std::string& id,
+        const std::string& path);
 
 private:
     std::unordered_map<std::string, std::unique_ptr<Mesh>> meshes;
@@ -51,4 +57,5 @@ private:
     std::unordered_map<std::string, std::unique_ptr<Texture>> textures;
     std::unordered_map<std::string, std::unique_ptr<Material>> materials;
     std::unordered_map<std::string, std::unique_ptr<AabbCollider>> colliders;
+    std::unordered_map<std::string, std::unique_ptr<Sound>> sounds;
 };

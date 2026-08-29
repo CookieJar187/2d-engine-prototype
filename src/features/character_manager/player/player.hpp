@@ -14,14 +14,18 @@
 #include "damage_registry.h"
 #include "tilemap.h"
 #include "grenade_system.hpp"
+#include "melee_system.hpp"
+#include "camera_shaker.hpp"
 
 class Player : public Character
 {
 private:
-    Camera2 *camera  = nullptr;
-    Input *input = nullptr;
-    BulletSystem *bulletSystem = nullptr;
-    GrenadeSystem *grenadeSystem = nullptr;
+    Camera2 *camera;
+    Input *input;
+    BulletSystem *bulletSystem;
+    GrenadeSystem *grenadeSystem;
+    MeleeSystem *meleeSystem;
+    CameraShaker *cameraShaker;
 
 public:
     Player(
@@ -34,6 +38,8 @@ public:
         DamageRegistry &damageRegistry,
         Tilemap &tilemap,
         GrenadeSystem &grenadeSystem,
+        MeleeSystem &meleeSystem,
+        CameraShaker &cameraShaker,
         glm::vec2 position
     );
 

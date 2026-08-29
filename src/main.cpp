@@ -2,6 +2,8 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <al.h>
+#include <alc.h>
 
 #include "world.h"
 #include "input.h"
@@ -20,10 +22,14 @@
 #include "bullet_system.h"
 #include "explosion_system.hpp"
 #include "grenade_system.hpp"
+#include "melee_system.hpp"
 #include "character_manager.hpp"
+#include "rng.hpp"
+#include "camera_shaker.hpp"
 
 int main()
 {
+    // GLFW init
     if (!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW\n";
@@ -54,6 +60,19 @@ int main()
         return 1;
     }
 
+    // OpenAL
+    ALCdevice* soundDevice = alcOpenDevice(nullptr);;
+
+    if (!soundDevice)
+        std::cerr << "ALCdevice failed to initialize" << std::endl;
+
+    ALCcontext* soundContext = alcCreateContext(soundDevice, nullptr);
+
+    if (!soundContext)
+        alcCloseDevice(soundDevice);
+
+    alcMakeContextCurrent(soundContext);
+
     // Game state
     GameFsm gameFsm;
 
@@ -66,15 +85,22 @@ int main()
     World world;
     CollisionManager collisionManager{world};
     Camera2 camera;
+    CameraShaker cameraShaker{camera};
     Scene scene{world, resourceManager};
     Input input(window);
 
     // Features
     GameAssets gameAssets{resourceManager};
     DamageRegistry damageRegistry;
-    BulletSystem bulletSystem{collisionManager, damageRegistry, scene};
-    ExplosionSystem explosionSystem{scene, damageRegistry};
-    GrenadeSystem grenadeSystem{scene, collisionManager, explosionSystem};
+    BulletSystem bulletSystem{collisionManager, damageRegistry, scene, resourceManager};
+    ExplosionSystem explosionSystem{scene, damageRegistry, cameraShaker, resourceManager};
+    GrenadeSystem grenadeSystem{
+        scene,
+        collisionManager,
+        resourceManager,
+        explosionSystem
+    };
+    MeleeSystem meleeSystem{scene, damageRegistry};
 
     Tilemap tilemap{scene, resourceManager, damageRegistry};
     tilemap.load();
@@ -88,7 +114,9 @@ int main()
         damageRegistry,
         resourceManager,
         tilemap,
-        grenadeSystem
+        grenadeSystem,
+        meleeSystem,
+        cameraShaker
     };
     characterManager.spawnPlayer({500, -500});
     //characterManager.spawnPlayer();
@@ -96,6 +124,7 @@ int main()
     // Process
     float deltaTime = 0.0f;
     float lastFrame = 0.0f;
+    float elapsed = 0.0f;
 
     float MAX = 4;
     float TEM = 4;
@@ -105,10 +134,11 @@ int main()
         float currFrame = static_cast<float>(glfwGetTime());
         deltaTime = currFrame - lastFrame;
         lastFrame = currFrame;
+        elapsed += deltaTime;
 
         if (TEM > MAX)
         {
-            //characterManager.spawnEnemy({600, 0});
+            characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
             TEM = 0;
         }
         else
@@ -124,8 +154,10 @@ int main()
         bulletSystem.update(deltaTime);
         grenadeSystem.update(deltaTime);
         explosionSystem.update(deltaTime);
+        meleeSystem.update(deltaTime);
         tilemap.update(deltaTime);
         characterManager.update(deltaTime);
+        cameraShaker.update(elapsed);
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);

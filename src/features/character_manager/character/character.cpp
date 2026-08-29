@@ -12,7 +12,11 @@ Character::Character(
     Material &leftMaterial,
     Material &hitMaterial,
     Material &dead1Material,
-    Material &dead2Material
+    Material &dead2Material,
+    Sound &death1Sound,
+    Sound &death2Sound,
+    Sound &death3Sound,
+    Sound &death4Sound
 )
 {
     this->body = scene.createObject(objectCreationData);
@@ -32,6 +36,11 @@ Character::Character(
     this->hitMaterial = &hitMaterial;
     this->dead1Material = &dead1Material;
     this->dead2Material = &dead2Material;
+
+    this->death1Sound = &death1Sound;
+    this->death2Sound = &death2Sound;
+    this->death3Sound = &death3Sound;
+    this->death4Sound = &death4Sound;
 }
 
 Character::~Character()

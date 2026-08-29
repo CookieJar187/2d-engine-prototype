@@ -100,6 +100,10 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "tree_destroyed_texture",
         "src/assets/textures/tree_destroyed.png"
     );
+    this->resourceManager->addTexture(
+        "melee_texture",
+        "src/assets/textures/melee.png"
+    );
 
     // Player textures
     this->resourceManager->addTexture(
@@ -259,6 +263,11 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "sprite_shader",
         "tree_destroyed_texture"
     );
+    this->resourceManager->addMaterial(
+        "melee_material",
+        "sprite_shader",
+        "melee_texture"
+    );
 
     // Player material
     this->resourceManager->addMaterial(
@@ -344,5 +353,39 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
     this->resourceManager->addCollider(
         "tree_collider",
         glm::vec2(40, 30)
+    );
+
+    // Sounds
+    this->resourceManager->addSound(
+        "gunshot1_sound",
+        "src/assets/sounds/gunshot1.wav"
+    );
+    this->resourceManager->addSound(
+        "death_cry1_sound",
+        "src/assets/sounds/death_cry1.wav"
+    );
+    this->resourceManager->addSound(
+        "death_cry2_sound",
+        "src/assets/sounds/death_cry2.wav"
+    );
+        this->resourceManager->addSound(
+        "death_cry3_sound",
+        "src/assets/sounds/death_cry3.wav"
+    );
+    this->resourceManager->addSound(
+        "death_cry4_sound",
+        "src/assets/sounds/death_cry4.wav"
+    );
+    this->resourceManager->addSound(
+        "explosion1_sound",
+        "src/assets/sounds/explosion1.wav"
+    );
+    this->resourceManager->addSound(
+        "explosion2_sound",
+        "src/assets/sounds/explosion2.wav"
+    );
+    this->resourceManager->addSound(
+        "explosion3_sound",
+        "src/assets/sounds/explosion3.wav"
     );
 }

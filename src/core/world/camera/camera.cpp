@@ -6,14 +6,14 @@ glm::mat4 Camera2::getViewMatrix() const
 
     view = glm::rotate(
         view,
-        -transform.rotation,
+        -transform.rotation -offset.rotation,
         glm::vec3(0.0f, 0.0f, 1.0f));
 
     view = glm::translate(
         view,
         glm::vec3(
-            -transform.position.x,
-            -transform.position.y,
+            -transform.position.x -offset.position.x,
+            -transform.position.y -offset.position.y,
             0.0f));
 
     return view;

@@ -8,6 +8,7 @@
 struct Camera2
 {
     Transform2 transform;
+    Transform2 offset;
 
     glm::mat4 projection = glm::ortho(
         -400.0f, 400.0f,

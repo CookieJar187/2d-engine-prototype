@@ -32,7 +32,11 @@ Enemy::Enemy(
     *resourceManager.getMaterial("enemy_west_material"),
     *resourceManager.getMaterial("character_hit_material"),
     *resourceManager.getMaterial("enemy_dead1_material"),
-    *resourceManager.getMaterial("enemy_dead2_material")
+    *resourceManager.getMaterial("enemy_dead2_material"),
+    *resourceManager.getSound("death_cry1_sound"),
+    *resourceManager.getSound("death_cry2_sound"),
+    *resourceManager.getSound("death_cry3_sound"),
+    *resourceManager.getSound("death_cry4_sound")
 )
 {
     this->scene = &scene;

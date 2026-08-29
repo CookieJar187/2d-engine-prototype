@@ -11,14 +11,17 @@ find_package(Stb REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
+find_package(OpenAL CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
 add_executable(2DEnginePrototype
     src/main.cpp
+    src/core/math/rng/rng.cpp
     src/core/resource_manager/resource_manager.cpp
     src/core/loaders/mesh_loader/mesh_loader.cpp
     src/core/loaders/texture_loader/texture_loader.cpp
     src/core/loaders/shader_loader/shader_loader.cpp
+    src/core/loaders/sound_loader/sound_loader.cpp
     src/core/world/camera/camera.cpp
     src/core/world/scene/scene.cpp
     src/core/world/object/object.cpp
@@ -53,14 +56,18 @@ add_executable(2DEnginePrototype
     src/features/pathfinding/pathfinding.cpp
     src/features/explosion_system/explosion_system.cpp
     src/features/grenade_system/grenade_system.cpp
+    src/features/melee_system/melee_system.cpp
+    src/features/camera_shaker/camera_shaker.cpp
 )
 
 target_include_directories(2DEnginePrototype PRIVATE
     src
+    src/core/math/rng
     src/core/resource_manager
     src/core/loaders/mesh_loader
     src/core/loaders/texture_loader
     src/core/loaders/shader_loader
+    src/core/loaders/sound_loader
     src/core/world/camera
     src/core/world
     src/core/world/object
@@ -68,6 +75,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/object/rendering/mesh
     src/core/world/object/rendering/shader
     src/core/world/object/rendering/texture
+    src/core/world/object/rendering/sound
     src/core/world/scene
     src/core/world/object_creation_result
     src/core/math/transform2
@@ -96,6 +104,8 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/features/pathfinding
     src/features/explosion_system
     src/features/grenade_system
+    src/features/melee_system
+    src/features/camera_shaker
 
     ${Stb_INCLUDE_DIR}
 )
@@ -104,6 +114,7 @@ target_link_libraries(2DEnginePrototype PRIVATE
     glfw
     glad::glad
     glm::glm
+    OpenAL::OpenAL
     imgui::imgui
     OpenGL::GL
 )

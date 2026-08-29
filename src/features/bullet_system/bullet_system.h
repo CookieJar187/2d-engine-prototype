@@ -8,6 +8,7 @@
 #include "scene.h"
 #include "collision_manager.h"
 #include "damage_registry.h"
+#include "resource_manager.hpp"
 #include "object.h"
 
 struct Bullet
@@ -22,7 +23,12 @@ struct Bullet
 class BulletSystem
 {
 public:
-    BulletSystem(CollisionManager &collisionManager, DamageRegistry &damageRegistry, Scene &scene);
+    BulletSystem(
+        CollisionManager &collisionManager,
+        DamageRegistry &damageRegistry,
+        Scene &scene,
+        ResourceManager &resourceManager
+    );
 
     void fire(
         const glm::vec2 &origin,
@@ -35,6 +41,8 @@ private:
     CollisionManager *collisionManager = nullptr;
     DamageRegistry *damageRegistry = nullptr;
     Scene *scene = nullptr;
+
+    Sound *gunshotSound;
 
     std::vector<Bullet> bullets;
 

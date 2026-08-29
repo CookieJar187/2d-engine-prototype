@@ -56,6 +56,15 @@ AabbCollider *ResourceManager::getCollider(const std::string& id)
     }
     return this->colliders[id].get();
 }
+Sound *ResourceManager::getSound(const std::string& id)
+{
+    if (!this->sounds[id])
+    {
+        std::cerr << "ResourceManager: sound `" << id << "` not found\n";
+        return nullptr;
+    }
+    return this->sounds[id].get();
+}
 
 // SET
 void ResourceManager::addQuadMesh(const std::string& id)
@@ -128,4 +137,22 @@ void ResourceManager::addCollider(
         collider.halfSize = halfSize.value();
 
     this->colliders[id] = std::make_unique<AabbCollider>(std::move(collider));
+}
+
+void ResourceManager::addSound(
+    const std::string& id,
+    const std::string& path
+)
+{
+    try
+    {
+        std::optional<Sound> newSound = SoundLoader::load(path.c_str());
+
+        if (newSound.has_value())
+            this->sounds[id] = std::make_unique<Sound>(std::move(newSound.value()));
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

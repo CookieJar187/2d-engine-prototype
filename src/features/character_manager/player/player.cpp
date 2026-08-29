@@ -14,6 +14,8 @@ Player::Player(
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
     GrenadeSystem &grenadeSystem,
+    MeleeSystem &meleeSystem,
+    CameraShaker &cameraShaker,
     glm::vec2 position
 )
 : Character(
@@ -34,13 +36,19 @@ Player::Player(
     *resourceManager.getMaterial("player_west_material"),
     *resourceManager.getMaterial("character_hit_material"),
     *resourceManager.getMaterial("player_dead1_material"),
-    *resourceManager.getMaterial("player_dead2_material")
+    *resourceManager.getMaterial("player_dead2_material"),
+    *resourceManager.getSound("death_cry1_sound"),
+    *resourceManager.getSound("death_cry2_sound"),
+    *resourceManager.getSound("death_cry3_sound"),
+    *resourceManager.getSound("death_cry4_sound")
 )
 {
     this->input = &input;
     this->camera = &camera;
     this->bulletSystem = &bulletSystem;
     this->grenadeSystem = &grenadeSystem;
+    this->meleeSystem = &meleeSystem;
+    this->cameraShaker = &cameraShaker;
 }
 
 Player::~Player()
@@ -87,6 +95,8 @@ void Player::update(float deltaTime)
         glm::vec2 target = origin + direction * 1000.0f;
 
         bulletSystem->fire(origin, direction, body);
+
+        cameraShaker->gunShake();
     }
 
     if (input->isKeyJustPressed(71))
@@ -99,6 +109,11 @@ void Player::update(float deltaTime)
         glm::vec2 direction = glm::normalize(mouseWorld - origin);
 
         grenadeSystem->launch(origin, direction, this->body);
+    }
+
+    if (input->isKeyJustPressed(32))
+    {
+        meleeSystem->newMelee(this->body->transform.position, *this->body);
     }
 
     // Character updates

@@ -2,13 +2,22 @@
 
 #include <iostream>
 
+#include "rng.hpp"
+
 ExplosionSystem::ExplosionSystem(
     Scene &scene,
-    DamageRegistry &damageRegistry
+    DamageRegistry &damageRegistry,
+    CameraShaker &cameraShaker,
+    ResourceManager &resourceManager
 )
 {
     this->scene = &scene;
     this->damageRegistry = &damageRegistry;
+    this->cameraShaker = &cameraShaker;
+
+    this->explosion1Sound = resourceManager.getSound("explosion1_sound");
+    this->explosion2Sound = resourceManager.getSound("explosion2_sound");
+    this->explosion3Sound = resourceManager.getSound("explosion3_sound");
 }
 
 void ExplosionSystem::explode(const glm::vec2 pos)
@@ -26,6 +35,16 @@ void ExplosionSystem::explode(const glm::vec2 pos)
 
     std::unordered_map<Object *, Damageable *> damageables
         = this->damageRegistry->getDamageables();
+
+    this->cameraShaker->explosionShake();
+
+    int randSound = rng::getInt(2);
+    if (randSound == 0)
+        this->explosion1Sound->play();
+    else if (randSound == 1)
+        this->explosion2Sound->play();
+    else
+        this->explosion3Sound->play();
     
     for (auto &entry : damageables)
     {

@@ -46,6 +46,11 @@ private:
     Material *dead1Material;
     Material *dead2Material;
 
+    Sound *death1Sound;
+    Sound *death2Sound;
+    Sound *death3Sound;
+    Sound *death4Sound;
+
 public:
     Object *body = nullptr;
     CharacterMotor characterMotor;
@@ -62,7 +67,11 @@ public:
         Material &leftMaterial,
         Material &hitMaterial,
         Material &dead1Material,
-        Material &dead2Material
+        Material &dead2Material,
+        Sound &death1Sound,
+        Sound &death2Sound,
+        Sound &death3Sound,
+        Sound &death4Sound
     );
 
     virtual ~Character();
