@@ -50,6 +50,10 @@ private:
     Sound *death2Sound;
     Sound *death3Sound;
     Sound *death4Sound;
+    Sound *death5Sound;
+    Sound *death6Sound;
+    Sound *death7Sound;
+    Sound *death8Sound;
 
 public:
     Object *body = nullptr;
@@ -71,7 +75,11 @@ public:
         Sound &death1Sound,
         Sound &death2Sound,
         Sound &death3Sound,
-        Sound &death4Sound
+        Sound &death4Sound,
+        Sound &death5Sound,
+        Sound &death6Sound,
+        Sound &death7Sound,
+        Sound &death8Sound
     );
 
     virtual ~Character();

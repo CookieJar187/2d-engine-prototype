@@ -39,6 +39,8 @@ private:
     Material *grenadeOn;
     Material *grenadeOff;
 
+    Sound *grenadeBeep;
+
     void deleteGrenade(Grenade *grnd, int index);
 
 public:

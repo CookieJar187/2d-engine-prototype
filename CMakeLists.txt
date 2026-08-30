@@ -75,7 +75,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/object/rendering/mesh
     src/core/world/object/rendering/shader
     src/core/world/object/rendering/texture
-    src/core/world/object/rendering/sound
+    src/core/world/sound
     src/core/world/scene
     src/core/world/object_creation_result
     src/core/math/transform2

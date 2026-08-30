@@ -388,4 +388,24 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "explosion3_sound",
         "src/assets/sounds/explosion3.wav"
     );
+    this->resourceManager->addSound(
+        "grenade_beep_sound",
+        "src/assets/sounds/grenade_beep.wav"
+    );
+    this->resourceManager->addSound(
+        "wilhelm_scream1_sound",
+        "src/assets/sounds/wilhelm_scream1.wav"
+    );
+    this->resourceManager->addSound(
+        "wilhelm_scream2_sound",
+        "src/assets/sounds/wilhelm_scream2.wav"
+    );
+    this->resourceManager->addSound(
+        "wilhelm_scream3_sound",
+        "src/assets/sounds/wilhelm_scream3.wav"
+    );
+    this->resourceManager->addSound(
+        "wilhelm_scream4_sound",
+        "src/assets/sounds/wilhelm_scream4.wav"
+    );
 }

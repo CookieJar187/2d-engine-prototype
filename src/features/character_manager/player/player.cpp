@@ -40,7 +40,11 @@ Player::Player(
     *resourceManager.getSound("death_cry1_sound"),
     *resourceManager.getSound("death_cry2_sound"),
     *resourceManager.getSound("death_cry3_sound"),
-    *resourceManager.getSound("death_cry4_sound")
+    *resourceManager.getSound("death_cry4_sound"),
+    *resourceManager.getSound("wilhelm_scream1_sound"),
+    *resourceManager.getSound("wilhelm_scream2_sound"),
+    *resourceManager.getSound("wilhelm_scream3_sound"),
+    *resourceManager.getSound("wilhelm_scream4_sound")
 )
 {
     this->input = &input;

@@ -16,7 +16,11 @@ Character::Character(
     Sound &death1Sound,
     Sound &death2Sound,
     Sound &death3Sound,
-    Sound &death4Sound
+    Sound &death4Sound,
+    Sound &death5Sound,
+    Sound &death6Sound,
+    Sound &death7Sound,
+    Sound &death8Sound
 )
 {
     this->body = scene.createObject(objectCreationData);
@@ -41,6 +45,10 @@ Character::Character(
     this->death2Sound = &death2Sound;
     this->death3Sound = &death3Sound;
     this->death4Sound = &death4Sound;
+    this->death5Sound = &death5Sound;
+    this->death6Sound = &death6Sound;
+    this->death7Sound = &death7Sound;
+    this->death8Sound = &death8Sound;
 }
 
 Character::~Character()

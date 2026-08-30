@@ -16,6 +16,8 @@ GrenadeSystem::GrenadeSystem(
 
     this->grenadeOn = resourceManager.getMaterial("grenade_on_material");
     this->grenadeOff = resourceManager.getMaterial("grenade_off_material");
+
+    this->grenadeBeep = resourceManager.getSound("grenade_beep_sound");
 }
 
 void GrenadeSystem::launch(
@@ -27,7 +29,7 @@ void GrenadeSystem::launch(
     ObjectCreationData d;
     d.name = "grenade";
     d.meshId = "sprite_mesh";
-    d.materialId = "grenade_on_material";
+    d.materialId = "grenade_off_material";
     d.transform = { .position = origin };
 
     Grenade grnd;
@@ -65,11 +67,13 @@ void GrenadeSystem::update(float deltaTime)
                 {
                     grnd->object->material = this->grenadeOn;
                     grnd->tickState = 0;
+                    this->grenadeBeep->play();
                 }
                 else
                 {
                     grnd->object->material = this->grenadeOff;
                     grnd->tickState = 1;
+                    this->grenadeBeep->play();
                 }
             }
             

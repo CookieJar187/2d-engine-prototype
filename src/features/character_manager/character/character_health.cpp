@@ -47,7 +47,7 @@ void Character::takeDamage(int amount)
 
         this->body->collider = nullptr;
 
-        int randNum = rng::getInt(4);
+        int randNum = rng::getInt(7);
         if (randNum == 0)
             this->death1Sound->play();
         else if (randNum == 1)
@@ -56,6 +56,14 @@ void Character::takeDamage(int amount)
             this->death3Sound->play();
         else if (randNum == 3)
             this->death4Sound->play();
+        else if (randNum == 4)
+            this->death5Sound->play();
+        else if (randNum == 5)
+            this->death6Sound->play();
+        else if (randNum == 6)
+            this->death7Sound->play();
+        else if (randNum == 7)
+            this->death8Sound->play();
 
         onKilled();
         return;
