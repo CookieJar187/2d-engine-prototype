@@ -80,8 +80,10 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/object_creation_result
     src/core/math/transform2
     src/core/world/collision/collision_manager
-    src/core/world/collision/aabb_collider
+    src/core/world/collision/aabb_shape
     src/core/world/collision/character_motor
+    src/core/world/collision/collider
+    src/core/world/collision/collision_group
     src/core/input
 
     src/game_fsm

@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "mesh.h"
-#include "aabb_collider.h"
+#include "collider.hpp"
 #include "transform2.h"
 #include "material.h"
 
@@ -14,7 +14,7 @@ struct Object
 public:
     std::string name = "object";
     Mesh *mesh = nullptr;
-    AabbCollider *collider = nullptr;
+    Collider *collider = nullptr;
     Material *material = nullptr;
     Transform2 transform{};
 

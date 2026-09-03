@@ -29,7 +29,7 @@ struct MovementResult
 struct RaycastHit
 {
     Object *object = nullptr;
-    AabbCollider *collider = nullptr;
+    Collider *collider = nullptr;
 
     glm::vec2 point = {0.0f, 0.0f};
     glm::vec2 normal = {0.0f, 0.0f};
@@ -41,10 +41,7 @@ struct RaycastHit
 class CollisionManager
 {
 private:
-    bool isOverlapping(const Object &entryA, const Object &entryB);
-
-    void resolveHorizontal(Object &moving, const Object &obstacle, float movementX);
-    void resolveVertical(Object &moving, const Object &obstacle, float movementY);
+    bool canCollide(const CollisionGroup& a, const CollisionGroup& b) const;
 
     std::optional<RaycastHit> raycastAgainstObject(
         const glm::vec2 &start,

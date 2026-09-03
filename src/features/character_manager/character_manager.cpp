@@ -32,6 +32,9 @@ CharacterManager::CharacterManager(
 void CharacterManager::update(float deltaTime)
 {
     // Delete queued for deletion
+    if (player.get()->queuedForDeletion)
+        player = nullptr;
+
     for (int i = enemies.size() - 1; i >= 0; i--)
     {
         if (enemies[i].get()->queuedForDeletion)
@@ -73,6 +76,7 @@ void CharacterManager::spawnEnemy(glm::vec2 position)
         *damageRegistry,
         *collisionManager,
         *resourceManager,
+        *bulletSystem,
         *tilemap,
         position
     ));

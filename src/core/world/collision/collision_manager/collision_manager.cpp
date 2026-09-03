@@ -8,7 +8,15 @@ CollisionManager::CollisionManager(World &world)
     this->world = &world;
 }
 
-bool CollisionManager::isOverlapping(const Object &obj1, const Object &obj2)
+bool CollisionManager::canCollide(
+    const CollisionGroup& a,
+    const CollisionGroup& b
+) const
+{
+    return (a.collidesWith & (1u << b.id)) != 0;
+}
+
+bool isOverlapping(const Object &obj1, const Object &obj2)
 {
     if (
         obj1.collider == nullptr ||
@@ -17,11 +25,11 @@ bool CollisionManager::isOverlapping(const Object &obj1, const Object &obj2)
         return false;
     }
 
-    const glm::vec2 minA = obj1.transform.position - obj1.collider->halfSize;
-    const glm::vec2 maxA = obj1.transform.position + obj1.collider->halfSize;
+    const glm::vec2 minA = obj1.transform.position - obj1.collider->shape->halfSize;
+    const glm::vec2 maxA = obj1.transform.position + obj1.collider->shape->halfSize;
 
-    const glm::vec2 minB = obj2.transform.position - obj2.collider->halfSize;
-    const glm::vec2 maxB = obj2.transform.position + obj2.collider->halfSize;
+    const glm::vec2 minB = obj2.transform.position - obj2.collider->shape->halfSize;
+    const glm::vec2 maxB = obj2.transform.position + obj2.collider->shape->halfSize;
 
     return minA.x < maxB.x &&
            maxA.x > minB.x &&
@@ -29,10 +37,10 @@ bool CollisionManager::isOverlapping(const Object &obj1, const Object &obj2)
            maxA.y > minB.y;
 }
 
-void CollisionManager::resolveHorizontal(Object &moving, const Object &obstacle, float movementX)
+void resolveHorizontal(Object &moving, const Object &obstacle, float movementX)
 {
-    float movingHalfWidth = moving.collider->halfSize.x;
-    float obstacleHalfWidth = obstacle.collider->halfSize.x;
+    float movingHalfWidth = moving.collider->shape->halfSize.x;
+    float obstacleHalfWidth = obstacle.collider->shape->halfSize.x;
     float obstacleCenterX = obstacle.transform.position.x;
 
     if (movementX > 0.0f)
@@ -41,10 +49,10 @@ void CollisionManager::resolveHorizontal(Object &moving, const Object &obstacle,
         moving.transform.position.x = obstacleCenterX + obstacleHalfWidth + movingHalfWidth;
 }
 
-void CollisionManager::resolveVertical(Object &moving, const Object &obstacle, float movementY)
+void resolveVertical(Object &moving, const Object &obstacle, float movementY)
 {
-    float movingHalfHeight = moving.collider->halfSize.y;
-    float obstacleHalfHeight = obstacle.collider->halfSize.y;
+    float movingHalfHeight = moving.collider->shape->halfSize.y;
+    float obstacleHalfHeight = obstacle.collider->shape->halfSize.y;
     float obstacleCenterY = obstacle.transform.position.y;
 
     if (movementY > 0.0f)
@@ -63,11 +71,11 @@ MovementResult CollisionManager::moveAndSlide(Object &moving, const glm::vec2 &m
 
     for (auto &obstacle : world->objects)
     {
-        if (obstacle == nullptr ||
-            obstacle.get() == &moving)
-        {
+        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
             continue;
-        }
+
+        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+            continue;
 
         if (!isOverlapping(moving, *obstacle))
             continue;
@@ -81,11 +89,11 @@ MovementResult CollisionManager::moveAndSlide(Object &moving, const glm::vec2 &m
 
     for (auto &obstacle : world->objects)
     {
-        if (obstacle == nullptr ||
-            obstacle.get() == &moving)
-        {
+        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
             continue;
-        }
+
+        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+            continue;
 
         if (!isOverlapping(moving, *obstacle))
             continue;

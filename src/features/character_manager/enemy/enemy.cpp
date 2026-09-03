@@ -11,6 +11,7 @@ Enemy::Enemy(
     DamageRegistry &damageRegistry,
     CollisionManager &collisionManager,
     ResourceManager &resourceManager,
+    BulletSystem &bulletSystem,
     Tilemap &tileset,
     glm::vec2 position
 )
@@ -46,6 +47,8 @@ Enemy::Enemy(
     this->scene = &scene;
     this->resourceManager = &resourceManager;
     this->tileset = &tileset;
+    this->bulletSystem = &bulletSystem;
+    this->collisionManager = &collisionManager;
 }
 
 Enemy::~Enemy()

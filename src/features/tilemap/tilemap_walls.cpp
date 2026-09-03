@@ -11,7 +11,7 @@ void Tilemap::createWall(const glm::vec2 pos, int type)
         ObjectCreationData d{
             .name = "wall",
             .meshId = "sprite_mesh",
-            .colliderId = "wall",
+            .colliderId = "wall_collider",
             .materialId = "bricks_material"
         };
 

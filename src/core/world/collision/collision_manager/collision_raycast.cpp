@@ -7,7 +7,7 @@ std::optional<RaycastHit> CollisionManager::raycastAgainstObject(const glm::vec2
     if (object.collider == nullptr)
         return std::nullopt;
 
-    const AabbCollider *box = object.collider;
+    const AabbShape *box = object.collider->shape;
     const glm::vec2 boxCenter = object.transform.position;
 
     const glm::vec2 localStart = start - boxCenter;
@@ -108,6 +108,9 @@ std::optional<RaycastHit> CollisionManager::raycast(
 
         if (object.get() == ignore)
             continue;
+
+        //if (canCollide(*object->collider->group, ))
+            //continue;
 
         std::optional<RaycastHit> hit = raycastAgainstObject(start, end, *object.get());
 

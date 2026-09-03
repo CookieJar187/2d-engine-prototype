@@ -119,7 +119,6 @@ int main()
         cameraShaker
     };
     characterManager.spawnPlayer({500, -500});
-    //characterManager.spawnPlayer();
 
     // Process
     float deltaTime = 0.0f;

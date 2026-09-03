@@ -12,17 +12,25 @@
 #include "tilemap.h"
 #include "damageable.h"
 #include "damage_registry.h"
+#include "bullet_system.h"
 
 class Enemy : public Character
 {
 private:
-    Scene *scene = nullptr;
-    ResourceManager *resourceManager = nullptr;
-    Tilemap *tileset = nullptr;
+    Scene *scene;
+    ResourceManager *resourceManager;
+    Tilemap *tileset;
+    BulletSystem *bulletSystem;
+    CollisionManager *collisionManager;
 
     // Ai components
+    Object *enemyTarget;
+
     float maximumForLastTimePathfindingWasUpdated = 1.0f;
     float lastTimePathfindingWasUpdated = 1.0f;
+
+    float maximumForLastTimeGunWasUpdated = 1.0f;
+    float lastTimeGunWasUpdated = 1.0f;
 
     std::vector<glm::ivec2> pathPoints;
     int currPathPoint = 0;
@@ -33,6 +41,7 @@ public:
         DamageRegistry &damageRegistry,
         CollisionManager &collisionManager,
         ResourceManager &resourceManager,
+        BulletSystem &bulletSystem,
         Tilemap &tileset,
         glm::vec2 position
     );

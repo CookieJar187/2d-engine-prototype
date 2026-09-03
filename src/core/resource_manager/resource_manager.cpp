@@ -10,7 +10,7 @@ ResourceManager::ResourceManager()
 {
 }
 
-// GET
+// Getter functions
 Mesh *ResourceManager::getMesh(const std::string& id)
 {
     if (!this->meshes[id])
@@ -47,14 +47,32 @@ Material *ResourceManager::getMaterial(const std::string& id)
     }
     return this->materials[id].get();
 }
-AabbCollider *ResourceManager::getCollider(const std::string& id)
+AabbShape *ResourceManager::getAabbShape(const std::string& id)
 {
-    if (!this->colliders[id])
+    if (!this->aabbShapes[id])
+    {
+        std::cerr << "ResourceManager: aabb shape `" << id << "` not found\n";
+        return nullptr;
+    }
+    return this->aabbShapes[id].get();
+}
+CollisionGroup* ResourceManager::getCollisionGroup(const std::string& id)
+{
+    if (!this->collisionGroups[id])
+    {
+        std::cerr << "ResourceManager: collision group `" << id << "` not found\n";
+        return nullptr;
+    }
+    return this->collisionGroups[id].get();
+}
+Collider *ResourceManager::getCollider(const std::string& id)
+{
+    if (!this->collidersss[id])
     {
         std::cerr << "ResourceManager: collider `" << id << "` not found\n";
         return nullptr;
     }
-    return this->colliders[id].get();
+    return this->collidersss[id].get();
 }
 Sound *ResourceManager::getSound(const std::string& id)
 {
@@ -66,7 +84,7 @@ Sound *ResourceManager::getSound(const std::string& id)
     return this->sounds[id].get();
 }
 
-// SET
+// Adder functions
 void ResourceManager::addQuadMesh(const std::string& id)
 {
     Mesh mesh = MeshLoader::loadQuad();
@@ -126,17 +144,51 @@ void ResourceManager::addMaterial(
 
     this->materials[id] = std::make_unique<Material>(std::move(material));
 }
-void ResourceManager::addCollider(
+void ResourceManager::addAabbShape(
     const std::string& id,
     const std::optional<glm::vec2> halfSize
 )
 {
-    AabbCollider collider;
+    AabbShape collider;
 
     if (halfSize.has_value())
         collider.halfSize = halfSize.value();
 
-    this->colliders[id] = std::make_unique<AabbCollider>(std::move(collider));
+    this->aabbShapes[id] = std::make_unique<AabbShape>(std::move(collider));
+}
+
+void ResourceManager::addCollisionGroup(
+    const std::string& id
+)
+{
+    if (collisionGroups.size() >= 16)
+    {
+        std::cerr << "ResourceManager: collision group map filled to the brim. ";
+        std::cerr << "No more elements can be inserted. Adjust map capacity\n";
+        return;
+    }
+
+    CollisionGroup group;
+
+    group.id = static_cast<CollisionGroupId>(collisionGroups.size());
+
+    this->collisionGroups[id] = std::make_unique<CollisionGroup>(std::move(group));
+}
+
+void ResourceManager::addCollider(
+    const std::string& id,
+    const std::optional<std::string> aabbShape,
+    const std::optional<std::string> collisionGroup
+)
+{
+    Collider collider;
+
+    if (aabbShape.has_value())
+        collider.shape = aabbShapes[aabbShape.value()].get();
+    if (collisionGroup.has_value())
+        collider.group = collisionGroups[collisionGroup.value()].get();
+
+    this->collidersss[id] = std::make_unique<Collider>(std::move(collider));
 }
 
 void ResourceManager::addSound(
@@ -155,4 +207,24 @@ void ResourceManager::addSound(
     {
         std::cerr << e.what() << '\n';
     }
+}
+
+// Setter functions
+void ResourceManager::setCollisionGroupRelationship(
+    const std::string &id1,
+    const std::string &id2,
+    const bool value
+)
+{
+    CollisionGroup *group1 = getCollisionGroup(id1);
+    CollisionGroup *group2 = getCollisionGroup(id2);
+
+    if (group1 == nullptr || group2 == nullptr)
+        return;
+
+    uint8_t group1Id = group1->id;
+    uint8_t group2Id = group2->id;
+
+    group1->collidesWith |= (1u << group2Id);
+    group2->collidesWith |= (1u << group1Id);
 }

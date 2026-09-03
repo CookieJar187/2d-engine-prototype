@@ -333,26 +333,68 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
         "enemy_dead2_texture"
     );
 
+    // Collision shapes
+    this->resourceManager->addAabbShape(
+        "character_shape",
+        glm::vec2(20, 35)
+    );
+    this->resourceManager->addAabbShape(
+        "wall_shape",
+        glm::vec2(50, 50)
+    );
+    this->resourceManager->addAabbShape(
+        "boards_horizontal_shape",
+        glm::vec2(50, 10)
+    );
+    this->resourceManager->addAabbShape(
+        "boards_vertical_shape",
+        glm::vec2(10, 50)
+    );
+    this->resourceManager->addAabbShape(
+        "tree_shape",
+        glm::vec2(40, 30)
+    );
+
+    // Collision groups
+    this->resourceManager->addCollisionGroup(
+        "character_collision_group"
+    );
+
+    this->resourceManager->addCollisionGroup(
+        "obstacle_collision_group"
+    );
+
+    this->resourceManager->setCollisionGroupRelationship(
+        "character_collision_group",
+        "obstacle_collision_group",
+        true
+    );
+
     // Colliders
     this->resourceManager->addCollider(
         "character_collider",
-        glm::vec2(20, 35)
+        "character_shape",
+        "character_collision_group"
     );
     this->resourceManager->addCollider(
-        "wall",
-        glm::vec2(50, 50)
+        "wall_collider",
+        "wall_shape",
+        "obstacle_collision_group"
     );
     this->resourceManager->addCollider(
         "boards_horizontal_collider",
-        glm::vec2(50, 10)
+        "boards_horizontal_shape",
+        "obstacle_collision_group"
     );
     this->resourceManager->addCollider(
         "boards_vertical_collider",
-        glm::vec2(10, 50)
+        "boards_vertical_shape",
+        "obstacle_collision_group"
     );
     this->resourceManager->addCollider(
         "tree_collider",
-        glm::vec2(40, 30)
+        "tree_shape",
+        "obstacle_collision_group"
     );
 
     // Sounds

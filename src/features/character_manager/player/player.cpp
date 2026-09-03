@@ -70,54 +70,54 @@ void Player::update(float deltaTime)
         body->transform.position,
         0.05f);
 
-    if (isDead() || isBeingDamaged())
-        return;
-
-    glm::vec2 inputDirection(0, 0);
-
-    if (input->isKeyDown(65))
-        inputDirection.x -= 1;
-    else if (input->isKeyDown(68))
-        inputDirection.x += 1;
-
-    if (input->isKeyDown(83))
-        inputDirection.y -= 1;
-    else if (input->isKeyDown(87))
-        inputDirection.y += 1;
-
-    if (!glm::all(glm::epsilonEqual(inputDirection, glm::vec2(0.0f), 0.0001f)))
-        moveTo(inputDirection, deltaTime);
-
-    if (input->isMouseButtonJustPressed(0))
+    if (!(isDead() || isBeingDamaged()))
     {
-        glm::vec2 cursorScreen = input->getMousePosition();
-        glm::vec2 screenSize = input->getScreenSize();
-        glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
+        glm::vec2 inputDirection(0, 0);
 
-        glm::vec2 origin = body->transform.position;
-        glm::vec2 direction = glm::normalize(mouseWorld - origin);
-        glm::vec2 target = origin + direction * 1000.0f;
+        if (input->isKeyDown(65))
+            inputDirection.x -= 1;
+        else if (input->isKeyDown(68))
+            inputDirection.x += 1;
 
-        bulletSystem->fire(origin, direction, body);
+        if (input->isKeyDown(83))
+            inputDirection.y -= 1;
+        else if (input->isKeyDown(87))
+            inputDirection.y += 1;
 
-        cameraShaker->gunShake();
-    }
+        if (!glm::all(glm::epsilonEqual(inputDirection, glm::vec2(0.0f), 0.0001f)))
+            moveTo(inputDirection, deltaTime);
 
-    if (input->isKeyJustPressed(71))
-    {
-        glm::vec2 cursorScreen = input->getMousePosition();
-        glm::vec2 screenSize = input->getScreenSize();
-        glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
+        if (input->isMouseButtonJustPressed(0))
+        {
+            glm::vec2 cursorScreen = input->getMousePosition();
+            glm::vec2 screenSize = input->getScreenSize();
+            glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
 
-        glm::vec2 origin = body->transform.position;
-        glm::vec2 direction = glm::normalize(mouseWorld - origin);
+            glm::vec2 origin = body->transform.position;
+            glm::vec2 direction = glm::normalize(mouseWorld - origin);
+            glm::vec2 target = origin + direction * 1000.0f;
 
-        grenadeSystem->launch(origin, direction, this->body);
-    }
+            bulletSystem->fire(origin, direction, body);
 
-    if (input->isKeyJustPressed(32))
-    {
-        meleeSystem->newMelee(this->body->transform.position, *this->body);
+            cameraShaker->gunShake();
+        }
+
+        if (input->isKeyJustPressed(71))
+        {
+            glm::vec2 cursorScreen = input->getMousePosition();
+            glm::vec2 screenSize = input->getScreenSize();
+            glm::vec2 mouseWorld = camera->screenToWorld(cursorScreen, screenSize);
+
+            glm::vec2 origin = body->transform.position;
+            glm::vec2 direction = glm::normalize(mouseWorld - origin);
+
+            grenadeSystem->launch(origin, direction, this->body);
+        }
+
+        if (input->isKeyJustPressed(32))
+        {
+            meleeSystem->newMelee(this->body->transform.position, *this->body);
+        }
     }
 
     // Character updates
