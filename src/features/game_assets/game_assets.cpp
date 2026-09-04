@@ -357,24 +357,36 @@ GameAssets::GameAssets(ResourceManager &resourceManager)
 
     // Collision groups
     this->resourceManager->addCollisionGroup(
-        "character_collision_group"
+        "friendly_character_collision_group"
     );
-
+    this->resourceManager->addCollisionGroup(
+        "enemy_character_collision_group"
+    );
     this->resourceManager->addCollisionGroup(
         "obstacle_collision_group"
     );
-
+    
     this->resourceManager->setCollisionGroupRelationship(
-        "character_collision_group",
+        "friendly_character_collision_group",
+        "obstacle_collision_group",
+        true
+    );
+    this->resourceManager->setCollisionGroupRelationship(
+        "enemy_character_collision_group",
         "obstacle_collision_group",
         true
     );
 
     // Colliders
     this->resourceManager->addCollider(
-        "character_collider",
+        "friendly_character_collider",
         "character_shape",
-        "character_collision_group"
+        "friendly_character_collision_group"
+    );
+    this->resourceManager->addCollider(
+        "enemy_character_collider",
+        "character_shape",
+        "enemy_character_collision_group"
     );
     this->resourceManager->addCollider(
         "wall_collider",

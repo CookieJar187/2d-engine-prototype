@@ -23,7 +23,7 @@ Enemy::Enemy(
     ObjectCreationData{
         .name = "enemy",
         .meshId = "sprite_mesh",
-        .colliderId = "character_collider",
+        .colliderId = "enemy_character_collider",
         //.materialId = "enemy_material",
         .transform = Transform2{.position = position}
     },

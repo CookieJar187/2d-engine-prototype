@@ -17,7 +17,6 @@
 struct Grenade
 {
     Object *object = nullptr;
-    Object *launcher = nullptr;
     glm::vec2 direction;
     glm::vec2 position;
     float lifespan = 2.2f;
@@ -40,6 +39,7 @@ private:
     Material *grenadeOff;
 
     Sound *grenadeBeep;
+    RaycastFilter raycastFilter;
 
     void deleteGrenade(Grenade *grnd, int index);
 
@@ -53,8 +53,7 @@ public:
 
     void launch(
         const glm::vec2 origin,
-        const glm::vec2 dir,
-        Object *launcher = nullptr
+        const glm::vec2 dir
     );
 
     void update(float deltaTime);

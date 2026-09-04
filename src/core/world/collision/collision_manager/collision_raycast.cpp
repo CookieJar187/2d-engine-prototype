@@ -96,22 +96,36 @@ std::optional<RaycastHit> CollisionManager::raycastAgainstObject(const glm::vec2
 std::optional<RaycastHit> CollisionManager::raycast(
     const glm::vec2 &start,
     const glm::vec2 &end,
-    const Object *ignore)
+    const RaycastFilter filter)
 {
     std::optional<RaycastHit> closestHit;
     float closestFraction = 1.0f;
 
     for (auto &object : world->objects)
     {
+        // Basic debounce
         if (object->collider == nullptr)
             continue;
 
-        if (object.get() == ignore)
+        if (object->collider->group == nullptr)
             continue;
 
-        //if (canCollide(*object->collider->group, ))
-            //continue;
+        // Check collision bitmask
+        const uint32_t objectBit = 1u << object->collider->group->id;
+        const bool groupIsListed = (filter.groups & objectBit) != 0;
 
+        if (filter.mode == GroupFilterMode::Ignore)
+        {
+            if (groupIsListed)
+                continue;
+        }
+        else
+        {
+            if (!groupIsListed)
+                continue;
+        }
+
+        // Raycast
         std::optional<RaycastHit> hit = raycastAgainstObject(start, end, *object.get());
 
         if (hit.has_value() && hit->fraction < closestFraction)

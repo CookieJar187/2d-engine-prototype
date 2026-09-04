@@ -14,12 +14,17 @@ BulletSystem::BulletSystem(
     this->scene = &scene;
 
     this->gunshotSound = resourceManager.getSound("gunshot1_sound");
+    CollisionGroup *friendlyCollisionGroup = resourceManager.getCollisionGroup("friendly_character_collision_group");
+    CollisionGroup *enemyCollisionGroup = resourceManager.getCollisionGroup("enemy_character_collision_group");
+
+    this->friendlyFilter.groups = (1u << friendlyCollisionGroup->id);
+    this->enemyFilter.groups = (1u << enemyCollisionGroup->id);
 }
 
 void BulletSystem::fire(
     const glm::vec2 &origin,
     const glm::vec2 &direction,
-    Object *ignore)
+    BulletTeam team)
 {
     Transform2 trans{
         .position = origin,
@@ -34,9 +39,9 @@ void BulletSystem::fire(
 
     Bullet bullet = {
         .object = bulletObject,
-        .ignore = ignore,
         .direction = direction,
-        .position = origin};
+        .position = origin,
+        .team = team};
 
     bullets.push_back(bullet);
 
@@ -51,10 +56,17 @@ void BulletSystem::update(float deltaTime)
 
         glm::vec2 targetPos = bullet->position + (bullet->direction * BULLET_SPEED * deltaTime);
 
+        RaycastFilter *raycastFilter = nullptr;
+        if (bullet->team == BulletTeam::Friendly)
+            raycastFilter = &this->friendlyFilter;
+        else
+            raycastFilter = &this->enemyFilter;
+
         std::optional<RaycastHit> hit = BulletSystem::collisionManager->raycast(
             bullet->position,
             targetPos,
-            bullet->ignore);
+            *raycastFilter
+        );
 
         if (hit.has_value())
         {

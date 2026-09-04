@@ -35,6 +35,7 @@ void Enemy::updateAi(float deltaTime)
         lastTimeGunWasUpdated += deltaTime;
     else
     {
+        /*
         if (enemyTarget != nullptr)
         {
             auto originPos = this->body->transform.position;
@@ -52,7 +53,7 @@ void Enemy::updateAi(float deltaTime)
                 this->bulletSystem->fire(originPos, dir, this->body);
             }
         }
-
+        */
         lastTimeGunWasUpdated = rng::getFloat(0.5f);
     }
 }

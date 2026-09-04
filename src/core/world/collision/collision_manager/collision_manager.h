@@ -38,6 +38,18 @@ struct RaycastHit
     float fraction = 0.0f;
 };
 
+enum class GroupFilterMode
+{
+    Ignore,
+    PermitOnly
+};
+
+struct RaycastFilter
+{
+    CollisionMask groups = 0;
+    GroupFilterMode mode = GroupFilterMode::Ignore;
+};
+
 class CollisionManager
 {
 private:
@@ -58,5 +70,6 @@ public:
     std::optional<RaycastHit> raycast(
         const glm::vec2 &start,
         const glm::vec2 &end,
-        const Object *ignore = nullptr);
+        const RaycastFilter filter
+    );
 };

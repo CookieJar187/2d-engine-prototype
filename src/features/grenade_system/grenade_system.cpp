@@ -18,12 +18,16 @@ GrenadeSystem::GrenadeSystem(
     this->grenadeOff = resourceManager.getMaterial("grenade_off_material");
 
     this->grenadeBeep = resourceManager.getSound("grenade_beep_sound");
+
+    CollisionGroup *obstacleCollisionGroup = resourceManager.getCollisionGroup("obstacle_collision_group");
+
+    this->raycastFilter.groups = (1u << obstacleCollisionGroup->id);
+    this->raycastFilter.mode = GroupFilterMode::PermitOnly;
 }
 
 void GrenadeSystem::launch(
     const glm::vec2 origin,
-    const glm::vec2 dir,
-    Object *launcher
+    const glm::vec2 dir
 )
 {
     ObjectCreationData d;
@@ -36,7 +40,6 @@ void GrenadeSystem::launch(
     grnd.position = origin;
     grnd.direction = dir;
     grnd.object = this->scene->createObject(d);
-    grnd.launcher = launcher;
 
     this->grenades.push_back(grnd);
 }
@@ -88,7 +91,7 @@ void GrenadeSystem::update(float deltaTime)
                 std::optional<RaycastHit> hit = this->collisionManager->raycast(
                     grnd->position,
                     targetPos,
-                    grnd->launcher
+                    this->raycastFilter
                 );
 
                 if (hit.has_value())

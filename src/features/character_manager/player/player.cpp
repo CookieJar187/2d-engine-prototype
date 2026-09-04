@@ -26,7 +26,7 @@ Player::Player(
     ObjectCreationData{
         .name = "player",
         .meshId = "sprite_mesh",
-        .colliderId = "character_collider",
+        .colliderId = "friendly_character_collider",
         //.materialId = "player_material",
         .transform = { .position = position }
     },
@@ -97,7 +97,7 @@ void Player::update(float deltaTime)
             glm::vec2 direction = glm::normalize(mouseWorld - origin);
             glm::vec2 target = origin + direction * 1000.0f;
 
-            bulletSystem->fire(origin, direction, body);
+            bulletSystem->fire(origin, direction, BulletTeam::Friendly);
 
             cameraShaker->gunShake();
         }
@@ -111,7 +111,7 @@ void Player::update(float deltaTime)
             glm::vec2 origin = body->transform.position;
             glm::vec2 direction = glm::normalize(mouseWorld - origin);
 
-            grenadeSystem->launch(origin, direction, this->body);
+            grenadeSystem->launch(origin, direction);
         }
 
         if (input->isKeyJustPressed(32))

@@ -11,12 +11,18 @@
 #include "resource_manager.hpp"
 #include "object.h"
 
+enum class BulletTeam
+{
+    Friendly,
+    Enemy
+};
+
 struct Bullet
 {
     Object *object = nullptr;
-    Object *ignore = nullptr;
     glm::vec2 direction;
     glm::vec2 position;
+    BulletTeam team;
     float lifespan = 0.3f;
 };
 
@@ -33,7 +39,7 @@ public:
     void fire(
         const glm::vec2 &origin,
         const glm::vec2 &direction,
-        Object *ignore = nullptr);
+        BulletTeam team);
 
     void update(float deltaTime);
 
@@ -43,6 +49,8 @@ private:
     Scene *scene = nullptr;
 
     Sound *gunshotSound;
+    RaycastFilter friendlyFilter;
+    RaycastFilter enemyFilter;
 
     std::vector<Bullet> bullets;
 
