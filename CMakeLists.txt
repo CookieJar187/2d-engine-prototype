@@ -62,6 +62,7 @@ add_executable(2DEnginePrototype
 
 target_include_directories(2DEnginePrototype PRIVATE
     src
+    src/core
     src/core/math/rng
     src/core/resource_manager
     src/core/loaders/mesh_loader

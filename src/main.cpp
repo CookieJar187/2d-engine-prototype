@@ -1,18 +1,4 @@
-#include <iostream>
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <al.h>
-#include <alc.h>
-
-#include "world.h"
-#include "input.h"
-#include "scene.h"
-#include "camera.h"
-#include "ui_manager.h"
-#include "collision_manager.h"
-#include "game_fsm.h"
-#include "resource_manager.hpp"
+#include "core.hpp"
 
 #include "game_assets.hpp"
 #include "player.hpp"
@@ -81,28 +67,30 @@ int main()
     uiManager.init(window, &gameFsm);
 
     // Core
-    ResourceManager resourceManager;
+    Core core{window};
+
+    //ResourceManager resourceManager;
     World world;
     CollisionManager collisionManager{world};
     Camera2 camera;
-    CameraShaker cameraShaker{camera};
-    Scene scene{world, resourceManager};
+    Scene scene{world, core.resourceManager};
     Input input(window);
 
     // Features
-    GameAssets gameAssets{resourceManager};
+    GameAssets gameAssets{core.resourceManager};
     DamageRegistry damageRegistry;
-    BulletSystem bulletSystem{collisionManager, damageRegistry, scene, resourceManager};
-    ExplosionSystem explosionSystem{scene, damageRegistry, cameraShaker, resourceManager};
+    CameraShaker cameraShaker{camera};
+    BulletSystem bulletSystem{collisionManager, damageRegistry, scene, core.resourceManager};
+    ExplosionSystem explosionSystem{scene, damageRegistry, cameraShaker, core.resourceManager};
     GrenadeSystem grenadeSystem{
         scene,
         collisionManager,
-        resourceManager,
+        core.resourceManager,
         explosionSystem
     };
     MeleeSystem meleeSystem{scene, damageRegistry};
 
-    Tilemap tilemap{scene, resourceManager, damageRegistry};
+    Tilemap tilemap{scene, core.resourceManager, damageRegistry};
     tilemap.load();
 
     CharacterManager characterManager{
@@ -112,7 +100,7 @@ int main()
         collisionManager,
         bulletSystem,
         damageRegistry,
-        resourceManager,
+        core.resourceManager,
         tilemap,
         grenadeSystem,
         meleeSystem,
