@@ -1,8 +1,7 @@
 #include "character.hpp"
 
 Character::Character(
-    Scene &scene,
-    CollisionManager &collisionManager,
+    Core &core,
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
     ObjectCreationData objectCreationData,
@@ -23,10 +22,10 @@ Character::Character(
     Sound &death8Sound
 )
 {
-    this->body = scene.createObject(objectCreationData);
+    this->body = core.scene.createObject(objectCreationData);
     this->body->material = &downMaterial;
 
-    characterMotor.init(*this->body, collisionManager);
+    characterMotor.init(*this->body, core.collisionManager);
 
     damageRegistry.registerDamageable(this->body, this);
 

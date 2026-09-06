@@ -5,13 +5,9 @@
 #include <glm/gtc/epsilon.hpp>
 
 Player::Player(
-    Scene &scene,
-    Input &input,
-    Camera2 &camera,
-    CollisionManager &collisionManager,
-    ResourceManager &resourceManager,
-    BulletSystem &bulletSystem,
+    Core &core,
     DamageRegistry &damageRegistry,
+    BulletSystem &bulletSystem,
     Tilemap &tilemap,
     GrenadeSystem &grenadeSystem,
     MeleeSystem &meleeSystem,
@@ -19,8 +15,7 @@ Player::Player(
     glm::vec2 position
 )
 : Character(
-    scene,
-    collisionManager,
+    core,
     damageRegistry,
     tilemap,
     ObjectCreationData{
@@ -30,25 +25,25 @@ Player::Player(
         //.materialId = "player_material",
         .transform = { .position = position }
     },
-    *resourceManager.getMaterial("player_north_material"),
-    *resourceManager.getMaterial("player_south_material"),
-    *resourceManager.getMaterial("player_east_material"),
-    *resourceManager.getMaterial("player_west_material"),
-    *resourceManager.getMaterial("character_hit_material"),
-    *resourceManager.getMaterial("player_dead1_material"),
-    *resourceManager.getMaterial("player_dead2_material"),
-    *resourceManager.getSound("death_cry1_sound"),
-    *resourceManager.getSound("death_cry2_sound"),
-    *resourceManager.getSound("death_cry3_sound"),
-    *resourceManager.getSound("death_cry4_sound"),
-    *resourceManager.getSound("wilhelm_scream1_sound"),
-    *resourceManager.getSound("wilhelm_scream2_sound"),
-    *resourceManager.getSound("wilhelm_scream3_sound"),
-    *resourceManager.getSound("wilhelm_scream4_sound")
+    *core.resourceManager.getMaterial("player_north_material"),
+    *core.resourceManager.getMaterial("player_south_material"),
+    *core.resourceManager.getMaterial("player_east_material"),
+    *core.resourceManager.getMaterial("player_west_material"),
+    *core.resourceManager.getMaterial("character_hit_material"),
+    *core.resourceManager.getMaterial("player_dead1_material"),
+    *core.resourceManager.getMaterial("player_dead2_material"),
+    *core.resourceManager.getSound("death_cry1_sound"),
+    *core.resourceManager.getSound("death_cry2_sound"),
+    *core.resourceManager.getSound("death_cry3_sound"),
+    *core.resourceManager.getSound("death_cry4_sound"),
+    *core.resourceManager.getSound("wilhelm_scream1_sound"),
+    *core.resourceManager.getSound("wilhelm_scream2_sound"),
+    *core.resourceManager.getSound("wilhelm_scream3_sound"),
+    *core.resourceManager.getSound("wilhelm_scream4_sound")
 )
 {
-    this->input = &input;
-    this->camera = &camera;
+    this->input = &core.input;
+    this->camera = &core.camera;
     this->bulletSystem = &bulletSystem;
     this->grenadeSystem = &grenadeSystem;
     this->meleeSystem = &meleeSystem;

@@ -7,10 +7,8 @@
 #include <vector>
 #include <glm/vec2.hpp>
 
-#include "object.h"
-#include "scene.h"
+#include "core.hpp"
 #include "character_motor.h"
-#include "collision_manager.h"
 
 #include "damageable.h"
 #include "damage_registry.h"
@@ -60,8 +58,7 @@ public:
     CharacterMotor characterMotor;
 
     Character(   
-        Scene &scene,
-        CollisionManager &collisionManager,
+        Core &core,
         DamageRegistry &damageRegistry,
         Tilemap &tilemap,
         ObjectCreationData objectCreationData,

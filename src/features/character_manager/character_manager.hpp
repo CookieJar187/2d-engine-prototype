@@ -8,6 +8,7 @@
 
 #include "player.hpp"
 #include "enemy.hpp"
+#include "comrade.hpp"
 
 #include "bullet_system.h"
 #include "damage_registry.h"
@@ -22,16 +23,13 @@ private:
     std::unique_ptr<Player> player = nullptr;
 
     std::vector<std::unique_ptr<Enemy>> enemies;
-    //std::vector<std::unique_ptr<Comrade>> comrades;
+    std::vector<std::unique_ptr<Comrade>> comrades;
 
     //
-    Scene *scene;
-    Input *input;
-    Camera2 *camera;
-    CollisionManager *collisionManager;
+    Core *core;
+
     BulletSystem *bulletSystem;
     DamageRegistry *damageRegistry;
-    ResourceManager *resourceManager;
     Tilemap *tilemap;
     GrenadeSystem *grenadeSystem;
     MeleeSystem *meleeSystem;

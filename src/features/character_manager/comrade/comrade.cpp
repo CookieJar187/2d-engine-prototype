@@ -1,4 +1,4 @@
-#include "enemy.hpp"
+#include "comrade.hpp"
 
 #include <iostream>
 #include <glm/glm.hpp>
@@ -6,7 +6,7 @@
 
 #include "pathfinding.hpp"
 
-Enemy::Enemy(
+Comrade::Comrade(
     Core &core,
     DamageRegistry &damageRegistry,
     BulletSystem &bulletSystem,
@@ -18,19 +18,19 @@ Enemy::Enemy(
     damageRegistry,
     tileset,
     ObjectCreationData{
-        .name = "enemy",
+        .name = "comrade",
         .meshId = "sprite_mesh",
-        .colliderId = "enemy_character_collider",
-        //.materialId = "enemy_material",
+        .colliderId = "friendly_character_collider",
+        //.materialId = "comrade_material",
         .transform = Transform2{.position = position}
     },
-    *core.resourceManager.getMaterial("enemy_north_material"),
-    *core.resourceManager.getMaterial("enemy_south_material"),
-    *core.resourceManager.getMaterial("enemy_east_material"),
-    *core.resourceManager.getMaterial("enemy_west_material"),
+    *core.resourceManager.getMaterial("comrade_north_material"),
+    *core.resourceManager.getMaterial("comrade_south_material"),
+    *core.resourceManager.getMaterial("comrade_east_material"),
+    *core.resourceManager.getMaterial("comrade_west_material"),
     *core.resourceManager.getMaterial("character_hit_material"),
-    *core.resourceManager.getMaterial("enemy_dead1_material"),
-    *core.resourceManager.getMaterial("enemy_dead2_material"),
+    *core.resourceManager.getMaterial("comrade_dead1_material"),
+    *core.resourceManager.getMaterial("comrade_dead2_material"),
     *core.resourceManager.getSound("death_cry1_sound"),
     *core.resourceManager.getSound("death_cry2_sound"),
     *core.resourceManager.getSound("death_cry3_sound"),
@@ -48,13 +48,13 @@ Enemy::Enemy(
     this->collisionManager = &core.collisionManager;
 }
 
-Enemy::~Enemy()
+Comrade::~Comrade()
 {
     if (this->body != nullptr)
         this->body->queueFree();
 }
 
-void Enemy::update(float deltaTime)
+void Comrade::update(float deltaTime)
 {
     if (this->body == nullptr)
         return;
@@ -65,14 +65,14 @@ void Enemy::update(float deltaTime)
     this->updateAnimation(deltaTime);
 }
 
-void Enemy::onDamageApplied()
+void Comrade::onDamageApplied()
 {
 }
 
-void Enemy::onDamageStopped()
+void Comrade::onDamageStopped()
 {
 }
 
-void Enemy::onKilled()
+void Comrade::onKilled()
 {
 }

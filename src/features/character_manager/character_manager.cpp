@@ -12,11 +12,7 @@ CharacterManager::CharacterManager(
     CameraShaker &cameraShaker
 )
 {
-    this->scene = &core.scene;
-    this->input = &core.input;
-    this->camera = &core.camera;
-    this->collisionManager = &core.collisionManager;
-    this->resourceManager = &core.resourceManager;
+    this->core = &core;
     this->bulletSystem = &bulletSystem;
     this->damageRegistry = &damageRegistry;
     this->tilemap = &tilemap;
@@ -37,6 +33,12 @@ void CharacterManager::update(float deltaTime)
             enemies.erase(enemies.begin() + i);
     }
 
+    for (int i = comrades.size() - 1; i >= 0; i--)
+    {
+        if (comrades[i].get()->queuedForDeletion)
+            comrades.erase(comrades.begin() + i);
+    }
+
     // Update the rest
     if (player != nullptr)
         player.get()->update(deltaTime);
@@ -45,18 +47,19 @@ void CharacterManager::update(float deltaTime)
     {
         enemy.get()->update(deltaTime);
     }
+
+    for (auto &comrade : comrades)
+    {
+        comrade.get()->update(deltaTime);
+    }
 }
 
 void CharacterManager::spawnPlayer(glm::vec2 position)
 {
     this->player = std::make_unique<Player>(
-        *scene,
-        *input,
-        *camera,
-        *collisionManager,
-        *resourceManager,
-        *bulletSystem,
+        *core,
         *damageRegistry,
+        *bulletSystem,
         *tilemap,
         *grenadeSystem,
         *meleeSystem,
@@ -68,10 +71,19 @@ void CharacterManager::spawnPlayer(glm::vec2 position)
 void CharacterManager::spawnEnemy(glm::vec2 position)
 {
     this->enemies.push_back(std::make_unique<Enemy>(
-        *scene,
+        *core,
         *damageRegistry,
-        *collisionManager,
-        *resourceManager,
+        *bulletSystem,
+        *tilemap,
+        position
+    ));
+}
+
+void CharacterManager::spawnComrade(glm::vec2 position)
+{
+    this->comrades.push_back(std::make_unique<Comrade>(
+        *core,
+        *damageRegistry,
         *bulletSystem,
         *tilemap,
         position

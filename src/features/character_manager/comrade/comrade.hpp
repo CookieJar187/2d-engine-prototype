@@ -10,7 +10,7 @@
 #include "damage_registry.h"
 #include "bullet_system.h"
 
-class Enemy : public Character
+class Comrade : public Character
 {
 private:
     Scene *scene;
@@ -34,7 +34,7 @@ private:
     Object *getClosestEnemy(Scene &scene);
     
 public:
-    Enemy(   
+    Comrade(   
         Core &core,
         DamageRegistry &damageRegistry,
         BulletSystem &bulletSystem,
@@ -42,7 +42,7 @@ public:
         glm::vec2 position
     );
 
-    ~Enemy();
+    ~Comrade();
     
     void updateAi(float deltaTime);
     void update(float deltaTime);

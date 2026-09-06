@@ -1,16 +1,16 @@
-#include "enemy.hpp"
+#include "comrade.hpp"
 
 #include <iostream>
 
 #include "rng.hpp"
 #include "pathfinding.hpp"
 
-Object *Enemy::getClosestEnemy(Scene &scene)
+Object *Comrade::getClosestEnemy(Scene &scene)
 {
     return scene.getObjectByName("player");
 }
 
-void Enemy::updateAi(float deltaTime)
+void Comrade::updateAi(float deltaTime)
 {
     if (isDead() || isBeingDamaged())
         return;

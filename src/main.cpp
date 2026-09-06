@@ -110,6 +110,7 @@ int main()
         if (TEM > MAX)
         {
             characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
+            characterManager.spawnComrade({rng::getInt(9) * 100, -900});
             TEM = 0;
         }
         else

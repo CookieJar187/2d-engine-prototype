@@ -157,6 +157,32 @@ GameAssets::GameAssets(Core &core)
         "src/assets/textures/characters/enemy_dead2.png"
     );
 
+    // Comrade textures
+    this->resourceManager->addTexture(
+        "comrade_north_texture",
+        "src/assets/textures/characters/comrade_north.png"
+    );
+    this->resourceManager->addTexture(
+        "comrade_south_texture",
+        "src/assets/textures/characters/comrade_south.png"
+    );
+    this->resourceManager->addTexture(
+        "comrade_east_texture",
+        "src/assets/textures/characters/comrade_east.png"
+    );
+    this->resourceManager->addTexture(
+        "comrade_west_texture",
+        "src/assets/textures/characters/comrade_west.png"
+    );
+    this->resourceManager->addTexture(
+        "comrade_dead1_texture",
+        "src/assets/textures/characters/comrade_dead1.png"
+    );
+    this->resourceManager->addTexture(
+        "comrade_dead2_texture",
+        "src/assets/textures/characters/comrade_dead2.png"
+    );
+
     // Materials
     this->resourceManager->addMaterial(
         "placeholder_material",
@@ -331,6 +357,38 @@ GameAssets::GameAssets(Core &core)
         "enemy_dead2_material",
         "sprite_shader",
         "enemy_dead2_texture"
+    );
+
+    // Comrade material
+    this->resourceManager->addMaterial(
+        "comrade_north_material",
+        "sprite_shader",
+        "comrade_north_texture"
+    );
+    this->resourceManager->addMaterial(
+        "comrade_south_material",
+        "sprite_shader",
+        "comrade_south_texture"
+    );
+    this->resourceManager->addMaterial(
+        "comrade_east_material",
+        "sprite_shader",
+        "comrade_east_texture"
+    );
+    this->resourceManager->addMaterial(
+        "comrade_west_material",
+        "sprite_shader",
+        "comrade_west_texture"
+    );
+    this->resourceManager->addMaterial(
+        "comrade_dead1_material",
+        "sprite_shader",
+        "comrade_dead1_texture"
+    );
+    this->resourceManager->addMaterial(
+        "comrade_dead2_material",
+        "sprite_shader",
+        "comrade_dead2_texture"
     );
 
     // Collision shapes

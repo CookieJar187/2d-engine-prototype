@@ -4,10 +4,7 @@
 
 #include <memory>
 
-#include "input.h"
-#include "camera.h"
-#include "scene.h"
-#include "resource_manager.hpp"
+#include "core.hpp"
 
 #include "character.hpp"
 #include "bullet_system.h"
@@ -29,13 +26,9 @@ private:
 
 public:
     Player(
-        Scene &scene,
-        Input &input,
-        Camera2 &camera,
-        CollisionManager &collisionManager,
-        ResourceManager &resourceManager,
-        BulletSystem &bulletSystem,
+        Core &core,
         DamageRegistry &damageRegistry,
+        BulletSystem &bulletSystem,
         Tilemap &tilemap,
         GrenadeSystem &grenadeSystem,
         MeleeSystem &meleeSystem,
