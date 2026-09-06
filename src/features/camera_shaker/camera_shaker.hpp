@@ -4,9 +4,7 @@
 #define EXPLOSION_SHAKE_FACTOR 50
 #define DAMAGE_SHAKE_FACTOR 40
 
-#include <iostream>
-
-#include "camera.h"
+#include "core.hpp"
 
 class CameraShaker
 {
@@ -14,7 +12,7 @@ private:
     Camera2 *camera;
 
 public:
-    CameraShaker(Camera2 &camera);
+    CameraShaker(Core &core);
 
     void update(float elapsed);
 

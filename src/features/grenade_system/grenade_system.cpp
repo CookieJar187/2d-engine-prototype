@@ -4,22 +4,20 @@
 #include <algorithm>
 
 GrenadeSystem::GrenadeSystem(
-    Scene &scene,
-    CollisionManager &collisionManager,
-    ResourceManager &resourceManager,
+    Core &core,
     ExplosionSystem &explosionSystem
 )
 {
-    this->scene = &scene;
-    this->collisionManager = &collisionManager;
+    this->scene = &core.scene;
+    this->collisionManager = &core.collisionManager;
     this->explosionSystem = &explosionSystem;
 
-    this->grenadeOn = resourceManager.getMaterial("grenade_on_material");
-    this->grenadeOff = resourceManager.getMaterial("grenade_off_material");
+    this->grenadeOn = core.resourceManager.getMaterial("grenade_on_material");
+    this->grenadeOff = core.resourceManager.getMaterial("grenade_off_material");
 
-    this->grenadeBeep = resourceManager.getSound("grenade_beep_sound");
+    this->grenadeBeep = core.resourceManager.getSound("grenade_beep_sound");
 
-    CollisionGroup *obstacleCollisionGroup = resourceManager.getCollisionGroup("obstacle_collision_group");
+    CollisionGroup *obstacleCollisionGroup = core.resourceManager.getCollisionGroup("obstacle_collision_group");
 
     this->raycastFilter.groups = (1u << obstacleCollisionGroup->id);
     this->raycastFilter.mode = GroupFilterMode::PermitOnly;

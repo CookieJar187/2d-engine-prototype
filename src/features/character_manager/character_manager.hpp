@@ -4,16 +4,13 @@
 #include <memory>
 #include <optional>
 
+#include "core.hpp"
+
 #include "player.hpp"
 #include "enemy.hpp"
 
-#include "scene.h"
-#include "input.h"
-#include "camera.h"
-#include "collision_manager.h"
 #include "bullet_system.h"
 #include "damage_registry.h"
-#include "resource_manager.hpp"
 #include "tilemap.h"
 #include "grenade_system.hpp"
 #include "melee_system.hpp"
@@ -42,13 +39,9 @@ private:
 
 public:
     CharacterManager(
-        Scene &scene,
-        Input &input,
-        Camera2 &camera,
-        CollisionManager &collisionManager,
+        Core &core,
         BulletSystem &bulletSystem,
         DamageRegistry &damageRegistry,
-        ResourceManager &resourceManager,
         Tilemap &tilemap,
         GrenadeSystem &grenadeSystem,
         MeleeSystem &meleeSystem,

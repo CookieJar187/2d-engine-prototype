@@ -1,11 +1,11 @@
 #pragma once
 
-#include "resource_manager.hpp"
+#include "core.hpp"
 
 class GameAssets
 {
 public:
-    GameAssets(ResourceManager &resourceManager);
+    GameAssets(Core &core);
 
 private:
     ResourceManager *resourceManager;

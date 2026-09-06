@@ -3,10 +3,9 @@
 #include <vector>
 #include <glm/vec2.hpp>
 
-#include "scene.h"
+#include "core.hpp"
 #include "damage_registry.h"
 #include "camera_shaker.hpp"
-#include "resource_manager.hpp"
 
 struct Explosion
 {
@@ -33,10 +32,9 @@ private:
 
 public:
     ExplosionSystem(
-        Scene &scene,
+        Core &core,
         DamageRegistry &damageRegistry,
-        CameraShaker &cameraShaker,
-        ResourceManager &resourceManager
+        CameraShaker &cameraShaker
     );
 
     void explode(const glm::vec2 pos);

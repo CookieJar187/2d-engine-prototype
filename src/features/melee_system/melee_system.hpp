@@ -3,7 +3,7 @@
 #include <vector>
 #include <glm/vec2.hpp>
 
-#include "scene.h"
+#include "core.hpp"
 #include "damage_registry.h"
 
 struct Melee
@@ -26,7 +26,7 @@ private:
     void deleteMelee(Melee *expl, int index);
 
 public:
-    MeleeSystem(Scene &scene, DamageRegistry &damageRegistry);
+    MeleeSystem(Core &core, DamageRegistry &damageRegistry);
 
     void newMelee(const glm::vec2 pos, Object &parentObject);
 

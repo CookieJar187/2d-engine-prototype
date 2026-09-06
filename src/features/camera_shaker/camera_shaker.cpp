@@ -3,9 +3,9 @@
 float intensity = 0.0f;
 bool shaking = false;
 
-CameraShaker::CameraShaker(Camera2 &camera)
+CameraShaker::CameraShaker(Core &core)
 {
-    this->camera = &camera;
+    this->camera = &core.camera;
 }
 
 void CameraShaker::update(float elapsed)

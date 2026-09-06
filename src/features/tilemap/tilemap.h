@@ -9,8 +9,7 @@
 #include <memory>
 #include <glm/common.hpp>
 
-#include "scene.h"
-#include "resource_manager.hpp"
+#include "core.hpp"
 #include "damage_registry.h"
 
 #include "wall.hpp"
@@ -20,8 +19,7 @@ class Tilemap
 {
 public:
     Tilemap(
-        Scene &scene,
-        ResourceManager &resourceManager,
+        Core &core,
         DamageRegistry &damageRegistry
     );
 

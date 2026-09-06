@@ -1,8 +1,8 @@
 #include "game_assets.hpp"
 
-GameAssets::GameAssets(ResourceManager &resourceManager)
+GameAssets::GameAssets(Core &core)
 {
-    this->resourceManager = &resourceManager;
+    this->resourceManager = &core.resourceManager;
 
     // Shaders
     this->resourceManager->addShader(

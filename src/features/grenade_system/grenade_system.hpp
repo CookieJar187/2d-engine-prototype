@@ -7,11 +7,7 @@
 #include <vector>
 #include <glm/vec2.hpp>
 
-#include "object.h"
-#include "scene.h"
-#include "collision_manager.h"
-#include "resource_manager.hpp"
-
+#include "core.hpp"
 #include "explosion_system.hpp"
 
 struct Grenade
@@ -45,9 +41,7 @@ private:
 
 public:
     GrenadeSystem(
-        Scene &scene,
-        CollisionManager &collisionManager,
-        ResourceManager &resourceManager,
+        Core &core,
         ExplosionSystem &explosionSystem
     );
 

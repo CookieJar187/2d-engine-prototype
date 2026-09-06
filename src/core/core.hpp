@@ -22,10 +22,7 @@ private:
     GLFWwindow *window;
 
 public:
-    Core(GLFWwindow *window)
-    {
-        this->window = window;
-    }
+    Core(GLFWwindow *window) : window(window) {}
 
     ResourceManager resourceManager;
     World world;

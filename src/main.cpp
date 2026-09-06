@@ -69,38 +69,22 @@ int main()
     // Core
     Core core{window};
 
-    //ResourceManager resourceManager;
-    World world;
-    CollisionManager collisionManager{world};
-    Camera2 camera;
-    Scene scene{world, core.resourceManager};
-    Input input(window);
-
     // Features
-    GameAssets gameAssets{core.resourceManager};
+    GameAssets gameAssets{core};
     DamageRegistry damageRegistry;
-    CameraShaker cameraShaker{camera};
-    BulletSystem bulletSystem{collisionManager, damageRegistry, scene, core.resourceManager};
-    ExplosionSystem explosionSystem{scene, damageRegistry, cameraShaker, core.resourceManager};
-    GrenadeSystem grenadeSystem{
-        scene,
-        collisionManager,
-        core.resourceManager,
-        explosionSystem
-    };
-    MeleeSystem meleeSystem{scene, damageRegistry};
+    CameraShaker cameraShaker{core};
+    BulletSystem bulletSystem{core, damageRegistry};
+    ExplosionSystem explosionSystem{core, damageRegistry, cameraShaker};
+    GrenadeSystem grenadeSystem{core, explosionSystem};
+    MeleeSystem meleeSystem{core, damageRegistry};
 
-    Tilemap tilemap{scene, core.resourceManager, damageRegistry};
+    Tilemap tilemap{core, damageRegistry};
     tilemap.load();
 
     CharacterManager characterManager{
-        scene,
-        input,
-        camera,
-        collisionManager,
+        core,
         bulletSystem,
         damageRegistry,
-        core.resourceManager,
         tilemap,
         grenadeSystem,
         meleeSystem,
@@ -135,7 +119,7 @@ int main()
         uiManager.buildUi();
 
         // Input
-        input.update();
+        core.input.update();
 
         // Features
         bulletSystem.update(deltaTime);
@@ -148,8 +132,8 @@ int main()
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
-        scene.cleanupObjects();
-        scene.drawObjects(camera.getViewMatrix(), camera.projection);
+        core.scene.cleanupObjects();
+        core.scene.drawObjects(core.camera.getViewMatrix(), core.camera.projection);
         
         // Draw ui
         uiManager.drawUi();

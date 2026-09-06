@@ -3,19 +3,17 @@
 #include "bullet_system.h"
 
 BulletSystem::BulletSystem(
-    CollisionManager &collisionManager,
-    DamageRegistry &damageRegistry,
-    Scene &scene,
-    ResourceManager &resourceManager
+    Core &core,
+    DamageRegistry &damageRegistry
 )
 {
-    this->collisionManager = &collisionManager;
+    this->collisionManager = &core.collisionManager;
     this->damageRegistry = &damageRegistry;
-    this->scene = &scene;
+    this->scene = &core.scene;
 
-    this->gunshotSound = resourceManager.getSound("gunshot1_sound");
-    CollisionGroup *friendlyCollisionGroup = resourceManager.getCollisionGroup("friendly_character_collision_group");
-    CollisionGroup *enemyCollisionGroup = resourceManager.getCollisionGroup("enemy_character_collision_group");
+    this->gunshotSound = core.resourceManager.getSound("gunshot1_sound");
+    CollisionGroup *friendlyCollisionGroup = core.resourceManager.getCollisionGroup("friendly_character_collision_group");
+    CollisionGroup *enemyCollisionGroup = core.resourceManager.getCollisionGroup("enemy_character_collision_group");
 
     this->friendlyFilter.groups = (1u << friendlyCollisionGroup->id);
     this->enemyFilter.groups = (1u << enemyCollisionGroup->id);

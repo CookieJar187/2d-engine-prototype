@@ -3,11 +3,11 @@
 #include <iostream>
 
 MeleeSystem::MeleeSystem(
-    Scene &scene,
+    Core &core,
     DamageRegistry &damageRegistry
 )
 {
-    this->scene = &scene;
+    this->scene = &core.scene;
     this->damageRegistry = &damageRegistry;
 }
 

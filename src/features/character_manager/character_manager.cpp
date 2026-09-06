@@ -3,26 +3,22 @@
 #include <iostream>
 
 CharacterManager::CharacterManager(
-    Scene &scene,
-    Input &input,
-    Camera2 &camera,
-    CollisionManager &collisionManager,
+    Core &core,
     BulletSystem &bulletSystem,
     DamageRegistry &damageRegistry,
-    ResourceManager &resourceManager,
     Tilemap &tilemap,
     GrenadeSystem &grenadeSystem,
     MeleeSystem &meleeSystem,
     CameraShaker &cameraShaker
 )
 {
-    this->scene = &scene;
-    this->input = &input;
-    this->camera = &camera;
-    this->collisionManager = &collisionManager;
+    this->scene = &core.scene;
+    this->input = &core.input;
+    this->camera = &core.camera;
+    this->collisionManager = &core.collisionManager;
+    this->resourceManager = &core.resourceManager;
     this->bulletSystem = &bulletSystem;
     this->damageRegistry = &damageRegistry;
-    this->resourceManager = &resourceManager;
     this->tilemap = &tilemap;
     this->grenadeSystem = &grenadeSystem;
     this->meleeSystem = &meleeSystem;

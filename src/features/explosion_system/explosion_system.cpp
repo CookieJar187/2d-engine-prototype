@@ -5,19 +5,18 @@
 #include "rng.hpp"
 
 ExplosionSystem::ExplosionSystem(
-    Scene &scene,
+    Core &core,
     DamageRegistry &damageRegistry,
-    CameraShaker &cameraShaker,
-    ResourceManager &resourceManager
+    CameraShaker &cameraShaker
 )
 {
-    this->scene = &scene;
+    this->scene = &core.scene;
     this->damageRegistry = &damageRegistry;
     this->cameraShaker = &cameraShaker;
 
-    this->explosion1Sound = resourceManager.getSound("explosion1_sound");
-    this->explosion2Sound = resourceManager.getSound("explosion2_sound");
-    this->explosion3Sound = resourceManager.getSound("explosion3_sound");
+    this->explosion1Sound = core.resourceManager.getSound("explosion1_sound");
+    this->explosion2Sound = core.resourceManager.getSound("explosion2_sound");
+    this->explosion3Sound = core.resourceManager.getSound("explosion3_sound");
 }
 
 void ExplosionSystem::explode(const glm::vec2 pos)

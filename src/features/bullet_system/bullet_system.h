@@ -5,11 +5,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "scene.h"
-#include "collision_manager.h"
+#include "core.hpp"
 #include "damage_registry.h"
-#include "resource_manager.hpp"
-#include "object.h"
 
 enum class BulletTeam
 {
@@ -30,10 +27,8 @@ class BulletSystem
 {
 public:
     BulletSystem(
-        CollisionManager &collisionManager,
-        DamageRegistry &damageRegistry,
-        Scene &scene,
-        ResourceManager &resourceManager
+        Core &core,
+        DamageRegistry &damageRegistry
     );
 
     void fire(

@@ -3,31 +3,30 @@
 #include <iostream>
 
 Tilemap::Tilemap(
-    Scene &scene,
-    ResourceManager &resourceManager,
+    Core &core,
     DamageRegistry &damageRegistry)
 {
-    this->scene = &scene;
+    this->scene = &core.scene;
     this->damageRegistry = &damageRegistry;
 
-    bricks = resourceManager.getMaterial("bricks_material");
-    bricksHit = resourceManager.getMaterial("bricks_hit_material");
-    bricksDamaged = resourceManager.getMaterial("bricks_damaged_material");
-    bricksDestroyed = resourceManager.getMaterial("bricks_destroyed_material");
+    bricks = core.resourceManager.getMaterial("bricks_material");
+    bricksHit = core.resourceManager.getMaterial("bricks_hit_material");
+    bricksDamaged = core.resourceManager.getMaterial("bricks_damaged_material");
+    bricksDestroyed = core.resourceManager.getMaterial("bricks_destroyed_material");
 
-    boardsHorizontal = resourceManager.getMaterial("boards_horizontal_material");
-    boardsHorizontalHit = resourceManager.getMaterial("boards_horizontal_hit_material");
-    boardsHorizontalDamaged = resourceManager.getMaterial("boards_horizontal_damaged_material");
-    boardsHorizontalDestroyed = resourceManager.getMaterial("boards_horizontal_destroyed_material");
+    boardsHorizontal = core.resourceManager.getMaterial("boards_horizontal_material");
+    boardsHorizontalHit = core.resourceManager.getMaterial("boards_horizontal_hit_material");
+    boardsHorizontalDamaged = core.resourceManager.getMaterial("boards_horizontal_damaged_material");
+    boardsHorizontalDestroyed = core.resourceManager.getMaterial("boards_horizontal_destroyed_material");
 
-    boardsVertical = resourceManager.getMaterial("boards_vertical_material");
-    boardsVerticalHit = resourceManager.getMaterial("boards_vertical_hit_material");
-    boardsVerticalDamaged = resourceManager.getMaterial("boards_vertical_damaged_material");
-    boardsVerticalDestroyed = resourceManager.getMaterial("boards_vertical_destroyed_material");
+    boardsVertical = core.resourceManager.getMaterial("boards_vertical_material");
+    boardsVerticalHit = core.resourceManager.getMaterial("boards_vertical_hit_material");
+    boardsVerticalDamaged = core.resourceManager.getMaterial("boards_vertical_damaged_material");
+    boardsVerticalDestroyed = core.resourceManager.getMaterial("boards_vertical_destroyed_material");
 
-    tree = resourceManager.getMaterial("tree_material");
-    treeHit = resourceManager.getMaterial("tree_hit_material");
-    treeDestroyed = resourceManager.getMaterial("tree_destroyed_material");
+    tree = core.resourceManager.getMaterial("tree_material");
+    treeHit = core.resourceManager.getMaterial("tree_hit_material");
+    treeDestroyed = core.resourceManager.getMaterial("tree_destroyed_material");
 }
 
 void Tilemap::update(float deltaTime)
