@@ -1,0 +1,100 @@
+#include "collision_solver.hpp"
+
+CollisionSolver::CollisionSolver(World &world) : world(&world) {}
+
+bool CollisionSolver::canCollide(const CollisionGroup& a, const CollisionGroup& b) const
+{
+    return (a.collidesWith & (1u << b.id)) != 0;
+}
+
+bool CollisionSolver::isOverlapping(const Object &obj1, const Object &obj2) const
+{
+    if (
+        obj1.collider == nullptr ||
+        obj2.collider == nullptr)
+    {
+        return false;
+    }
+
+    const glm::vec2 minA = obj1.transform.position - obj1.collider->shape->halfSize;
+    const glm::vec2 maxA = obj1.transform.position + obj1.collider->shape->halfSize;
+
+    const glm::vec2 minB = obj2.transform.position - obj2.collider->shape->halfSize;
+    const glm::vec2 maxB = obj2.transform.position + obj2.collider->shape->halfSize;
+
+    return minA.x < maxB.x &&
+           maxA.x > minB.x &&
+           minA.y < maxB.y &&
+           maxA.y > minB.y;
+}
+
+void CollisionSolver::resolveHorizontal(Object &moving, const Object &obstacle, float movementX)
+{
+    float movingHalfWidth = moving.collider->shape->halfSize.x;
+    float obstacleHalfWidth = obstacle.collider->shape->halfSize.x;
+    float obstacleCenterX = obstacle.transform.position.x;
+
+    if (movementX > 0.0f)
+        moving.transform.position.x = obstacleCenterX - obstacleHalfWidth - movingHalfWidth;
+    else if (movementX < 0.0f)
+        moving.transform.position.x = obstacleCenterX + obstacleHalfWidth + movingHalfWidth;
+}
+
+void CollisionSolver::resolveVertical(Object &moving, const Object &obstacle, float movementY)
+{
+    float movingHalfHeight = moving.collider->shape->halfSize.y;
+    float obstacleHalfHeight = obstacle.collider->shape->halfSize.y;
+    float obstacleCenterY = obstacle.transform.position.y;
+
+    if (movementY > 0.0f)
+        moving.transform.position.y = obstacleCenterY - obstacleHalfHeight - movingHalfHeight;
+    else if (movementY < 0.0f)
+        moving.transform.position.y = obstacleCenterY + obstacleHalfHeight + movingHalfHeight;
+}
+
+MovementResult CollisionSolver::moveAndSlide(Object &moving, const glm::vec2 &movement)
+{
+    MovementResult result;
+
+    const glm::vec2 startingPosition = moving.transform.position;
+
+    moving.transform.position.x += movement.x;
+
+    for (auto &obstacle : this->world->objects)
+    {
+        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
+            continue;
+
+        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+            continue;
+
+        if (!isOverlapping(moving, *obstacle))
+            continue;
+
+        resolveHorizontal(moving, *obstacle, movement.x);
+
+        result.collided = true;
+    }
+
+    moving.transform.position.y += movement.y;
+
+    for (auto &obstacle : this->world->objects)
+    {
+        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
+            continue;
+
+        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+            continue;
+
+        if (!isOverlapping(moving, *obstacle))
+            continue;
+
+        resolveVertical(moving, *obstacle, movement.y);
+
+        result.collided = true;
+    }
+
+    result.appliedMovement = moving.transform.position - startingPosition;
+
+    return result;
+}
