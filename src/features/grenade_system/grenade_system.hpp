@@ -29,7 +29,7 @@ private:
     std::vector<Grenade> grenades;
 
     Scene *scene;
-    CollisionManager *collisionManager;
+    Collision *collision;
     ExplosionSystem *explosionSystem;
     Material *grenadeOn;
     Material *grenadeOff;

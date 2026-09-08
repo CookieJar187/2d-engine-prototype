@@ -4,7 +4,7 @@ Collision::Collision(World &world) : world(&world) {}
 
 MovementResult Collision::moveAndSlide(Object &moving, const glm::vec2 &movement)
 {
-    this->collisionSolver.moveAndSlide(moving, movement);
+    return this->collisionSolver.moveAndSlide(moving, movement);
 }
 
 std::optional<RaycastHit> Collision::raycast(
@@ -13,5 +13,5 @@ std::optional<RaycastHit> Collision::raycast(
     const RaycastFilter filter
 )
 {
-    this->raycaster.raycast(start, end, filter);
+    return this->raycaster.raycast(start, end, filter);
 }

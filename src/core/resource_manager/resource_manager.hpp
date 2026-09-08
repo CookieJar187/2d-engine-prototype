@@ -67,8 +67,7 @@ public:
     // Setter functions
     void setCollisionGroupRelationship(
         const std::string& id1,
-        const std::string& id2,
-        const bool value
+        const std::string& id2
     );
 
 private:

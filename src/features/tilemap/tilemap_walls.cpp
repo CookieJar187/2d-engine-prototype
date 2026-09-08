@@ -22,7 +22,7 @@ void Tilemap::createWall(const glm::vec2 pos, int type)
             *this->scene,
             *this->damageRegistry,
             d,
-            10000,
+            3750,
             *this->bricks,
             *this->bricksHit,
             *this->bricksDamaged,

@@ -17,7 +17,7 @@ private:
     ResourceManager *resourceManager;
     Tilemap *tileset;
     BulletSystem *bulletSystem;
-    CollisionManager *collisionManager;
+    Collision *collision;
 
     // Ai components
     Object *enemyTarget;

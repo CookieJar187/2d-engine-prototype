@@ -10,7 +10,8 @@ void Character::moveTo(glm::vec2 direction, float deltaTime)
     velocity.x *= MAX_SPEED * deltaTime;
     velocity.y *= MAX_SPEED * deltaTime;
 
-    characterMotor.moveAndSlide(velocity);
+    //characterMotor.moveAndSlide(velocity);
+    collision->moveAndSlide(*this->body, velocity);
 }
 
 void Character::navigateTo(glm::vec2 targetPos)
@@ -43,7 +44,8 @@ void Character::updateMovement(float deltaTime)
         velocity.x *= MAX_SPEED * deltaTime;
         velocity.y *= MAX_SPEED * deltaTime;
 
-        characterMotor.moveAndSlide(velocity);
+        //characterMotor.moveAndSlide(velocity);
+        collision->moveAndSlide(*this->body, velocity);
     }
     else
         currPathPoint++;

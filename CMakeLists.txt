@@ -25,9 +25,9 @@ add_executable(2DEnginePrototype
     src/core/world/camera/camera.cpp
     src/core/world/scene/scene.cpp
     src/core/world/object/object.cpp
-    src/core/world/collision/collision_manager/collision_manager.cpp
-    src/core/world/collision/collision_manager/collision_raycast.cpp
-    src/core/world/collision/character_motor/character_motor.cpp
+    src/core/world/collision/collision.cpp
+    src/core/world/collision/collision_solver/collision_solver.cpp
+    src/core/world/collision/raycaster/raycaster.cpp
     src/core/input/input.cpp
 
     src/game_fsm/game_fsm.cpp
@@ -82,9 +82,10 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/scene
     src/core/world/object_creation_result
     src/core/math/transform2
-    src/core/world/collision/collision_manager
+    src/core/world/collision
+    src/core/world/collision/collision_solver
+    src/core/world/collision/raycaster
     src/core/world/collision/aabb_shape
-    src/core/world/collision/character_motor
     src/core/world/collision/collider
     src/core/world/collision/collision_group
     src/core/input
@@ -96,6 +97,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/ui/screens/settings
     src/ui/screens/level_selection
 
+    src/features
     src/features/game_assets
     src/features/character_manager
     src/features/character_manager/player
@@ -124,3 +126,12 @@ target_link_libraries(2DEnginePrototype PRIVATE
     imgui::imgui
     OpenGL::GL
 )
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(2DEnginePrototype PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Werror=return-type
+    )
+endif()

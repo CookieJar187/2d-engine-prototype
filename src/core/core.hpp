@@ -12,7 +12,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "ui_manager.h"
-#include "collision_manager.h"
+#include "collision.hpp"
 #include "game_fsm.h"
 #include "resource_manager.hpp"
 
@@ -26,7 +26,7 @@ public:
 
     ResourceManager resourceManager;
     World world;
-    CollisionManager collisionManager{world};
+    Collision collision{world};
     Camera2 camera;
     Scene scene{world, resourceManager};
     Input input{this->window};

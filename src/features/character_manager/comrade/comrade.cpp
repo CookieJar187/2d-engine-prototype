@@ -45,7 +45,7 @@ Comrade::Comrade(
     this->resourceManager = &core.resourceManager;
     this->tileset = &tileset;
     this->bulletSystem = &bulletSystem;
-    this->collisionManager = &core.collisionManager;
+    this->collision = &core.collision;
 }
 
 Comrade::~Comrade()

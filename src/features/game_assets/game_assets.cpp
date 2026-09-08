@@ -426,13 +426,11 @@ GameAssets::GameAssets(Core &core)
     
     this->resourceManager->setCollisionGroupRelationship(
         "friendly_character_collision_group",
-        "obstacle_collision_group",
-        true
+        "obstacle_collision_group"
     );
     this->resourceManager->setCollisionGroupRelationship(
         "enemy_character_collision_group",
-        "obstacle_collision_group",
-        true
+        "obstacle_collision_group"
     );
 
     // Colliders

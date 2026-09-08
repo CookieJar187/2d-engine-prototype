@@ -9,7 +9,7 @@ GrenadeSystem::GrenadeSystem(
 )
 {
     this->scene = &core.scene;
-    this->collisionManager = &core.collisionManager;
+    this->collision = &core.collision;
     this->explosionSystem = &explosionSystem;
 
     this->grenadeOn = core.resourceManager.getMaterial("grenade_on_material");
@@ -86,7 +86,7 @@ void GrenadeSystem::update(float deltaTime)
                 grnd->momentum = temp;
                 glm::vec2 targetPos = grnd->position + (grnd->direction * grnd->momentum);
 
-                std::optional<RaycastHit> hit = this->collisionManager->raycast(
+                std::optional<RaycastHit> hit = this->collision->raycast(
                     grnd->position,
                     targetPos,
                     this->raycastFilter

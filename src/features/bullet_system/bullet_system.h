@@ -39,7 +39,7 @@ public:
     void update(float deltaTime);
 
 private:
-    CollisionManager *collisionManager = nullptr;
+    Collision *collision = nullptr;
     DamageRegistry *damageRegistry = nullptr;
     Scene *scene = nullptr;
 

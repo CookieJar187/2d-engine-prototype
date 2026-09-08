@@ -7,7 +7,7 @@ BulletSystem::BulletSystem(
     DamageRegistry &damageRegistry
 )
 {
-    this->collisionManager = &core.collisionManager;
+    this->collision = &core.collision;
     this->damageRegistry = &damageRegistry;
     this->scene = &core.scene;
 
@@ -60,7 +60,7 @@ void BulletSystem::update(float deltaTime)
         else
             raycastFilter = &this->enemyFilter;
 
-        std::optional<RaycastHit> hit = BulletSystem::collisionManager->raycast(
+        std::optional<RaycastHit> hit = BulletSystem::collision->raycast(
             bullet->position,
             targetPos,
             *raycastFilter

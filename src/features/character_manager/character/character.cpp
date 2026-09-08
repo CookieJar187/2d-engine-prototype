@@ -25,10 +25,9 @@ Character::Character(
     this->body = core.scene.createObject(objectCreationData);
     this->body->material = &downMaterial;
 
-    characterMotor.init(*this->body, core.collisionManager);
-
     damageRegistry.registerDamageable(this->body, this);
 
+    this->collision = &core.collision;
     this->tilemap = &tilemap;
     this->damageRegistry = &damageRegistry;
 

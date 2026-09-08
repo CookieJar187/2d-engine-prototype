@@ -212,8 +212,7 @@ void ResourceManager::addSound(
 // Setter functions
 void ResourceManager::setCollisionGroupRelationship(
     const std::string &id1,
-    const std::string &id2,
-    const bool value
+    const std::string &id2
 )
 {
     CollisionGroup *group1 = getCollisionGroup(id1);

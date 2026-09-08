@@ -8,7 +8,6 @@
 #include <glm/vec2.hpp>
 
 #include "core.hpp"
-#include "character_motor.h"
 
 #include "damageable.h"
 #include "damage_registry.h"
@@ -32,6 +31,7 @@ private:
     glm::vec2 velocity{0, -1};
 
     // Pointers to services
+    Collision *collision;
     Tilemap *tilemap;
     DamageRegistry *damageRegistry;
 
@@ -55,7 +55,7 @@ private:
 
 public:
     Object *body = nullptr;
-    CharacterMotor characterMotor;
+    //CharacterMotor characterMotor;
 
     Character(   
         Core &core,
