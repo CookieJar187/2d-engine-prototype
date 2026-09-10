@@ -24,6 +24,9 @@ add_executable(2DEnginePrototype
     src/core/loaders/sound_loader/sound_loader.cpp
     src/core/world/camera/camera.cpp
     src/core/world/scene/scene.cpp
+    src/core/world/renderer/renderer.cpp
+    src/core/world/scene/object_hierarchy/object_hierarchy.cpp
+    src/core/world/scene/object_management/object_management.cpp
     src/core/world/object/object.cpp
     src/core/world/collision/collision.cpp
     src/core/world/collision/collision_solver/collision_solver.cpp
@@ -79,7 +82,10 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/object/rendering/shader
     src/core/world/object/rendering/texture
     src/core/world/sound
+    src/core/world/renderer
     src/core/world/scene
+    src/core/world/scene/object_hierarchy
+    src/core/world/scene/object_management
     src/core/world/object_creation_result
     src/core/math/transform2
     src/core/world/collision

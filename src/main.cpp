@@ -73,7 +73,7 @@ int main()
 
         if (TEM > MAX)
         {
-            features.characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
+            //features.characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
             //characterManager.spawnComrade({rng::getInt(9) * 100, -900});
             TEM = 0;
         }
@@ -89,7 +89,7 @@ int main()
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
         core.scene.cleanupObjects();
-        core.scene.drawObjects(core.camera.getViewMatrix(), core.camera.projection);
+        core.renderer.drawObjects(core.camera.getViewMatrix(), core.camera.projection);
         
         // Draw ui
         uiManager.drawUi();

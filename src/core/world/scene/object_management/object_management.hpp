@@ -1,10 +1,9 @@
 #pragma once
 
-#include <optional>
-#include <glm/glm.hpp>
-
-#include "world.h"
+#include "world.hpp"
 #include "resource_manager.hpp"
+#include "object.h"
+#include "object_hierarchy.hpp"
 
 struct ObjectCreationData
 {
@@ -13,22 +12,23 @@ struct ObjectCreationData
     std::optional<std::string> colliderId = std::nullopt;
     std::optional<std::string> materialId = std::nullopt;
     Transform2 transform;
+    Object *parent = nullptr;
 };
 
-class Scene
+class ObjectManagement
 {
+private:
+    World *world;
+    ResourceManager *resourceManager;
+    ObjectHierarchy *objectHierarchy;
+
 public:
-    Scene(World &world, ResourceManager &resourceManager);
+    ObjectManagement(World &world, ResourceManager &resourceManager, ObjectHierarchy &objectHierarchy) : world(&world), resourceManager(&resourceManager), objectHierarchy(&objectHierarchy) {}
 
     void cleanupObjects();
-    void drawObjects(const glm::mat4 &view, const glm::mat4 &projection) const;
 
     std::vector<Object *> getObjects();
     Object *getObjectByName(const std::string &targetName);
 
     Object *createObject(const ObjectCreationData &data);
-
-private:
-    World *world;
-    ResourceManager *resourceManager;
 };

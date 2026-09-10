@@ -4,7 +4,7 @@
 #include <optional>
 #include <glm/vec2.hpp>
 
-#include "world.h"
+#include "world.hpp"
 #include "object.h"
 
 enum class GroupFilterMode

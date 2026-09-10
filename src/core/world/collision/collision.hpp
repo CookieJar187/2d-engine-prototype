@@ -2,7 +2,7 @@
 
 #include <optional>
 
-#include "world.h"
+#include "world.hpp"
 #include "collision_solver.hpp"
 #include "raycaster.hpp"
 

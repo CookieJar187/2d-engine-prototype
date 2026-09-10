@@ -7,9 +7,10 @@
 #include <al.h>
 #include <alc.h>
 
-#include "world.h"
+#include "world.hpp"
 #include "input.h"
-#include "scene.h"
+#include "renderer.hpp"
+#include "scene.hpp"
 #include "camera.h"
 #include "ui_manager.h"
 #include "collision.hpp"
@@ -28,6 +29,7 @@ public:
     World world;
     Collision collision{world};
     Camera2 camera;
+    Renderer renderer{world};
     Scene scene{world, resourceManager};
     Input input{this->window};
 };

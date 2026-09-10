@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene.h"
+#include "scene.hpp"
 #include "object.h"
 
 struct Wall

@@ -7,6 +7,17 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+Object *Object::getParent() const
+{
+    return parent;
+}
+
+void Object::setParent(Object *newParent)
+{
+    if (newParent == parent)
+        return;
+}
+
 void Object::queueFree()
 {
     queuedForDeletion = true;

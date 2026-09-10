@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <glm/glm.hpp>
@@ -8,6 +9,8 @@
 #include "collider.hpp"
 #include "transform2.h"
 #include "material.h"
+
+class ObjectHierarchy;
 
 struct Object
 {
@@ -20,9 +23,18 @@ public:
 
     bool queuedForDeletion = false;
 
+    Object *getParent() const;
+    void setParent(Object *newParent);
+
     void queueFree();
     void draw(const glm::mat4 &view, const glm::mat4 &projection) const;
 
+    friend class ObjectHierarchy;
+
 private:
     glm::mat4 getModelMatrix() const;
+
+    Object *parent = nullptr;
+    std::vector<Object *> children;
+    uint8_t generation = 0;
 };
