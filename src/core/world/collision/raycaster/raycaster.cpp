@@ -108,37 +108,40 @@ std::optional<RaycastHit> Raycaster::raycast(
     std::optional<RaycastHit> closestHit;
     float closestFraction = 1.0f;
 
-    for (auto &object : world->objects)
+    for (auto &generation : world->hierarchy)
     {
-        // Basic debounce
-        if (object->collider == nullptr)
-            continue;
-
-        if (object->collider->group == nullptr)
-            continue;
-
-        // Check collision bitmask
-        const uint32_t objectBit = 1u << object->collider->group->id;
-        const bool groupIsListed = (filter.groups & objectBit) != 0;
-
-        if (filter.mode == GroupFilterMode::Ignore)
+        for (auto &object : generation)
         {
-            if (groupIsListed)
+            // Basic debounce
+            if (object->collider == nullptr)
                 continue;
-        }
-        else
-        {
-            if (!groupIsListed)
+
+            if (object->collider->group == nullptr)
                 continue;
-        }
 
-        // Raycast
-        std::optional<RaycastHit> hit = raycastAgainstObject(start, end, *object.get());
+            // Check collision bitmask
+            const uint32_t objectBit = 1u << object->collider->group->id;
+            const bool groupIsListed = (filter.groups & objectBit) != 0;
 
-        if (hit.has_value() && hit->fraction < closestFraction)
-        {
-            closestFraction = hit->fraction;
-            closestHit = hit;
+            if (filter.mode == GroupFilterMode::Ignore)
+            {
+                if (groupIsListed)
+                    continue;
+            }
+            else
+            {
+                if (!groupIsListed)
+                    continue;
+            }
+
+            // Raycast
+            std::optional<RaycastHit> hit = raycastAgainstObject(start, end, *object.get());
+
+            if (hit.has_value() && hit->fraction < closestFraction)
+            {
+                closestFraction = hit->fraction;
+                closestHit = hit;
+            }
         }
     }
 

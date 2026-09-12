@@ -88,8 +88,8 @@ int main()
 
         // Draw game
         glClear(GL_COLOR_BUFFER_BIT);
-        core.scene.cleanupObjects();
-        core.renderer.drawObjects(core.camera.getViewMatrix(), core.camera.projection);
+        core.scene.process();
+        core.renderer.render(core.camera.getViewMatrix(), core.camera.projection);
         
         // Draw ui
         uiManager.drawUi();

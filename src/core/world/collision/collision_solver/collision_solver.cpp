@@ -60,38 +60,44 @@ MovementResult CollisionSolver::moveAndSlide(Object &moving, const glm::vec2 &mo
 
     moving.transform.position.x += movement.x;
 
-    for (auto &obstacle : this->world->objects)
+    for (auto &generation : world->hierarchy)
     {
-        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
-            continue;
+        for (auto &obstacle : generation)
+        {
+            if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
+                continue;
 
-        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
-            continue;
+            if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+                continue;
 
-        if (!isOverlapping(moving, *obstacle))
-            continue;
+            if (!isOverlapping(moving, *obstacle))
+                continue;
 
-        resolveHorizontal(moving, *obstacle, movement.x);
+            resolveHorizontal(moving, *obstacle, movement.x);
 
-        result.collided = true;
+            result.collided = true;
+        }
     }
 
     moving.transform.position.y += movement.y;
 
-    for (auto &obstacle : this->world->objects)
+    for (auto &generation : world->hierarchy)
     {
-        if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
-            continue;
+        for (auto &obstacle : generation)
+        {
+            if (obstacle == nullptr || obstacle.get() == &moving || obstacle->collider == nullptr)
+                continue;
 
-        if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
-            continue;
+            if (!canCollide(*moving.collider->group, *obstacle.get()->collider->group))
+                continue;
 
-        if (!isOverlapping(moving, *obstacle))
-            continue;
+            if (!isOverlapping(moving, *obstacle))
+                continue;
 
-        resolveVertical(moving, *obstacle, movement.y);
+            resolveVertical(moving, *obstacle, movement.y);
 
-        result.collided = true;
+            result.collided = true;
+        }
     }
 
     result.appliedMovement = moving.transform.position - startingPosition;

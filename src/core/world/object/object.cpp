@@ -2,11 +2,6 @@
 
 #include "object.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/gtc/matrix_transform.hpp>
-
 Object *Object::getParent() const
 {
     return parent;
@@ -14,82 +9,11 @@ Object *Object::getParent() const
 
 void Object::setParent(Object *newParent)
 {
-    if (newParent == parent)
-        return;
+    requestedParent = newParent;
+    parentChangeQueued = true;
 }
 
 void Object::queueFree()
 {
     queuedForDeletion = true;
-}
-
-glm::mat4 Object::getModelMatrix() const
-{
-    glm::mat4 model = glm::mat4(1.0f);
-
-    model = glm::translate(
-        model,
-        glm::vec3(
-            transform.position.x,
-            transform.position.y,
-            0.0f));
-
-    model = glm::rotate(
-        model,
-        transform.rotation,
-        glm::vec3(0.0f, 0.0f, 1.0f));
-
-    model = glm::scale(
-        model,
-        glm::vec3(
-            transform.scale.x,
-            transform.scale.y,
-            1.0f));
-
-    return model;
-}
-
-void Object::draw(const glm::mat4 &view, const glm::mat4 &projection) const
-{
-
-    if (!mesh || !material)
-        return;
-
-    glUseProgram(material->shader->id);
-
-    glm::mat4 model = getModelMatrix();
-
-    glUniformMatrix4fv(
-        material->shader->modelLoc,
-        1,
-        GL_FALSE,
-        &model[0][0]);
-
-    glUniformMatrix4fv(
-        material->shader->viewLoc,
-        1,
-        GL_FALSE,
-        &view[0][0]);
-
-    glUniformMatrix4fv(
-        material->shader->projectionLoc,
-        1,
-        GL_FALSE,
-        &projection[0][0]);
-
-    // Select texture unit 0.
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(
-        GL_TEXTURE_2D,
-        material->texture->id);
-    glUniform1i(
-        material->shader->textureLoc,
-        0);
-
-    glBindVertexArray(mesh->VAO);
-
-    glDrawArrays(
-        GL_TRIANGLES,
-        0,
-        mesh->vertexCount);
 }
