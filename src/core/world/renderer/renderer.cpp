@@ -40,13 +40,11 @@ void Renderer::drawObject(
 
     glUseProgram(object.material->shader->id);
 
-    glm::mat4 model = buildTransformMatrix(object.transform);
-
     glUniformMatrix4fv(
         object.material->shader->modelLoc,
         1,
         GL_FALSE,
-        &model[0][0]);
+        &object.worldMatrix[0][0]);
 
     glUniformMatrix4fv(
         object.material->shader->viewLoc,

@@ -111,7 +111,7 @@ void Player::update(float deltaTime)
 
         if (input->isKeyJustPressed(32))
         {
-            meleeSystem->newMelee(this->body->transform.position, *this->body);
+            meleeSystem->newMelee(*this->body);
         }
     }
 

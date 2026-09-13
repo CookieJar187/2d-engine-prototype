@@ -166,6 +166,9 @@ Object *Scene::createObject(const ObjectCreationData &data)
 
     Object *objectPtr = newObj.get();
 
+    if (data.parent != nullptr)
+        data.parent->children.push_back(objectPtr);
+
     if (world->hierarchy.size() <= generation)
         world->hierarchy.resize(generation + 1);
 

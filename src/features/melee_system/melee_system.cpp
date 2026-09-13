@@ -11,17 +11,17 @@ MeleeSystem::MeleeSystem(
     this->damageRegistry = &damageRegistry;
 }
 
-void MeleeSystem::newMelee(const glm::vec2 pos, Object &parentObject)
+void MeleeSystem::newMelee(Object &parentObject)
 {
     ObjectCreationData d;
     d.name = "melee";
     d.meshId = "sprite_mesh";
     d.materialId = "melee_material";
-    d.transform = { .position = pos };
+    d.transform = { .scale = glm::vec2{1, 1} };
+    d.parent = &parentObject;
 
     Melee melee;
     melee.object = this->scene->createObject(d);
-    melee.parentObject = &parentObject;
 
     this->melees.push_back(melee);
 
@@ -30,7 +30,7 @@ void MeleeSystem::newMelee(const glm::vec2 pos, Object &parentObject)
     
     for (auto &entry : damageables)
     {
-        if (glm::distance(pos, entry.first->transform.position) <= melee.radius
+        if (glm::distance(parentObject.transform.position, entry.first->transform.position) <= melee.radius
         && entry.first != &parentObject)
         {
             entry.second->takeDamage(75);
@@ -48,8 +48,8 @@ void MeleeSystem::update(float deltaTime)
             deleteMelee(melee, i);
         else
         {
+            melee->object->transform.rotation -= 70 * deltaTime;
             melee->lifespan -= deltaTime;
-            melee->object->transform.position = melee->parentObject->transform.position;
         }
     }
 }

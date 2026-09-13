@@ -9,8 +9,6 @@
 struct Melee
 {
     Object *object;
-    Object *parentObject;
-    //glm::vec2 pos;
     float radius = 120.0f;
     float lifespan = 0.07f;
 };
@@ -23,12 +21,12 @@ private:
     Scene *scene;
     DamageRegistry *damageRegistry;
 
-    void deleteMelee(Melee *expl, int index);
+    void deleteMelee(Melee *melee, int index);
 
 public:
     MeleeSystem(Core &core, DamageRegistry &damageRegistry);
 
-    void newMelee(const glm::vec2 pos, Object &parentObject);
+    void newMelee(Object &parentObject);
 
     void update(float deltaTime);
 

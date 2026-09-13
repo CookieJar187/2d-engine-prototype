@@ -19,8 +19,8 @@ GrenadeSystem::GrenadeSystem(
 
     CollisionGroup *obstacleCollisionGroup = core.resourceManager.getCollisionGroup("obstacle_collision_group");
 
-    this->raycastFilter.groups = (1u << obstacleCollisionGroup->id);
-    this->raycastFilter.mode = GroupFilterMode::PermitOnly;
+    this->raycastFilter.setGroup(obstacleCollisionGroup);
+    this->raycastFilter.setMode(GroupFilterMode::PermitOnly);
 }
 
 void GrenadeSystem::launch(

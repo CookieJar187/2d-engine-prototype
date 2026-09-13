@@ -15,8 +15,18 @@ enum class GroupFilterMode
 
 struct RaycastFilter
 {
+private:
     CollisionMask groups = 0;
     GroupFilterMode mode = GroupFilterMode::Ignore;
+
+public:
+    void setGroup(const CollisionGroup *group)
+    { this->groups = (1u << group->id); }
+
+    void setMode(const GroupFilterMode mode)
+    { this->mode = mode; }
+
+    friend class Raycaster;
 };
 
 struct RaycastHit

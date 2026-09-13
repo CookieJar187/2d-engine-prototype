@@ -15,8 +15,8 @@ BulletSystem::BulletSystem(
     CollisionGroup *friendlyCollisionGroup = core.resourceManager.getCollisionGroup("friendly_character_collision_group");
     CollisionGroup *enemyCollisionGroup = core.resourceManager.getCollisionGroup("enemy_character_collision_group");
 
-    this->friendlyFilter.groups = (1u << friendlyCollisionGroup->id);
-    this->enemyFilter.groups = (1u << enemyCollisionGroup->id);
+    this->friendlyFilter.setGroup(friendlyCollisionGroup);
+    this->enemyFilter.setGroup(enemyCollisionGroup);
 }
 
 void BulletSystem::fire(
