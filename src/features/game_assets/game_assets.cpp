@@ -104,6 +104,10 @@ GameAssets::GameAssets(Core &core)
         "melee_texture",
         "src/assets/textures/melee.png"
     );
+    this->resourceManager->addTexture(
+        "debug_point_texture",
+        "src/assets/textures/debug_point.png"
+    );
 
     // Player textures
     this->resourceManager->addTexture(
@@ -293,6 +297,11 @@ GameAssets::GameAssets(Core &core)
         "melee_material",
         "sprite_shader",
         "melee_texture"
+    );
+    this->resourceManager->addMaterial(
+        "debug_point_material",
+        "sprite_shader",
+        "debug_point_texture"
     );
 
     // Player material

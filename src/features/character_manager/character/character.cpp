@@ -4,6 +4,7 @@ Character::Character(
     Core &core,
     DamageRegistry &damageRegistry,
     Tilemap &tilemap,
+    DebugPoints &debugPoints,
     ObjectCreationData objectCreationData,
     Material &upMaterial,
     Material &downMaterial,
@@ -30,6 +31,7 @@ Character::Character(
     this->collision = &core.collision;
     this->tilemap = &tilemap;
     this->damageRegistry = &damageRegistry;
+    this->debugPoints = &debugPoints;
 
     this->upMaterial = &upMaterial;
     this->downMaterial = &downMaterial;

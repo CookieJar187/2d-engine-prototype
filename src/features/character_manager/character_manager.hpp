@@ -16,6 +16,7 @@
 #include "grenade_system.hpp"
 #include "melee_system.hpp"
 #include "camera_shaker.hpp"
+#include "debug_points.hpp"
 
 class CharacterManager
 {
@@ -34,6 +35,7 @@ private:
     GrenadeSystem *grenadeSystem;
     MeleeSystem *meleeSystem;
     CameraShaker *cameraShaker;
+    DebugPoints *debugPoints;
 
 public:
     CharacterManager(
@@ -43,7 +45,8 @@ public:
         Tilemap &tilemap,
         GrenadeSystem &grenadeSystem,
         MeleeSystem &meleeSystem,
-        CameraShaker &cameraShaker
+        CameraShaker &cameraShaker,
+        DebugPoints &debugPoints
     );
 
     void update(float deltaTime);

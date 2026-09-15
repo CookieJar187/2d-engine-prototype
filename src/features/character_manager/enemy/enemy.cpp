@@ -11,12 +11,14 @@ Enemy::Enemy(
     DamageRegistry &damageRegistry,
     BulletSystem &bulletSystem,
     Tilemap &tileset,
+    DebugPoints &debugPoints,
     glm::vec2 position
 )
 : Character(
     core,
     damageRegistry,
     tileset,
+    debugPoints,
     ObjectCreationData{
         .name = "enemy",
         .meshId = "sprite_mesh",

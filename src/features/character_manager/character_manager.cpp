@@ -9,7 +9,8 @@ CharacterManager::CharacterManager(
     Tilemap &tilemap,
     GrenadeSystem &grenadeSystem,
     MeleeSystem &meleeSystem,
-    CameraShaker &cameraShaker
+    CameraShaker &cameraShaker,
+    DebugPoints &debugPoints
 )
 {
     this->core = &core;
@@ -19,6 +20,7 @@ CharacterManager::CharacterManager(
     this->grenadeSystem = &grenadeSystem;
     this->meleeSystem = &meleeSystem;
     this->cameraShaker = &cameraShaker;
+    this->debugPoints = &debugPoints;
 }
 
 void CharacterManager::update(float deltaTime)
@@ -64,6 +66,7 @@ void CharacterManager::spawnPlayer(glm::vec2 position)
         *grenadeSystem,
         *meleeSystem,
         *cameraShaker,
+        *debugPoints,
         position
     );
 }
@@ -75,6 +78,7 @@ void CharacterManager::spawnEnemy(glm::vec2 position)
         *damageRegistry,
         *bulletSystem,
         *tilemap,
+        *debugPoints,
         position
     ));
 }
@@ -86,6 +90,7 @@ void CharacterManager::spawnComrade(glm::vec2 position)
         *damageRegistry,
         *bulletSystem,
         *tilemap,
+        *debugPoints,
         position
     ));
 }

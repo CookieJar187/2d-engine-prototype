@@ -12,12 +12,14 @@ Player::Player(
     GrenadeSystem &grenadeSystem,
     MeleeSystem &meleeSystem,
     CameraShaker &cameraShaker,
+    DebugPoints &debugPoints,
     glm::vec2 position
 )
 : Character(
     core,
     damageRegistry,
     tilemap,
+    debugPoints,
     ObjectCreationData{
         .name = "player",
         .meshId = "sprite_mesh",

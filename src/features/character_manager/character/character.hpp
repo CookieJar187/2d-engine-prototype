@@ -12,6 +12,7 @@
 #include "damageable.h"
 #include "damage_registry.h"
 #include "tilemap.h"
+#include "debug_points.hpp"
 
 class Character : public Damageable
 {
@@ -34,6 +35,7 @@ private:
     Collision *collision;
     Tilemap *tilemap;
     DamageRegistry *damageRegistry;
+    DebugPoints *debugPoints;
 
     // Materials
     Material *upMaterial;
@@ -61,6 +63,7 @@ public:
         Core &core,
         DamageRegistry &damageRegistry,
         Tilemap &tilemap,
+        DebugPoints &debugPoints,
         ObjectCreationData objectCreationData,
         Material &upMaterial,
         Material &downMaterial,

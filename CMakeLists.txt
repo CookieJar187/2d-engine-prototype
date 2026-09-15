@@ -61,6 +61,7 @@ add_executable(2DEnginePrototype
     src/features/grenade_system/grenade_system.cpp
     src/features/melee_system/melee_system.cpp
     src/features/camera_shaker/camera_shaker.cpp
+    src/features/debug_points/debug_points.cpp
 )
 
 target_include_directories(2DEnginePrototype PRIVATE
@@ -116,6 +117,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/features/grenade_system
     src/features/melee_system
     src/features/camera_shaker
+    src/features/debug_points
 
     ${Stb_INCLUDE_DIR}
 )
