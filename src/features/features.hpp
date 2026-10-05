@@ -2,7 +2,7 @@
 
 #include "core.hpp"
 
-#include "game_assets.hpp"
+#include "asset_loader.hpp"
 #include "player.hpp"
 #include "enemy.hpp"
 #include "tilemap.h"
@@ -40,7 +40,7 @@ public:
         debugPoints.update(deltaTime);
     }
 
-    GameAssets gameAssets{*core};
+    AssetLoader gameAssets{*core};
     DamageRegistry damageRegistry;
     CameraShaker cameraShaker{*core};
     BulletSystem bulletSystem{*core, damageRegistry};

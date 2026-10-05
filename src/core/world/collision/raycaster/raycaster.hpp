@@ -6,28 +6,8 @@
 
 #include "world.hpp"
 #include "object.h"
-
-enum class GroupFilterMode
-{
-    Ignore,
-    PermitOnly
-};
-
-struct RaycastFilter
-{
-private:
-    CollisionMask groups = 0;
-    GroupFilterMode mode = GroupFilterMode::Ignore;
-
-public:
-    void setGroup(const CollisionGroup *group)
-    { this->groups = (1u << group->id); }
-
-    void setMode(const GroupFilterMode mode)
-    { this->mode = mode; }
-
-    friend class Raycaster;
-};
+#include "resource_manager.hpp"
+#include "raycast_filter.hpp"
 
 struct RaycastHit
 {
@@ -44,6 +24,7 @@ struct RaycastHit
 class Raycaster{
 private:
     World *world;
+    ResourceManager *resourceManager;
 
     std::optional<RaycastHit> raycastAgainstObject(
         const glm::vec2 &start, 

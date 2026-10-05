@@ -61,8 +61,8 @@ bool Tilemap::isWalkable(int x, int y)
 glm::ivec2 Tilemap::worldToTile(const glm::vec2& position)
 {
     return {
-        static_cast<int>(std::floor(position.x / TILE_SIZE)),
-        static_cast<int>(std::floor(-position.y / TILE_SIZE))
+        static_cast<int>(std::floor((position.x + 50) / TILE_SIZE)),
+        static_cast<int>(std::floor((-position.y + 50) / TILE_SIZE))
     };
 }
 

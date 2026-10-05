@@ -64,8 +64,6 @@ int main()
     float MAX = 2;
     float TEM = 2;
 
-    features.characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
-
     while (!glfwWindowShouldClose(window))
     {
         float currFrame = static_cast<float>(glfwGetTime());
@@ -75,9 +73,8 @@ int main()
 
         if (TEM > MAX)
         {
-            //features.characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
+            features.characterManager.spawnEnemy({rng::getInt(9) * 100, 0});
             //features.characterManager.spawnComrade({rng::getInt(9) * 100, -900});
-            //features.debugPoints.newPoint({500, -500});
             TEM = 0;
         }
         else

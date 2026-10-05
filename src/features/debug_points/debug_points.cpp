@@ -32,7 +32,7 @@ void DebugPoints::newPoint(glm::vec2 pos)
             .transform = {.position = pos, .scale = {12.5, 12.5}}
         }
     );
-    std::cout << "went thru\n";
+
     DebugPoint newPoint;
     newPoint.object = newObject;
 

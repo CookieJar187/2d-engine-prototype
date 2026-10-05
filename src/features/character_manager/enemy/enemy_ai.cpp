@@ -42,7 +42,7 @@ void Enemy::updateAi(float deltaTime)
             auto targetPos = enemyTarget->transform.position;
 
             std::optional<RaycastHit> result =
-                this->collisionManager->raycast(targetPos, originPos, this->body);
+                this->collision->raycast(targetPos, originPos, this->body);
 
             if (result.has_value())
             {

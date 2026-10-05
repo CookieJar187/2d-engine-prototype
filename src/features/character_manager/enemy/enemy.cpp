@@ -48,6 +48,9 @@ Enemy::Enemy(
     this->tileset = &tileset;
     this->bulletSystem = &bulletSystem;
     this->collision = &core.collision;
+
+    //raycastFilter.setGroup("");
+    //raycastFilter.setMode(GroupFilterMode::PermitOnly);
 }
 
 Enemy::~Enemy()

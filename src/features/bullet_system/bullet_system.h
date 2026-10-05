@@ -44,8 +44,9 @@ private:
     Scene *scene = nullptr;
 
     Sound *gunshotSound;
-    RaycastFilter friendlyFilter;
-    RaycastFilter enemyFilter;
+
+    RaycastFilter *friendlyRaycastFilter;
+    RaycastFilter *enemyRaycastFilter;
 
     std::vector<Bullet> bullets;
 

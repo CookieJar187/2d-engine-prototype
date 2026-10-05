@@ -5,15 +5,15 @@
 
 #include "core.hpp"
 
-struct DebugPoint
-{
-    Object *object = nullptr;
-    float lifetime = 1.0f;
-};
-
 class DebugPoints
 {
 private:
+    struct DebugPoint
+    {
+        Object *object = nullptr;
+        float lifetime = 0.5f;
+    };
+
     std::vector<DebugPoint> points;
 
     Scene *scene;

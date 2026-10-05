@@ -35,7 +35,7 @@ private:
     Material *grenadeOff;
 
     Sound *grenadeBeep;
-    RaycastFilter raycastFilter;
+    RaycastFilter *raycastFilter;
 
     void deleteGrenade(Grenade *grnd, int index);
 

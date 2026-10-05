@@ -1,6 +1,7 @@
 #include "raycaster.hpp"
 
-Raycaster::Raycaster(World &world) : world(&world) {}
+Raycaster::Raycaster(World &world) :
+world(&world) {}
 
 std::optional<RaycastHit> Raycaster::raycastAgainstObject(
     const glm::vec2 &start, 
@@ -123,7 +124,7 @@ std::optional<RaycastHit> Raycaster::raycast(
             const uint32_t objectBit = 1u << object->collider->group->id;
             const bool groupIsListed = (filter.groups & objectBit) != 0;
 
-            if (filter.mode == GroupFilterMode::Ignore)
+            if (filter.mode == RaycastFilterMode::Ignore)
             {
                 if (groupIsListed)
                     continue;

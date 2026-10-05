@@ -49,7 +49,16 @@ add_executable(2DEnginePrototype
     src/features/character_manager/character/character_events.cpp
     src/features/character_manager/character/character_movement.cpp
     src/features/character_manager/character/character_animation.cpp
-    src/features/game_assets/game_assets.cpp
+    src/features/asset_loader/asset_loader.cpp
+    src/features/asset_loader/asset_loader_meshes.cpp
+    src/features/asset_loader/asset_loader_shaders.cpp
+    src/features/asset_loader/asset_loader_textures.cpp
+    src/features/asset_loader/asset_loader_materials.cpp
+    src/features/asset_loader/asset_loader_collision_shapes.cpp
+    src/features/asset_loader/asset_loader_collision_groups.cpp
+    src/features/asset_loader/asset_loader_colliders.cpp
+    src/features/asset_loader/asset_loader_raycast_filters.cpp
+    src/features/asset_loader/asset_loader_sounds.cpp
     src/features/tilemap/tilemap.cpp
     src/features/tilemap/tilemap_walls.cpp
     src/features/tilemap/wall/wall.cpp
@@ -76,11 +85,6 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/camera
     src/core/world
     src/core/world/object
-    src/core/world/object/rendering/material
-    src/core/world/object/rendering/mesh
-    src/core/world/object/rendering/shader
-    src/core/world/object/rendering/texture
-    src/core/world/sound
     src/core/world/renderer
     src/core/world/scene
     src/core/world/object_creation_result
@@ -88,9 +92,15 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/core/world/collision
     src/core/world/collision/collision_solver
     src/core/world/collision/raycaster
-    src/core/world/collision/aabb_shape
-    src/core/world/collision/collider
-    src/core/world/collision/collision_group
+    src/core/world/resources/aabb_shape
+    src/core/world/resources/collider
+    src/core/world/resources/collision_group
+    src/core/world/resources/material
+    src/core/world/resources/mesh
+    src/core/world/resources/raycast_filter
+    src/core/world/resources/shader
+    src/core/world/resources/sound
+    src/core/world/resources/texture
     src/core/input
 
     src/game_fsm
@@ -101,7 +111,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/ui/screens/level_selection
 
     src/features
-    src/features/game_assets
+    src/features/asset_loader
     src/features/character_manager
     src/features/character_manager/player
     src/features/character_manager/enemy

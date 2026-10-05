@@ -12,11 +12,9 @@ BulletSystem::BulletSystem(
     this->scene = &core.scene;
 
     this->gunshotSound = core.resourceManager.getSound("gunshot1_sound");
-    CollisionGroup *friendlyCollisionGroup = core.resourceManager.getCollisionGroup("friendly_character_collision_group");
-    CollisionGroup *enemyCollisionGroup = core.resourceManager.getCollisionGroup("enemy_character_collision_group");
 
-    this->friendlyFilter.setGroup(friendlyCollisionGroup);
-    this->enemyFilter.setGroup(enemyCollisionGroup);
+    this->friendlyRaycastFilter = core.resourceManager.getRaycastFilter("friendly_bullet_raycast_filter");
+    this->enemyRaycastFilter = core.resourceManager.getRaycastFilter("enemy_bullet_raycast_filter");
 }
 
 void BulletSystem::fire(
@@ -56,9 +54,9 @@ void BulletSystem::update(float deltaTime)
 
         RaycastFilter *raycastFilter = nullptr;
         if (bullet->team == BulletTeam::Friendly)
-            raycastFilter = &this->friendlyFilter;
+            raycastFilter = this->friendlyRaycastFilter;
         else
-            raycastFilter = &this->enemyFilter;
+            raycastFilter = this->enemyRaycastFilter;
 
         std::optional<RaycastHit> hit = BulletSystem::collision->raycast(
             bullet->position,

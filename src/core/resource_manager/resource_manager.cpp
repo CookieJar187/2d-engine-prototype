@@ -74,6 +74,15 @@ Collider *ResourceManager::getCollider(const std::string& id)
     }
     return this->collidersss[id].get();
 }
+RaycastFilter* ResourceManager::getRaycastFilter(const std::string& id)
+{
+    if (!this->raycastFilters[id])
+    {
+        std::cerr << "ResourceManager: raycast filter `" << id << "` not found\n";
+        return nullptr;
+    }
+    return this->raycastFilters[id].get();
+}
 Sound *ResourceManager::getSound(const std::string& id)
 {
     if (!this->sounds[id])
@@ -191,6 +200,18 @@ void ResourceManager::addCollider(
     this->collidersss[id] = std::make_unique<Collider>(std::move(collider));
 }
 
+void ResourceManager::addRaycastFilter(
+    const std::string& id,
+    const RaycastFilterMode mode
+)
+{
+    RaycastFilter filter;
+
+    filter.setMode(mode);
+
+    this->raycastFilters[id] = std::make_unique<RaycastFilter>(std::move(filter));
+}
+
 void ResourceManager::addSound(
     const std::string& id,
     const std::string& path
@@ -226,4 +247,14 @@ void ResourceManager::setCollisionGroupRelationship(
 
     group1->collidesWith |= (1u << group2Id);
     group2->collidesWith |= (1u << group1Id);
+}
+
+void ResourceManager::setRaycastFilterGroup(
+    const std::string& filterId,
+    const std::string& groupId
+)
+{
+    RaycastFilter *filter = getRaycastFilter(filterId);
+    CollisionGroup *group = getCollisionGroup(groupId);
+    filter->setGroup(group);
 }

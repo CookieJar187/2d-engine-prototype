@@ -16,11 +16,7 @@ GrenadeSystem::GrenadeSystem(
     this->grenadeOff = core.resourceManager.getMaterial("grenade_off_material");
 
     this->grenadeBeep = core.resourceManager.getSound("grenade_beep_sound");
-
-    CollisionGroup *obstacleCollisionGroup = core.resourceManager.getCollisionGroup("obstacle_collision_group");
-
-    this->raycastFilter.setGroup(obstacleCollisionGroup);
-    this->raycastFilter.setMode(GroupFilterMode::PermitOnly);
+    this->raycastFilter = core.resourceManager.getRaycastFilter("grenade_raycast_filter");
 }
 
 void GrenadeSystem::launch(
@@ -89,7 +85,7 @@ void GrenadeSystem::update(float deltaTime)
                 std::optional<RaycastHit> hit = this->collision->raycast(
                     grnd->position,
                     targetPos,
-                    this->raycastFilter
+                    *this->raycastFilter
                 );
 
                 if (hit.has_value())

@@ -14,6 +14,7 @@
 #include "aabb_shape.hpp"
 #include "collider.hpp"
 #include "collision_group.hpp"
+#include "raycast_filter.hpp"
 #include "mesh.h"
 #include "transform2.h"
 #include "sound_loader.hpp"
@@ -32,6 +33,7 @@ public:
     AabbShape* getAabbShape(const std::string& id);
     CollisionGroup* getCollisionGroup(const std::string& id);
     Collider* getCollider(const std::string& id);
+    RaycastFilter* getRaycastFilter(const std::string& id);
     Sound* getSound(const std::string& id);
 
     // Adder functions
@@ -60,6 +62,9 @@ public:
         const std::string& id,
         const std::optional<std::string> aabbShape = std::nullopt,
         const std::optional<std::string> collisionGroup = std::nullopt);
+    void addRaycastFilter(
+        const std::string& id,
+        const RaycastFilterMode mode);
     void addSound(
         const std::string& id,
         const std::string& path);
@@ -68,6 +73,10 @@ public:
     void setCollisionGroupRelationship(
         const std::string& id1,
         const std::string& id2
+    );
+    void setRaycastFilterGroup(
+        const std::string& filterId,
+        const std::string& groupId
     );
 
 private:
@@ -78,5 +87,6 @@ private:
     std::unordered_map<std::string, std::unique_ptr<AabbShape>> aabbShapes;
     std::unordered_map<std::string, std::unique_ptr<CollisionGroup>> collisionGroups;
     std::unordered_map<std::string, std::unique_ptr<Collider>> collidersss;
+    std::unordered_map<std::string, std::unique_ptr<RaycastFilter>> raycastFilters;
     std::unordered_map<std::string, std::unique_ptr<Sound>> sounds;
 };

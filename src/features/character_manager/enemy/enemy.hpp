@@ -23,6 +23,8 @@ private:
     // Ai components
     Object *enemyTarget;
 
+    //RaycastFilter raycastFilter;
+
     float maximumForLastTimePathfindingWasUpdated = 1.0f;
     float lastTimePathfindingWasUpdated = 1.0f;
 
