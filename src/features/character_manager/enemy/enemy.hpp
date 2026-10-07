@@ -9,7 +9,6 @@
 #include "damageable.h"
 #include "damage_registry.h"
 #include "bullet_system.h"
-#include "debug_points.hpp"
 
 class Enemy : public Character
 {
@@ -42,7 +41,6 @@ public:
         DamageRegistry &damageRegistry,
         BulletSystem &bulletSystem,
         Tilemap &tileset,
-        DebugPoints &debugPoints,
         glm::vec2 position
     );
 

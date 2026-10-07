@@ -13,7 +13,6 @@
 #include "grenade_system.hpp"
 #include "melee_system.hpp"
 #include "camera_shaker.hpp"
-#include "debug_points.hpp"
 
 class Player : public Character
 {
@@ -34,7 +33,6 @@ public:
         GrenadeSystem &grenadeSystem,
         MeleeSystem &meleeSystem,
         CameraShaker &cameraShaker,
-        DebugPoints &debugPoints,
         glm::vec2 position
     );
 

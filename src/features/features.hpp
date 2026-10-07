@@ -14,7 +14,6 @@
 #include "character_manager.hpp"
 #include "rng.hpp"
 #include "camera_shaker.hpp"
-#include "debug_points.hpp"
 
 class Features
 {
@@ -37,7 +36,6 @@ public:
         tilemap.update(deltaTime);
         characterManager.update(deltaTime);
         cameraShaker.update(elapsed);
-        debugPoints.update(deltaTime);
     }
 
     AssetLoader gameAssets{*core};
@@ -47,7 +45,6 @@ public:
     ExplosionSystem explosionSystem{*core, damageRegistry, cameraShaker};
     GrenadeSystem grenadeSystem{*core, explosionSystem};
     MeleeSystem meleeSystem{*core, damageRegistry};
-    DebugPoints debugPoints{*core};
 
     Tilemap tilemap{*core, damageRegistry};
 
@@ -58,7 +55,6 @@ public:
         tilemap,
         grenadeSystem,
         meleeSystem,
-        cameraShaker,
-        debugPoints
+        cameraShaker
     };
 };

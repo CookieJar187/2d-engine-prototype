@@ -24,11 +24,6 @@ void Character::navigateTo(glm::vec2 targetPos)
         *tilemap
     );
 
-    for (auto &point : pathPoints) // For debugging purposes
-    {
-        debugPoints->newPoint(tilemap->tileToWorld(point));
-    }
-
     currPathPoint = 0;
 }
 
