@@ -26,6 +26,7 @@ int UiManager::init(GLFWwindow* window, GameFsm* gameFsm)
     }
 
     UiManager::gameFsm = gameFsm;
+    UiManager::debugUi = new DebugUi();
     UiManager::mainMenu = new MainMenu(gameFsm);
     UiManager::settings = new Settings(gameFsm);
     UiManager::levelSelection = new LevelSelection(gameFsm);
@@ -41,6 +42,8 @@ void UiManager::buildUi()
     ImGui::NewFrame();
 
     // Build ui
+    //UiManager::debugUi->buildUi();
+
     if (gameFsm->isState(GameState::Playing))
         return;
     if (gameFsm->isState(GameState::MainMenu))

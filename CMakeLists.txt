@@ -37,6 +37,7 @@ add_executable(2DEnginePrototype
     src/ui/screens/main_menu/main_menu.cpp
     src/ui/screens/settings/settings.cpp
     src/ui/screens/level_selection/level_selection.cpp
+    src/ui/debug_ui/debug_ui.cpp
 
     src/features/character_manager/character_manager.cpp
     src/features/character_manager/player/player.cpp
@@ -108,6 +109,7 @@ target_include_directories(2DEnginePrototype PRIVATE
     src/ui/screens/main_menu
     src/ui/screens/settings
     src/ui/screens/level_selection
+    src/ui/debug_ui
 
     src/features
     src/features/asset_loader

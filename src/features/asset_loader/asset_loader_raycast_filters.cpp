@@ -15,6 +15,10 @@ void AssetLoader::loadRaycastFilters()
         "enemy_bullet_raycast_filter",
         RaycastFilterMode::Ignore
     );
+    this->resourceManager->addRaycastFilter(
+        "ai_vision_raycast_filter",
+        RaycastFilterMode::PermitOnly
+    );
 
     this->resourceManager->setRaycastFilterGroup(
         "grenade_raycast_filter",
@@ -27,5 +31,9 @@ void AssetLoader::loadRaycastFilters()
     this->resourceManager->setRaycastFilterGroup(
         "enemy_bullet_raycast_filter",
         "enemy_character_collision_group"
+    );
+    this->resourceManager->setRaycastFilterGroup(
+        "ai_vision_raycast_filter",
+        "obstacle_collision_group"
     );
 }

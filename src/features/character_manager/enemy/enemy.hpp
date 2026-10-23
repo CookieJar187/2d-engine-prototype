@@ -21,8 +21,7 @@ private:
 
     // Ai components
     Object *enemyTarget;
-
-    //RaycastFilter raycastFilter;
+    RaycastFilter *aiVisionRaycastFilter;
 
     float maximumForLastTimePathfindingWasUpdated = 1.0f;
     float lastTimePathfindingWasUpdated = 1.0f;

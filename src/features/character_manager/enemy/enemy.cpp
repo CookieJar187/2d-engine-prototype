@@ -47,8 +47,7 @@ Enemy::Enemy(
     this->bulletSystem = &bulletSystem;
     this->collision = &core.collision;
 
-    //raycastFilter.setGroup("");
-    //raycastFilter.setMode(GroupFilterMode::PermitOnly);
+    this->aiVisionRaycastFilter = core.resourceManager.getRaycastFilter("ai_vision_raycast_filter");
 }
 
 Enemy::~Enemy()

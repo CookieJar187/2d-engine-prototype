@@ -5,6 +5,7 @@
 
 #include "game_fsm.h"
 
+#include "debug_ui.hpp"
 #include "main_menu.h"
 #include "settings.h"
 #include "level_selection.h"
@@ -14,6 +15,7 @@ class UiManager
 private:
     GameFsm* gameFsm;
 
+    DebugUi* debugUi;
     MainMenu* mainMenu;
     Settings* settings;
     LevelSelection* levelSelection;
